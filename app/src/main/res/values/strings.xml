@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">HoopHub</string>
+    <string-array name="top_menu_items">
+        <item>Players</item>
+        <item>Courts</item>
+        <item>Profile</item>
+    </string-array>
+    <string-array name="bottom_menu_items">
+        <item>Inbox</item>
+        <item>Bookings</item>
+        <item>Saved</item>
+        <item>Explore</item>
+        <item>Settings</item>
+    </string-array>
+</resources>
