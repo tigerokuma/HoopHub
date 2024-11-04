@@ -3359,6 +3359,7 @@ id included
 id indeterminate
 id info
 id invisible
+id inviteButton
 id inward
 id italic
 id item_touch_helper_previous_elevation
@@ -3487,6 +3488,12 @@ id pathRelative
 id peekHeight
 id percent
 id pin
+id playerCompetitionLevel
+id playerImage
+id playerLocation
+id playerName
+id playerRating
+id playerRecyclerView
 id position
 id postLayout
 id pressed
@@ -3775,6 +3782,7 @@ layout design_text_input_start_icon
 layout generic_menu_item
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_player_card
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
