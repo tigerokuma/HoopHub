@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="bottom_menu_icons">
+        <item>@drawable/inbox_icon</item>
+        <item>@drawable/bookings_icon</item>
+        <item>@drawable/saved_icon</item>
+        <item>@drawable/explore_icon</item>
+        <item>@drawable/settings_icon</item>
+    </array>
+    <string-array name="bottom_menu_items">
+        <item>Inbox</item>
+        <item>Bookings</item>
+        <item>Saved</item>
+        <item>Explore</item>
+        <item>Settings</item>
+    </string-array>
+    <array name="top_menu_icons">
+        <item>@drawable/players_icon</item>
+        <item>@drawable/courts_icon</item>
+        <item>@drawable/profile_icon</item>
+    </array>
+    <string-array name="top_menu_items">
+        <item>Players</item>
+        <item>Courts</item>
+        <item>Profile</item>
+    </string-array>
+    <color name="app_background">#FFFCF2</color>
+    <color name="black">#FF000000</color>
+    <color name="button">#403D39</color>
+    <color name="highlight">#EB5E28</color>
+    <color name="text_icon_dark">#252422</color>
+    <color name="unimplemented">#acacac</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">HoopHub</string>
+    <style name="Base.Theme.HoopHubSkeleton" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="Theme.HoopHubSkeleton" parent="Base.Theme.HoopHubSkeleton"/>
+</resources>
