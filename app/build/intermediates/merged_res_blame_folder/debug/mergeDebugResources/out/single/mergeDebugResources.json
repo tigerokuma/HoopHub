@@ -96,6 +96,10 @@
         "source": "com.example.hoophubskeleton.app-main-34:/layout/player_fragment.xml"
     },
     {
+        "merged": "com.example.hoophubskeleton.app-debug-32:/layout_item_player_card.xml.flat",
+        "source": "com.example.hoophubskeleton.app-main-34:/layout/item_player_card.xml"
+    },
+    {
         "merged": "com.example.hoophubskeleton.app-debug-32:/mipmap-hdpi_ic_launcher_round.webp.flat",
         "source": "com.example.hoophubskeleton.app-main-34:/mipmap-hdpi/ic_launcher_round.webp"
     },
