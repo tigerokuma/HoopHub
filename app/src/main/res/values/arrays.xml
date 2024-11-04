@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="top_menu_icons">
+        <item>@drawable/players_icon</item>
+        <item>@drawable/courts_icon</item>
+        <item>@drawable/profile_icon</item>
+    </array>
+
+    <array name="bottom_menu_icons">
+        <item>@drawable/inbox_icon</item>
+        <item>@drawable/bookings_icon</item>
+        <item>@drawable/saved_icon</item>
+        <item>@drawable/explore_icon</item>
+        <item>@drawable/settings_icon</item>
+    </array>
+
+</resources>
