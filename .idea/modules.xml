@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/HoopHub.iml" filepath="$PROJECT_DIR$/.idea/HoopHub.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HoopHubSkeleton.iml" filepath="$PROJECT_DIR$/.idea/modules/HoopHubSkeleton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/HoopHubSkeleton.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/HoopHubSkeleton.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/HoopHubSkeleton.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/HoopHubSkeleton.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/HoopHubSkeleton.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/HoopHubSkeleton.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/HoopHubSkeleton.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/HoopHubSkeleton.app.unitTest.iml" />
     </modules>
   </component>
 </project>
