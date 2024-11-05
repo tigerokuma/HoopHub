@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.hoophubskeleton.R.*
+import com.example.hoophubskeleton.fragment.FragmentSetup
+import com.example.hoophubskeleton.fragment.MapFragment
+import com.example.hoophubskeleton.fragment.PlayersFragment
+import com.example.hoophubskeleton.fragment.ProfileFragment
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {

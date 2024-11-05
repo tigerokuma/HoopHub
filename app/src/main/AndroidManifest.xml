@@ -17,17 +17,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HoopHubSkeleton"
         tools:targetApi="31">
-        <activity
-            android:name=".MainActivity"
+
+        <activity android:name=".AuthHostActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <provider
+        <activity android:name=".MainActivity" />
+
+
+
+    <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.hoophubskeleton"
             android:exported="false"

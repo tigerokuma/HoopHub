@@ -1,35 +1,63 @@
-com.example.hoophubskeleton.app-viewpager2-1.0.0-0 /Users/paulatwal/.gradle/caches/transforms-4/0235811d6553d80c5b8878fd55cb3bb4/transformed/viewpager2-1.0.0/res
-com.example.hoophubskeleton.app-recyclerview-1.1.0-1 /Users/paulatwal/.gradle/caches/transforms-4/0fb5fa904b1a570b3bf44109a38684ad/transformed/recyclerview-1.1.0/res
-com.example.hoophubskeleton.app-constraintlayout-2.2.0-2 /Users/paulatwal/.gradle/caches/transforms-4/1b236d64a6107dd2abf3453bbf6e4fc0/transformed/constraintlayout-2.2.0/res
-com.example.hoophubskeleton.app-fragment-1.5.4-3 /Users/paulatwal/.gradle/caches/transforms-4/1e4410842be6f12b1f14ea3a1f3f5436/transformed/fragment-1.5.4/res
-com.example.hoophubskeleton.app-emoji2-1.3.0-4 /Users/paulatwal/.gradle/caches/transforms-4/2b95a855ead16e6dbadd9e6eb29ac2c7/transformed/emoji2-1.3.0/res
-com.example.hoophubskeleton.app-annotation-experimental-1.4.1-5 /Users/paulatwal/.gradle/caches/transforms-4/4359aab9ababd51363d92b591a945175/transformed/annotation-experimental-1.4.1/res
-com.example.hoophubskeleton.app-lifecycle-runtime-2.6.2-6 /Users/paulatwal/.gradle/caches/transforms-4/4af9f59896eadb8e02af36e027c68501/transformed/lifecycle-runtime-2.6.2/res
-com.example.hoophubskeleton.app-activity-1.9.3-7 /Users/paulatwal/.gradle/caches/transforms-4/516309fa93c8a8aa9aec069833e1583a/transformed/activity-1.9.3/res
-com.example.hoophubskeleton.app-core-ktx-1.15.0-8 /Users/paulatwal/.gradle/caches/transforms-4/5e729cdb2d2ea192a82ef866d075dd98/transformed/core-ktx-1.15.0/res
-com.example.hoophubskeleton.app-lifecycle-livedata-core-2.6.2-9 /Users/paulatwal/.gradle/caches/transforms-4/604ce37561e0318d393f2cad7699d865/transformed/lifecycle-livedata-core-2.6.2/res
-com.example.hoophubskeleton.app-cardview-1.0.0-10 /Users/paulatwal/.gradle/caches/transforms-4/63b974582ba27c2a085d11b5951213ed/transformed/cardview-1.0.0/res
-com.example.hoophubskeleton.app-lifecycle-viewmodel-savedstate-2.6.2-11 /Users/paulatwal/.gradle/caches/transforms-4/69efc0a3bbe447081d5d60233dcd328b/transformed/lifecycle-viewmodel-savedstate-2.6.2/res
-com.example.hoophubskeleton.app-savedstate-1.2.1-12 /Users/paulatwal/.gradle/caches/transforms-4/6d41cf611453c8da7b52763ef6a71c34/transformed/savedstate-1.2.1/res
-com.example.hoophubskeleton.app-drawerlayout-1.1.1-13 /Users/paulatwal/.gradle/caches/transforms-4/748bcc7e7217f786159a52a833c3c29f/transformed/drawerlayout-1.1.1/res
-com.example.hoophubskeleton.app-core-1.15.0-14 /Users/paulatwal/.gradle/caches/transforms-4/7a5ed447e9cc81cd9a121c4ba330d142/transformed/core-1.15.0/res
-com.example.hoophubskeleton.app-transition-1.5.0-15 /Users/paulatwal/.gradle/caches/transforms-4/81f08aaa2ae5f55c1a1f6a719f0feb11/transformed/transition-1.5.0/res
-com.example.hoophubskeleton.app-material-1.12.0-16 /Users/paulatwal/.gradle/caches/transforms-4/87bace873d8b5a6d1ed89701b4619c93/transformed/material-1.12.0/res
-com.example.hoophubskeleton.app-lifecycle-livedata-2.6.2-17 /Users/paulatwal/.gradle/caches/transforms-4/8ac3ca0116c0cdadb3fbd9aa525a7cd7/transformed/lifecycle-livedata-2.6.2/res
-com.example.hoophubskeleton.app-appcompat-1.7.0-18 /Users/paulatwal/.gradle/caches/transforms-4/a54659ae6c2a31ba84524fcbb5cd6eb5/transformed/appcompat-1.7.0/res
-com.example.hoophubskeleton.app-lifecycle-process-2.6.2-19 /Users/paulatwal/.gradle/caches/transforms-4/c37614bfe8a2d787c9deb2441c74c66f/transformed/lifecycle-process-2.6.2/res
-com.example.hoophubskeleton.app-startup-runtime-1.1.1-20 /Users/paulatwal/.gradle/caches/transforms-4/cc58a66539597fc508bddd923089b824/transformed/startup-runtime-1.1.1/res
-com.example.hoophubskeleton.app-tracing-1.2.0-21 /Users/paulatwal/.gradle/caches/transforms-4/cdc8ecd61ded947b7e71c41ed63d6ef7/transformed/tracing-1.2.0/res
-com.example.hoophubskeleton.app-core-runtime-2.2.0-22 /Users/paulatwal/.gradle/caches/transforms-4/e4f6f3ca5919b4897d939f7666d144b7/transformed/core-runtime-2.2.0/res
-com.example.hoophubskeleton.app-profileinstaller-1.4.0-23 /Users/paulatwal/.gradle/caches/transforms-4/ec3c392b8361dd291efed6a42196420d/transformed/profileinstaller-1.4.0/res
-com.example.hoophubskeleton.app-lifecycle-viewmodel-2.6.2-24 /Users/paulatwal/.gradle/caches/transforms-4/f21814c1628020fa63849992f2a85cfb/transformed/lifecycle-viewmodel-2.6.2/res
-com.example.hoophubskeleton.app-emoji2-views-helper-1.3.0-25 /Users/paulatwal/.gradle/caches/transforms-4/fb7089b56bacdfaa6456ba2f2bce3dd7/transformed/emoji2-views-helper-1.3.0/res
-com.example.hoophubskeleton.app-coordinatorlayout-1.1.0-26 /Users/paulatwal/.gradle/caches/transforms-4/fed2ead7ddcd8aabcb95c921c21f69e4/transformed/coordinatorlayout-1.1.0/res
-com.example.hoophubskeleton.app-appcompat-resources-1.7.0-27 /Users/paulatwal/.gradle/caches/transforms-4/ff0576141cf5a80bffd3388466aeba5b/transformed/appcompat-resources-1.7.0/res
-com.example.hoophubskeleton.app-pngs-28 /Users/paulatwal/Documents/School/CMPT362/GroupProject/app/build/generated/res/pngs/debug
-com.example.hoophubskeleton.app-resValues-29 /Users/paulatwal/Documents/School/CMPT362/GroupProject/app/build/generated/res/resValues/debug
-com.example.hoophubskeleton.app-packageDebugResources-30 /Users/paulatwal/Documents/School/CMPT362/GroupProject/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
-com.example.hoophubskeleton.app-packageDebugResources-31 /Users/paulatwal/Documents/School/CMPT362/GroupProject/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
-com.example.hoophubskeleton.app-debug-32 /Users/paulatwal/Documents/School/CMPT362/GroupProject/app/build/intermediates/merged_res/debug/mergeDebugResources
-com.example.hoophubskeleton.app-debug-33 /Users/paulatwal/Documents/School/CMPT362/GroupProject/app/src/debug/res
-com.example.hoophubskeleton.app-main-34 /Users/paulatwal/Documents/School/CMPT362/GroupProject/app/src/main/res
+com.example.hoophubskeleton.app-navigation-common-ktx-2.8.3-0 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/02f768ea2a0d0de24e33e82cf9320047/transformed/navigation-common-ktx-2.8.3/res
+com.example.hoophubskeleton.app-play-services-auth-20.7.0-1 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/0515126b31cab2ce0f4d0c2319ab78c6/transformed/play-services-auth-20.7.0/res
+com.example.hoophubskeleton.app-activity-ktx-1.9.3-2 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/0c001cdf87f9a710c0d95f054a33bb5e/transformed/activity-ktx-1.9.3/res
+com.example.hoophubskeleton.app-firebase-common-21.0.0-3 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/0e4749847136cab959545122c175c459/transformed/firebase-common-21.0.0/res
+com.example.hoophubskeleton.app-play-services-base-18.5.0-4 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/0f63aa2c39eae699085a0ac9e83f2891/transformed/play-services-base-18.5.0/res
+com.example.hoophubskeleton.app-lifecycle-runtime-ktx-2.6.2-5 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/1891113054fef24764db08cc8af1fa40/transformed/lifecycle-runtime-ktx-2.6.2/res
+com.example.hoophubskeleton.app-emoji2-1.3.0-6 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/1dd3e657da06654cd43885a48af0c8af/transformed/emoji2-1.3.0/res
+com.example.hoophubskeleton.app-cardview-1.0.0-7 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/1ffefaf2c8739df282402f022e5fca67/transformed/cardview-1.0.0/res
+com.example.hoophubskeleton.app-fragment-1.6.2-8 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/206b507472ce34eb739b6ac51bd52d5d/transformed/fragment-1.6.2/res
+com.example.hoophubskeleton.app-navigation-runtime-ktx-2.8.3-9 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/2b175ab3e7199e88b2437fe06f8f5476/transformed/navigation-runtime-ktx-2.8.3/res
+com.example.hoophubskeleton.app-viewpager2-1.0.0-10 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/30d3d36dd5000c9ecbecb8140b8c0181/transformed/viewpager2-1.0.0/res
+com.example.hoophubskeleton.app-credentials-1.2.0-rc01-11 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/43d7f4b9552088243ebdffe32230eab7/transformed/credentials-1.2.0-rc01/res
+com.example.hoophubskeleton.app-play-services-measurement-api-22.1.2-12 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/467ac0b7356247dd70ca469a1663d5eb/transformed/play-services-measurement-api-22.1.2/res
+com.example.hoophubskeleton.app-core-common-2.0.3-13 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/4cbc47e7f59bddebc1f691101b31a459/transformed/core-common-2.0.3/res
+com.example.hoophubskeleton.app-lifecycle-viewmodel-savedstate-2.6.2-14 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/4edfb9ede746ddda850aab522992d2ce/transformed/lifecycle-viewmodel-savedstate-2.6.2/res
+com.example.hoophubskeleton.app-window-1.0.0-15 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/4f4b329a45074ed6c7e6d747e464032a/transformed/window-1.0.0/res
+com.example.hoophubskeleton.app-tracing-1.2.0-16 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/517e3da90483427c59485b1f2e0c3ac2/transformed/tracing-1.2.0/res
+com.example.hoophubskeleton.app-navigation-fragment-2.8.3-17 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/545c673fb80aaecbf93379bb70286217/transformed/navigation-fragment-2.8.3/res
+com.example.hoophubskeleton.app-lifecycle-livedata-core-2.6.2-18 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/57892a88ac88a933ebf634d9b766e8b9/transformed/lifecycle-livedata-core-2.6.2/res
+com.example.hoophubskeleton.app-navigation-fragment-ktx-2.8.3-19 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/584db4488f7216c8f5454c9fcfbbf08c/transformed/navigation-fragment-ktx-2.8.3/res
+com.example.hoophubskeleton.app-ads-adservices-java-1.0.0-beta05-20 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/60357dd888efedad7aa518b633fd8a21/transformed/ads-adservices-java-1.0.0-beta05/res
+com.example.hoophubskeleton.app-savedstate-1.2.1-21 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/66ce4c33f4d2e5c81c4feb6c22378132/transformed/savedstate-1.2.1/res
+com.example.hoophubskeleton.app-drawerlayout-1.1.1-22 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/677ea6dab6bcef9a3d16e5461a65abaf/transformed/drawerlayout-1.1.1/res
+com.example.hoophubskeleton.app-lifecycle-livedata-core-ktx-2.6.2-23 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/6d4c17ec8ba3cf90ef645c6113b9ee82/transformed/lifecycle-livedata-core-ktx-2.6.2/res
+com.example.hoophubskeleton.app-navigation-runtime-2.8.3-24 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/7007206b7a75346a41e6eb260d88fa8b/transformed/navigation-runtime-2.8.3/res
+com.example.hoophubskeleton.app-coordinatorlayout-1.1.0-25 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/79974ffa18be9b205e81e02447819707/transformed/coordinatorlayout-1.1.0/res
+com.example.hoophubskeleton.app-slidingpanelayout-1.2.0-26 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/87cc3df8bb8c54e236cd5ca1432ee98b/transformed/slidingpanelayout-1.2.0/res
+com.example.hoophubskeleton.app-navigation-common-2.8.3-27 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/8a2c3d8dac96e2914e799f5936831bde/transformed/navigation-common-2.8.3/res
+com.example.hoophubskeleton.app-appcompat-1.7.0-28 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/8c27317c56e0c9f814e309ddf8ead9ab/transformed/appcompat-1.7.0/res
+com.example.hoophubskeleton.app-core-ktx-1.15.0-29 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/8de7afb1f799c0d1ffce07c61a28282e/transformed/core-ktx-1.15.0/res
+com.example.hoophubskeleton.app-fragment-ktx-1.6.2-30 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/929e3a241481fe0b44ce63839fc00665/transformed/fragment-ktx-1.6.2/res
+com.example.hoophubskeleton.app-emoji2-views-helper-1.3.0-31 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/9c6cbc6b39b7a91be0cf16cac940ec57/transformed/emoji2-views-helper-1.3.0/res
+com.example.hoophubskeleton.app-activity-1.9.3-32 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/9cc9f2f4956adf7676735636fd6dea67/transformed/activity-1.9.3/res
+com.example.hoophubskeleton.app-browser-1.4.0-33 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/9e857f841a1637f58c62b6d0b9f19c85/transformed/browser-1.4.0/res
+com.example.hoophubskeleton.app-lifecycle-livedata-2.6.2-34 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/a16c62bf96c15ee6883c4ab70dc216e7/transformed/lifecycle-livedata-2.6.2/res
+com.example.hoophubskeleton.app-navigation-ui-ktx-2.8.3-35 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/a78bc1157ced709e8f13b8384c1592c2/transformed/navigation-ui-ktx-2.8.3/res
+com.example.hoophubskeleton.app-recyclerview-1.1.0-36 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/b40ab5a8cdec81b000b1c2177f4afd93/transformed/recyclerview-1.1.0/res
+com.example.hoophubskeleton.app-lifecycle-viewmodel-ktx-2.6.2-37 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/b90053fe53a945274d8cb3817e951ea3/transformed/lifecycle-viewmodel-ktx-2.6.2/res
+com.example.hoophubskeleton.app-core-runtime-2.2.0-38 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/b938a1719d0f6505e4ca795b01cee3ac/transformed/core-runtime-2.2.0/res
+com.example.hoophubskeleton.app-savedstate-ktx-1.2.1-39 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/bf8ade6d4375d73ccc08951ab6cd6da0/transformed/savedstate-ktx-1.2.1/res
+com.example.hoophubskeleton.app-core-1.15.0-40 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/c817fc8aee42fe027c0f71c47a0d584f/transformed/core-1.15.0/res
+com.example.hoophubskeleton.app-material-1.12.0-41 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/c9675e279c5fbb84d3175bca8e45a30c/transformed/material-1.12.0/res
+com.example.hoophubskeleton.app-credentials-play-services-auth-1.2.0-rc01-42 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/c9c4154387698dd88b9627c707368524/transformed/credentials-play-services-auth-1.2.0-rc01/res
+com.example.hoophubskeleton.app-ads-adservices-1.0.0-beta05-43 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/ce22c04f6137d5cde46edb96e673b28c/transformed/ads-adservices-1.0.0-beta05/res
+com.example.hoophubskeleton.app-appcompat-resources-1.7.0-44 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/d38ef668cef87f534a40f1f8f2b040eb/transformed/appcompat-resources-1.7.0/res
+com.example.hoophubskeleton.app-lifecycle-runtime-2.6.2-45 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/e26b08d46f40aec4dbb8c611d872b3ad/transformed/lifecycle-runtime-2.6.2/res
+com.example.hoophubskeleton.app-profileinstaller-1.4.0-46 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/ec18b5fb7234a9fb93b5d74ebfbda047/transformed/profileinstaller-1.4.0/res
+com.example.hoophubskeleton.app-navigation-ui-2.8.3-47 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/ed269ae6616248150386f1d3ebf010b2/transformed/navigation-ui-2.8.3/res
+com.example.hoophubskeleton.app-play-services-basement-18.4.0-48 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/ed681fb778d500b1c341669a946e8010/transformed/play-services-basement-18.4.0/res
+com.example.hoophubskeleton.app-constraintlayout-2.2.0-49 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/efa65fcf5d6c73397492f3570e9b1151/transformed/constraintlayout-2.2.0/res
+com.example.hoophubskeleton.app-lifecycle-viewmodel-2.6.2-50 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/f71e9c8cfcb67630ad1c5d575d33dc8d/transformed/lifecycle-viewmodel-2.6.2/res
+com.example.hoophubskeleton.app-startup-runtime-1.1.1-51 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/f999def6f3a730cf3e119af879a7edbc/transformed/startup-runtime-1.1.1/res
+com.example.hoophubskeleton.app-transition-1.5.0-52 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/fd577b3187a84b2bce837a4028b06510/transformed/transition-1.5.0/res
+com.example.hoophubskeleton.app-annotation-experimental-1.4.1-53 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/ff80bb6da12bf7dad7e7674bcd9f124f/transformed/annotation-experimental-1.4.1/res
+com.example.hoophubskeleton.app-lifecycle-process-2.6.2-54 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/ffcb2d3c35efe8b0d1aac67c87b2cf37/transformed/lifecycle-process-2.6.2/res
+com.example.hoophubskeleton.app-pngs-55 /Users/kristmas/AndroidStudioProjects/HoopHub/app/build/generated/res/pngs/debug
+com.example.hoophubskeleton.app-res-56 /Users/kristmas/AndroidStudioProjects/HoopHub/app/build/generated/res/processDebugGoogleServices
+com.example.hoophubskeleton.app-resValues-57 /Users/kristmas/AndroidStudioProjects/HoopHub/app/build/generated/res/resValues/debug
+com.example.hoophubskeleton.app-packageDebugResources-58 /Users/kristmas/AndroidStudioProjects/HoopHub/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.example.hoophubskeleton.app-packageDebugResources-59 /Users/kristmas/AndroidStudioProjects/HoopHub/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.example.hoophubskeleton.app-debug-60 /Users/kristmas/AndroidStudioProjects/HoopHub/app/build/intermediates/merged_res/debug/mergeDebugResources
+com.example.hoophubskeleton.app-debug-61 /Users/kristmas/AndroidStudioProjects/HoopHub/app/src/debug/res
+com.example.hoophubskeleton.app-main-62 /Users/kristmas/AndroidStudioProjects/HoopHub/app/src/main/res
