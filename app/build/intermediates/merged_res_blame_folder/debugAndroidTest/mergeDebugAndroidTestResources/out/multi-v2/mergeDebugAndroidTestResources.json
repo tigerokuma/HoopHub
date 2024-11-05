@@ -1,34 +1,51 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.hoophubskeleton.test.app-debugAndroidTest-5:/values-v21_values-v21.arsc.flat",
+            "outputFile": "com.example.hoophubskeleton.test.app-debugAndroidTest-4:/values_values.arsc.flat",
             "map": [
                 {
-                    "source": "/Users/okcom/.gradle/caches/transforms-4/3e3f16a9dff330d798355831dfef6de5/transformed/core-1.6.1/res/values-v21/values.xml",
+                    "source": "/Users/okcom/.gradle/caches/transforms-4/30325ae9fbee0539ab214cb3f75e3b01/transformed/core-1.6.1/res/values/values.xml",
                     "from": {
-                        "startLines": "4,13",
+                        "startLines": "4,11",
                         "startColumns": "0,0",
-                        "startOffsets": "146,621",
-                        "endLines": "12,21",
+                        "startOffsets": "142,510",
+                        "endLines": "10,17",
                         "endColumns": "8,8",
-                        "endOffsets": "620,1093"
+                        "endOffsets": "509,875"
                     },
                     "to": {
-                        "startLines": "2,11",
+                        "startLines": "3,10",
                         "startColumns": "4,4",
-                        "startOffsets": "55,534",
-                        "endLines": "10,19",
+                        "startOffsets": "160,532",
+                        "endLines": "9,16",
                         "endColumns": "8,8",
-                        "endOffsets": "529,1006"
+                        "endOffsets": "527,897"
+                    }
+                },
+                {
+                    "source": "/Users/okcom/Documents/School/Classes/Fall_2024/CMPT362/HoopHub/app/build/generated/res/resValues/androidTest/debug/values/gradleResValues.xml",
+                    "from": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "156",
+                        "endColumns": "104",
+                        "endOffsets": "256"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "104",
+                        "endOffsets": "155"
                     }
                 }
             ]
         },
         {
-            "outputFile": "com.example.hoophubskeleton.test.app-debugAndroidTest-5:/values-v18_values-v18.arsc.flat",
+            "outputFile": "com.example.hoophubskeleton.test.app-debugAndroidTest-4:/values-v18_values-v18.arsc.flat",
             "map": [
                 {
-                    "source": "/Users/okcom/.gradle/caches/transforms-4/3e3f16a9dff330d798355831dfef6de5/transformed/core-1.6.1/res/values-v18/values.xml",
+                    "source": "/Users/okcom/.gradle/caches/transforms-4/30325ae9fbee0539ab214cb3f75e3b01/transformed/core-1.6.1/res/values-v18/values.xml",
                     "from": {
                         "startLines": "4,12",
                         "startColumns": "0,0",
@@ -49,10 +66,34 @@
             ]
         },
         {
-            "outputFile": "com.example.hoophubskeleton.test.app-debugAndroidTest-5:/values-v28_values-v28.arsc.flat",
+            "outputFile": "com.example.hoophubskeleton.test.app-debugAndroidTest-4:/values-v21_values-v21.arsc.flat",
             "map": [
                 {
-                    "source": "/Users/okcom/.gradle/caches/transforms-4/3e3f16a9dff330d798355831dfef6de5/transformed/core-1.6.1/res/values-v28/values.xml",
+                    "source": "/Users/okcom/.gradle/caches/transforms-4/30325ae9fbee0539ab214cb3f75e3b01/transformed/core-1.6.1/res/values-v21/values.xml",
+                    "from": {
+                        "startLines": "4,13",
+                        "startColumns": "0,0",
+                        "startOffsets": "146,621",
+                        "endLines": "12,21",
+                        "endColumns": "8,8",
+                        "endOffsets": "620,1093"
+                    },
+                    "to": {
+                        "startLines": "2,11",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,534",
+                        "endLines": "10,19",
+                        "endColumns": "8,8",
+                        "endOffsets": "529,1006"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.example.hoophubskeleton.test.app-debugAndroidTest-4:/values-v28_values-v28.arsc.flat",
+            "map": [
+                {
+                    "source": "/Users/okcom/.gradle/caches/transforms-4/30325ae9fbee0539ab214cb3f75e3b01/transformed/core-1.6.1/res/values-v28/values.xml",
                     "from": {
                         "startLines": "4,13",
                         "startColumns": "0,0",
@@ -68,47 +109,6 @@
                         "endLines": "10,19",
                         "endColumns": "8,8",
                         "endOffsets": "533,1014"
-                    }
-                }
-            ]
-        },
-        {
-            "outputFile": "com.example.hoophubskeleton.test.app-debugAndroidTest-5:/values_values.arsc.flat",
-            "map": [
-                {
-                    "source": "/Users/okcom/Documents/School/Classes/Fall_2024/CMPT362/HoopHub/app/build/generated/res/resValues/androidTest/debug/values/gradleResValues.xml",
-                    "from": {
-                        "startLines": "6",
-                        "startColumns": "4",
-                        "startOffsets": "156",
-                        "endColumns": "104",
-                        "endOffsets": "256"
-                    },
-                    "to": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "104",
-                        "endOffsets": "155"
-                    }
-                },
-                {
-                    "source": "/Users/okcom/.gradle/caches/transforms-4/3e3f16a9dff330d798355831dfef6de5/transformed/core-1.6.1/res/values/values.xml",
-                    "from": {
-                        "startLines": "4,11",
-                        "startColumns": "0,0",
-                        "startOffsets": "142,510",
-                        "endLines": "10,17",
-                        "endColumns": "8,8",
-                        "endOffsets": "509,875"
-                    },
-                    "to": {
-                        "startLines": "3,10",
-                        "startColumns": "4,4",
-                        "startOffsets": "160,532",
-                        "endLines": "9,16",
-                        "endColumns": "8,8",
-                        "endOffsets": "527,897"
                     }
                 }
             ]

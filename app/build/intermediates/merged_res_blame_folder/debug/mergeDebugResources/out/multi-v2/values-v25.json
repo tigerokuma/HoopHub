@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.hoophubskeleton.app-mergeDebugResources-59:/values-v25/values-v25.xml",
+            "outputFile": "com.example.hoophubskeleton.app-mergeDebugResources-81:/values-v25/values-v25.xml",
             "map": [
                 {
-                    "source": "/Users/okcom/.gradle/caches/transforms-4/f0a49c0bfcb22cee43309684bd1deec2/transformed/appcompat-1.7.0/res/values-v25/values-v25.xml",
+                    "source": "/Users/okcom/.gradle/caches/transforms-4/a0cf43936941f0e702b9ae4b9eac849e/transformed/appcompat-1.6.1/res/values-v25/values-v25.xml",
                     "from": {
                         "startLines": "2,3,4,6",
                         "startColumns": "4,4,4,4",

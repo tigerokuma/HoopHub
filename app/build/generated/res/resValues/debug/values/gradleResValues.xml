@@ -3,7 +3,7 @@
 
     <!-- Automatically generated file. DO NOT MODIFY -->
 
-    <!-- Value from build type: debug -->
+    <!-- Value from default config. -->
     <string name="google_maps_key" translatable="false">AIzaSyANF3LNJc3vosMWOppgPPf8fbyAoarMaoU</string>
 
 </resources>
