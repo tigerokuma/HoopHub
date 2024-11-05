@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.hoophubskeleton.app-mergeDebugResources-30:/values-v23/values-v23.xml",
+            "outputFile": "com.example.hoophubskeleton.app-mergeDebugResources-58:/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/63b974582ba27c2a085d11b5951213ed/transformed/cardview-1.0.0/res/values-v23/values-v23.xml",
+                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/1ffefaf2c8739df282402f022e5fca67/transformed/cardview-1.0.0/res/values-v23/values-v23.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/87bace873d8b5a6d1ed89701b4619c93/transformed/material-1.12.0/res/values-v23/values-v23.xml",
+                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/c9675e279c5fbb84d3175bca8e45a30c/transformed/material-1.12.0/res/values-v23/values-v23.xml",
                     "from": {
                         "startLines": "2,5,9,13,16,19,22,25,28,32",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -42,7 +42,7 @@
                     }
                 },
                 {
-                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/a54659ae6c2a31ba84524fcbb5cd6eb5/transformed/appcompat-1.7.0/res/values-v23/values-v23.xml",
+                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/8c27317c56e0c9f814e309ddf8ead9ab/transformed/appcompat-1.7.0/res/values-v23/values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,20,34,35,36,39,43,44,45,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",

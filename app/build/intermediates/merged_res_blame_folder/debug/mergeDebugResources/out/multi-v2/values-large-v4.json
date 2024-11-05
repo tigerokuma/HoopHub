@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.hoophubskeleton.app-mergeDebugResources-30:/values-large-v4/values-large-v4.xml",
+            "outputFile": "com.example.hoophubskeleton.app-mergeDebugResources-58:/values-large-v4/values-large-v4.xml",
             "map": [
                 {
-                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/a54659ae6c2a31ba84524fcbb5cd6eb5/transformed/appcompat-1.7.0/res/values-large-v4/values-large-v4.xml",
+                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/8c27317c56e0c9f814e309ddf8ead9ab/transformed/appcompat-1.7.0/res/values-large-v4/values-large-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/87bace873d8b5a6d1ed89701b4619c93/transformed/material-1.12.0/res/values-large-v4/values-large-v4.xml",
+                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/c9675e279c5fbb84d3175bca8e45a30c/transformed/material-1.12.0/res/values-large-v4/values-large-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
