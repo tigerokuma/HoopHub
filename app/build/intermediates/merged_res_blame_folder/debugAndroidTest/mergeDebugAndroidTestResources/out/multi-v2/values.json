@@ -4,7 +4,24 @@
             "outputFile": "com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-3:/values/values.xml",
             "map": [
                 {
-                    "source": "/Users/okcom/.gradle/caches/transforms-4/2fbe2b721e5016ca5209f6bd25f57132/transformed/core-1.6.1/res/values/values.xml",
+                    "source": "/Users/okcom/Documents/School/Classes/Fall_2024/CMPT362/HoopHub/app/build/generated/res/resValues/androidTest/debug/values/gradleResValues.xml",
+                    "from": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "156",
+                        "endColumns": "104",
+                        "endOffsets": "256"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "104",
+                        "endOffsets": "155"
+                    }
+                },
+                {
+                    "source": "/Users/okcom/.gradle/caches/transforms-4/3e3f16a9dff330d798355831dfef6de5/transformed/core-1.6.1/res/values/values.xml",
                     "from": {
                         "startLines": "4,11",
                         "startColumns": "0,0",
@@ -14,12 +31,12 @@
                         "endOffsets": "509,875"
                     },
                     "to": {
-                        "startLines": "2,9",
+                        "startLines": "3,10",
                         "startColumns": "4,4",
-                        "startOffsets": "55,427",
-                        "endLines": "8,15",
+                        "startOffsets": "160,532",
+                        "endLines": "9,16",
                         "endColumns": "8,8",
-                        "endOffsets": "422,792"
+                        "endOffsets": "527,897"
                     }
                 }
             ]

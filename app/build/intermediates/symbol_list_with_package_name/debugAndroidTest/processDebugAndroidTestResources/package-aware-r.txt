@@ -1,3 +1,4 @@
 com.example.hoophubskeleton.test
+string google_maps_key
 style WhiteBackgroundDialogTheme
 style WhiteBackgroundTheme

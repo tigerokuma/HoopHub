@@ -1,5 +1,5 @@
-com.example.hoophubskeleton.test.app-core-1.6.1-0 /Users/okcom/.gradle/caches/transforms-4/2fbe2b721e5016ca5209f6bd25f57132/transformed/core-1.6.1/res
-com.example.hoophubskeleton.test.app-tracing-1.2.0-1 /Users/okcom/.gradle/caches/transforms-4/517e3da90483427c59485b1f2e0c3ac2/transformed/tracing-1.2.0/res
+com.example.hoophubskeleton.test.app-tracing-1.2.0-0 /Users/okcom/.gradle/caches/transforms-4/1e8c97306d3c5609e8934d1f58f53284/transformed/tracing-1.2.0/res
+com.example.hoophubskeleton.test.app-core-1.6.1-1 /Users/okcom/.gradle/caches/transforms-4/3e3f16a9dff330d798355831dfef6de5/transformed/core-1.6.1/res
 com.example.hoophubskeleton.test.app-androidTest-2 /Users/okcom/Documents/School/Classes/Fall_2024/CMPT362/HoopHub/app/build/generated/res/resValues/androidTest/debug
 com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-3 /Users/okcom/Documents/School/Classes/Fall_2024/CMPT362/HoopHub/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
 com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-4 /Users/okcom/Documents/School/Classes/Fall_2024/CMPT362/HoopHub/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
