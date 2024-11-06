@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.hoophubskeleton.app-mergeDebugResources-58:/values-watch-v20/values-watch-v20.xml",
+            "outputFile": "com.example.hoophubskeleton.app-mergeDebugResources-59:/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
-                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/8c27317c56e0c9f814e309ddf8ead9ab/transformed/appcompat-1.7.0/res/values-watch-v20/values-watch-v20.xml",
+                    "source": "C:\\Users\\Jeffr\\.gradle\\caches\\transforms-4\\8c27317c56e0c9f814e309ddf8ead9ab\\transformed\\appcompat-1.7.0\\res\\values-watch-v20\\values-watch-v20.xml",
                     "from": {
                         "startLines": "2,5,8",
                         "startColumns": "4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/0515126b31cab2ce0f4d0c2319ab78c6/transformed/play-services-auth-20.7.0/res/values-watch-v20/values.xml",
+                    "source": "C:\\Users\\Jeffr\\.gradle\\caches\\transforms-4\\0515126b31cab2ce0f4d0c2319ab78c6\\transformed\\play-services-auth-20.7.0\\res\\values-watch-v20\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
                         "startColumns": "0,0,0,0,0,0,0,0",

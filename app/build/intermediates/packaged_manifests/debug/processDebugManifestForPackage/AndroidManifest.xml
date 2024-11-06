@@ -50,6 +50,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.hoophubskeleton.MainActivity" />
+        <activity android:name="com.example.hoophubskeleton.EditDeleteProfile" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

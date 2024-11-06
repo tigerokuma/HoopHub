@@ -51,4 +51,26 @@ class AuthRepository(
     fun isLoggedIn(): Boolean = firebaseAuth.currentUser != null
 
     fun logOut() = firebaseAuth.signOut()
+
+    // Used to get profile data for fragment
+    fun getUserProfile(callback: (User?, String?) -> Unit) {
+        val uid = firebaseAuth.currentUser?.uid
+        if (uid != null) {
+            firestore.collection("users").document(uid).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        val user = document.toObject(User::class.java)
+                        callback(user, null) // Pass the user data to the callback
+                    } else {
+                        callback(null, "No user data found")
+                    }
+                }
+                .addOnFailureListener { e ->
+                    callback(null, e.message)
+                }
+        } else {
+            callback(null, "User not logged in")
+        }
+    }
+
 }

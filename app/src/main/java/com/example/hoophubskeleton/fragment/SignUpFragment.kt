@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,8 +48,10 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Initialize ViewModel
-        val authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
-        authViewModel = ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
+        val authRepository =
+            AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
+        authViewModel =
+            ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
 
         val nameEditText: EditText = view.findViewById(R.id.nameEditText)
         val ageEditText: EditText = view.findViewById(R.id.ageEditText)
@@ -67,12 +70,16 @@ class SignUpFragment : Fragment() {
         }
 
         // Initialize the ActivityResultLauncher for image selection
-        pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-                imageUri = result.data?.data
-                profilePictureImageView.setImageURI(imageUri)
+        pickImageLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                    imageUri = result.data?.data
+                    profilePictureImageView.setImageURI(imageUri)
+                    Log.d("SignUpFragment", "Selected Image URI: $imageUri")
+                } else {
+                    Log.e("SignUpFragment", "Image selection failed or canceled.")
+                }
             }
-        }
 
         // Handle profile picture selection
         chooseProfilePicButton.setOnClickListener {
@@ -87,7 +94,8 @@ class SignUpFragment : Fragment() {
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             } else {
-                Toast.makeText(requireContext(), "Sign-Up Failed: $message", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Sign-Up Failed: $message", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -129,19 +137,25 @@ class SignUpFragment : Fragment() {
 
     private fun uploadImageToFirebaseStorage(callback: (String?) -> Unit) {
         if (imageUri == null) {
+            Log.e("SignUpFragment", "Image URI is null. Please select an image.")
             callback(null)
             return
         }
 
-        val storageReference = FirebaseStorage.getInstance().getReference("profile_pics/${UUID.randomUUID()}")
+        val storageReference =
+            FirebaseStorage.getInstance().getReference("profile_pics/${UUID.randomUUID()}")
         storageReference.putFile(imageUri!!)
             .addOnSuccessListener {
                 storageReference.downloadUrl.addOnSuccessListener { uri ->
+                    Log.d("SignUpFragment", "Uploaded Profile Picture URL: $uri") // Log URL
+
                     callback(uri.toString())
                 }
             }
-            .addOnFailureListener {
+            .addOnFailureListener { exception ->
+                Log.e("SignUpFragment", "Failed to upload image: ${exception.message}")
                 callback(null)
             }
     }
+
 }

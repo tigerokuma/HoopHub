@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.hoophubskeleton.app-mergeDebugResources-58:/values-port/values-port.xml",
+            "outputFile": "com.example.hoophubskeleton.app-mergeDebugResources-59:/values-port/values-port.xml",
             "map": [
                 {
-                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/transforms-4/8c27317c56e0c9f814e309ddf8ead9ab/transformed/appcompat-1.7.0/res/values-port/values-port.xml",
+                    "source": "C:\\Users\\Jeffr\\.gradle\\caches\\transforms-4\\8c27317c56e0c9f814e309ddf8ead9ab\\transformed\\appcompat-1.7.0\\res\\values-port\\values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

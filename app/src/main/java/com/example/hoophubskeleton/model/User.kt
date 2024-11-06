@@ -7,5 +7,5 @@ data class User(
     val email: String = "",               // Email of the user
     val competitionLevel: String = "",    // Competition level (e.g., Beginner, Casual, Competitive)
     val location: String = "",            // Location of the user
-    val profilePicUrl: String = ""        // URL to the profile picture stored in Firebase Storage
+    val profilePicUrl: String? = null        // URL to the profile picture stored in Firebase Storage
 )
