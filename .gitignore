@@ -1,1 +1,6 @@
+# Ignore build outputs
+/app/build/
+
+# Ignore local properties (specific to local machine configuration)
 /local.properties
+
