@@ -1,5 +1,0 @@
-com.example.hoophubskeleton.test.app-core-1.6.1-0 /Users/okcom/.gradle/caches/transforms-4/30325ae9fbee0539ab214cb3f75e3b01/transformed/core-1.6.1/res
-com.example.hoophubskeleton.test.app-androidTest-1 /Users/okcom/Documents/School/Classes/Fall_2024/CMPT362/HoopHub/app/build/generated/res/resValues/androidTest/debug
-com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-2 /Users/okcom/Documents/School/Classes/Fall_2024/CMPT362/HoopHub/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
-com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-3 /Users/okcom/Documents/School/Classes/Fall_2024/CMPT362/HoopHub/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
-com.example.hoophubskeleton.test.app-debugAndroidTest-4 /Users/okcom/Documents/School/Classes/Fall_2024/CMPT362/HoopHub/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources

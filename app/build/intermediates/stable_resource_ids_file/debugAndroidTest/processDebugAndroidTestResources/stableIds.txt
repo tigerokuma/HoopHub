@@ -1,3 +1,0 @@
-com.example.hoophubskeleton.test:style/WhiteBackgroundDialogTheme = 0x7f020000
-com.example.hoophubskeleton.test:style/WhiteBackgroundTheme = 0x7f020001
-com.example.hoophubskeleton.test:string/google_maps_key = 0x7f010000
