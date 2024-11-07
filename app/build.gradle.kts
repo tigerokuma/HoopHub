@@ -16,12 +16,12 @@ if (localPropertiesFile.exists()) {
 
 android {
     namespace = "com.example.hoophubskeleton"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.hoophubskeleton"
-        minSdk = 24
-        targetSdk = 34
+        minSdk = 33
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -77,6 +77,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.google.androidbrowserhelper:androidbrowserhelper:2.4.0")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
+    implementation(libs.androidx.core)
 
     // Testing
     testImplementation("junit:junit:4.13.2")
