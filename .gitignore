@@ -1,6 +1,11 @@
 # Ignore build outputs
 /app/build/
+/.gradle/
+/build/
+.idea
+*.iml
 
-# Ignore local properties (specific to local machine configuration)
+# Local properties and cache
 /local.properties
+.DS_Store
 
