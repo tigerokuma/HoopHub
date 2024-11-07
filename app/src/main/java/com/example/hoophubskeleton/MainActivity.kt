@@ -1,8 +1,8 @@
 package com.example.hoophubskeleton
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.hoophubskeleton.R.*
@@ -17,17 +17,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainContent: ViewPager2
     private lateinit var bottomTabMenu: TabLayout
     private lateinit var fragmentSetup: FragmentSetup
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        // Enable edge-to-edge content
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(layout.activity_main)
         // Checking user permissions
         Util.checkPermissions(this)
         // Setting up tabs and fragments
         tabMenuSetup()
         fragmentSetup()
-
-
     }
 
     private fun tabMenuSetup() {
@@ -42,11 +42,10 @@ class MainActivity : AppCompatActivity() {
 
         MenuIconCreator.addTabs(topTabMenu, topMenuItems, topMenuIcons, this)
         MenuIconCreator.addTabs(bottomTabMenu, bottomMenuItems, bottomMenuIcons, this)
-
     }
 
     private fun fragmentSetup() {
-        // list of fragments
+        // List of fragments
         val fragments = arrayListOf<Fragment>(
             PlayersFragment(),
             MapFragment(),
