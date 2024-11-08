@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
+
 }
 
 // Load local.properties
@@ -20,7 +21,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.hoophubskeleton"
-        minSdk = 33
+        minSdk = 30
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -106,6 +107,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
+
+    implementation("io.coil-kt:coil:2.0.0")
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")

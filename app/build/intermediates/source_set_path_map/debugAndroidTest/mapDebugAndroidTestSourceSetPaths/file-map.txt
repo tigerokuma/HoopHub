@@ -1,6 +1,7 @@
-com.example.hoophubskeleton.test.app-core-1.6.1-0 C:\Users\Jeffr\.gradle\caches\transforms-4\2fbe2b721e5016ca5209f6bd25f57132\transformed\core-1.6.1\res
-com.example.hoophubskeleton.test.app-tracing-1.2.0-1 C:\Users\Jeffr\.gradle\caches\transforms-4\517e3da90483427c59485b1f2e0c3ac2\transformed\tracing-1.2.0\res
-com.example.hoophubskeleton.test.app-androidTest-2 C:\Users\Jeffr\AndroidStudioProjects\HoopHubSkeleton\app\build\generated\res\resValues\androidTest\debug
-com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-3 C:\Users\Jeffr\AndroidStudioProjects\HoopHubSkeleton\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-4 C:\Users\Jeffr\AndroidStudioProjects\HoopHubSkeleton\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-com.example.hoophubskeleton.test.app-debugAndroidTest-5 C:\Users\Jeffr\AndroidStudioProjects\HoopHubSkeleton\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
+com.example.hoophubskeleton.test.app-core-1.5.0-0 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/8.9/transforms/4edb43c1106f473ab1a7a174914963af/transformed/core-1.5.0/res
+com.example.hoophubskeleton.test.app-tracing-1.2.0-1 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/8.9/transforms/5e09210dc83e1b501b4b04714c61e8cf/transformed/tracing-1.2.0/res
+com.example.hoophubskeleton.test.app-annotation-experimental-1.4.1-2 /Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/8.9/transforms/c0fcc5800af92031aeb0227300bc2078/transformed/annotation-experimental-1.4.1/res
+com.example.hoophubskeleton.test.app-androidTest-3 /Users/kristmas/AndroidStudioProjects/HoopHub/app/build/generated/res/resValues/androidTest/debug
+com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-4 /Users/kristmas/AndroidStudioProjects/HoopHub/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-5 /Users/kristmas/AndroidStudioProjects/HoopHub/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.example.hoophubskeleton.test.app-debugAndroidTest-6 /Users/kristmas/AndroidStudioProjects/HoopHub/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources

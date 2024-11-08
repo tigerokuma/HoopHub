@@ -2,7 +2,6 @@ package com.example.hoophubskeleton.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +12,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.hoophubskeleton.AuthHostActivity
-//import com.bumptech.glide.Glide
-import com.example.hoophubskeleton.EditDeleteProfile
+
 import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.ViewModel.AuthViewModel
 import com.example.hoophubskeleton.factory.AuthViewModelFactory
 import com.example.hoophubskeleton.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+
+import coil.load
+import coil.request.CachePolicy
+
+//import com.bumptech.glide.Glide
 
 class ProfileFragment : Fragment() {
 
@@ -36,6 +39,8 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val profileImageView = view.findViewById<ImageView>(R.id.profileImageView)
+
         // Initialize ViewModel
         val authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
         authViewModel = ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
@@ -49,7 +54,15 @@ class ProfileFragment : Fragment() {
                 view.findViewById<TextView>(R.id.profileEmail).text = user.email
                 view.findViewById<TextView>(R.id.profileCompetitionLevel).text = user.competitionLevel
                 view.findViewById<TextView>(R.id.profileLocation).text = user.location
-                // Add profile pic here
+
+                // Load profile picture
+                profileImageView.load(user.profilePicUrl) {
+                    placeholder(R.drawable.default_profile_pic)
+                    error(R.drawable.default_profile_pic)
+                    memoryCachePolicy(CachePolicy.ENABLED)
+                    diskCachePolicy(CachePolicy.ENABLED)
+                }
+
             }
         }
 
@@ -85,12 +98,5 @@ class ProfileFragment : Fragment() {
             // delete logic backend here
         }
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        // reload updated user data
-//        loadUserProfile()
-//    }
-
 }
 
