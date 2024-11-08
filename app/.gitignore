@@ -1,4 +1,4 @@
-# Ignore Gradle and IDE configuration files
+app/build/
 .gradle/
 .idea/
 *.lock
