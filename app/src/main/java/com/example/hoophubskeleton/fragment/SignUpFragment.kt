@@ -28,6 +28,9 @@ import com.example.hoophubskeleton.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import java.util.UUID
 
 class SignUpFragment : Fragment() {
@@ -85,21 +88,6 @@ class SignUpFragment : Fragment() {
         chooseProfilePicButton.setOnClickListener {
             openGallery()
         }
-
-        // Observe authentication status from ViewModel
-        authViewModel.authStatus.observe(viewLifecycleOwner) { (success, message) ->
-            if (success) {
-                // Start MainActivity and clear the back stack
-                val intent = Intent(requireContext(), MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-            } else {
-                Toast.makeText(requireContext(), "Sign-Up Failed: $message", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-
-
         // Handle sign-up button click
         signUpButton.setOnClickListener {
             val name = nameEditText.text.toString()

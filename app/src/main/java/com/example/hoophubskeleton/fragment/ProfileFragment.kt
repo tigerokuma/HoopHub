@@ -28,23 +28,17 @@ class ProfileFragment : Fragment() {
     private lateinit var competitionTextView: TextView
     private lateinit var userLocation: TextView
     private lateinit var userProfilePic: ImageView
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Initialize non-UI related components (like ViewModels)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.profile_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         editButton = view.findViewById(R.id.profileEditButton)
-        // Set up views, click listeners, or bind data here
         nameTextView = view.findViewById(R.id.profileName)
         ageTextView = view.findViewById(R.id.profileAge)
         emailTextView = view.findViewById(R.id.profileEmail)
@@ -52,11 +46,10 @@ class ProfileFragment : Fragment() {
         userLocation = view.findViewById((R.id.profileLocation))
         userProfilePic = view.findViewById(R.id.profilePictureImageView)
 
-
-        // Initialize AuthRepository with FirebaseAuth and Firestore instances
+        // initializing repo
         authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
 
-        // Fetch user profile data
+        // fetch user profile data from repo
         loadUserProfile()
 
 
@@ -75,10 +68,6 @@ class ProfileFragment : Fragment() {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        // Clean up resources related to views if necessary
-    }
 
     private fun loadUserProfile() {
         // getting user data from repo
@@ -108,5 +97,11 @@ class ProfileFragment : Fragment() {
 
         }
     }
+    override fun onResume() {
+        super.onResume()
+        // reload updated user data
+        loadUserProfile()
+    }
+
 }
 

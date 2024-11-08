@@ -8,9 +8,11 @@ color app_background
 color black
 color button
 color highlight
+color ic_launcher_background
 color text_icon_dark
 color unimplemented
 color white
+drawable baseline_construction_24
 drawable bookings_icon
 drawable courts_icon
 drawable default_profile_pic
@@ -103,6 +105,7 @@ string google_crash_reporting_api_key
 string google_storage_bucket
 string project_id
 style Base.Theme.HoopHubSkeleton
+style CustomRadioButtonStyle
 style Theme.HoopHubSkeleton
 xml backup_rules
 xml data_extraction_rules

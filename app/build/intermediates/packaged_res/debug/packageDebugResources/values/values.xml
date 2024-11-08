@@ -28,6 +28,7 @@
     <color name="black">#FF000000</color>
     <color name="button">#403D39</color>
     <color name="highlight">#EB5E28</color>
+    <color name="ic_launcher_background">#242323</color>
     <color name="text_icon_dark">#252422</color>
     <color name="unimplemented">#acacac</color>
     <color name="white">#FFFFFFFF</color>
@@ -41,6 +42,9 @@
     <style name="Base.Theme.HoopHubSkeleton" parent="Theme.Material3.DayNight.NoActionBar">
         
         
+    </style>
+    <style name="CustomRadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="buttonTint">@color/highlight</item>
     </style>
     <style name="Theme.HoopHubSkeleton" parent="Base.Theme.HoopHubSkeleton"/>
 </resources>

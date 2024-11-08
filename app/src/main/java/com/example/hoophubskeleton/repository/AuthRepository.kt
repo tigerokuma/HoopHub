@@ -52,15 +52,16 @@ class AuthRepository(
 
     fun logOut() = firebaseAuth.signOut()
 
-    // Used to get profile data for fragment
+    // get profile data for Profilefragment
     fun getUserProfile(callback: (User?, String?) -> Unit) {
         val uid = firebaseAuth.currentUser?.uid
         if (uid != null) {
             firestore.collection("users").document(uid).get()
                 .addOnSuccessListener { document ->
                     if (document != null) {
+                        // user data passed to callback
                         val user = document.toObject(User::class.java)
-                        callback(user, null) // Pass the user data to the callback
+                        callback(user, null)
                     } else {
                         callback(null, "No user data found")
                     }
