@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.HoopHubSkeleton" parent="Base.Theme.HoopHubSkeleton" />
+    // custom orange tint for radiobuttons
+    <style name="CustomRadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="buttonTint">@color/highlight</item>
+    </style>
 </resources>

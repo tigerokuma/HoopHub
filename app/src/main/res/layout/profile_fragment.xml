@@ -1,14 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/app_background"
+    android:padding="16dp">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Profile Fragment"
-        android:textColor="@color/black"
-        android:textSize="24dp" />
+        android:layout_height="match_parent"
+        android:background="@color/app_background"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <!-- Profile Picture Display -->
+        <ImageView
+            android:id="@+id/profilePictureImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="Profile Picture"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_profile_pic" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/highlight"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/rating_icon" />
+
+                <TextView
+                    android:id="@+id/profileUserRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.8"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:text="Basic Info"
+            android:textColor="@color/highlight"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <!-- Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Name"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Age -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Age"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/profileAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Email -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Email"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/profileEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:text="Account Security"
+            android:textColor="@color/highlight"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Password -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Password"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/profilePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="*********" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:text="Skill and Location"
+            android:textColor="@color/highlight"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Competition Level (RadioGroup) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Competition Level"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/profileCompetitionLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+
+        <!-- Location -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Location"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/profileLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:text="Profile Management"
+            android:textColor="@color/highlight"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/profileEditButton"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/highlight"
+            android:text="Edit Profile" />
+
+
+    </LinearLayout>
+</ScrollView>
