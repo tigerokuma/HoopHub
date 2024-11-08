@@ -1,0 +1,6 @@
+com.example.hoophubskeleton.test.app-core-1.6.1-0 C:\Users\Jeffr\.gradle\caches\transforms-4\2fbe2b721e5016ca5209f6bd25f57132\transformed\core-1.6.1\res
+com.example.hoophubskeleton.test.app-tracing-1.2.0-1 C:\Users\Jeffr\.gradle\caches\transforms-4\517e3da90483427c59485b1f2e0c3ac2\transformed\tracing-1.2.0\res
+com.example.hoophubskeleton.test.app-androidTest-2 C:\Users\Jeffr\AndroidStudioProjects\HoopHubSkeleton\app\build\generated\res\resValues\androidTest\debug
+com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-3 C:\Users\Jeffr\AndroidStudioProjects\HoopHubSkeleton\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-4 C:\Users\Jeffr\AndroidStudioProjects\HoopHubSkeleton\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.example.hoophubskeleton.test.app-debugAndroidTest-5 C:\Users\Jeffr\AndroidStudioProjects\HoopHubSkeleton\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

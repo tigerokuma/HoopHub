@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,9 @@ import com.example.hoophubskeleton.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import java.util.UUID
 
 class SignUpFragment : Fragment() {
@@ -47,8 +51,10 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Initialize ViewModel
-        val authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
-        authViewModel = ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
+        val authRepository =
+            AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
+        authViewModel =
+            ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
 
         val nameEditText: EditText = view.findViewById(R.id.nameEditText)
         val ageEditText: EditText = view.findViewById(R.id.ageEditText)
@@ -67,31 +73,21 @@ class SignUpFragment : Fragment() {
         }
 
         // Initialize the ActivityResultLauncher for image selection
-        pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-                imageUri = result.data?.data
-                profilePictureImageView.setImageURI(imageUri)
+        pickImageLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                    imageUri = result.data?.data
+                    profilePictureImageView.setImageURI(imageUri)
+                    Log.d("SignUpFragment", "Selected Image URI: $imageUri")
+                } else {
+                    Log.e("SignUpFragment", "Image selection failed or canceled.")
+                }
             }
-        }
 
         // Handle profile picture selection
         chooseProfilePicButton.setOnClickListener {
             openGallery()
         }
-
-        // Observe authentication status from ViewModel
-        authViewModel.authStatus.observe(viewLifecycleOwner) { (success, message) ->
-            if (success) {
-                // Start MainActivity and clear the back stack
-                val intent = Intent(requireContext(), MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-            } else {
-                Toast.makeText(requireContext(), "Sign-Up Failed: $message", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-
         // Handle sign-up button click
         signUpButton.setOnClickListener {
             val name = nameEditText.text.toString()
@@ -129,19 +125,25 @@ class SignUpFragment : Fragment() {
 
     private fun uploadImageToFirebaseStorage(callback: (String?) -> Unit) {
         if (imageUri == null) {
+            Log.e("SignUpFragment", "Image URI is null. Please select an image.")
             callback(null)
             return
         }
 
-        val storageReference = FirebaseStorage.getInstance().getReference("profile_pics/${UUID.randomUUID()}")
+        val storageReference =
+            FirebaseStorage.getInstance().getReference("profile_pics/${UUID.randomUUID()}")
         storageReference.putFile(imageUri!!)
             .addOnSuccessListener {
                 storageReference.downloadUrl.addOnSuccessListener { uri ->
+                    Log.d("SignUpFragment", "Uploaded Profile Picture URL: $uri") // Log URL
+
                     callback(uri.toString())
                 }
             }
-            .addOnFailureListener {
+            .addOnFailureListener { exception ->
+                Log.e("SignUpFragment", "Failed to upload image: ${exception.message}")
                 callback(null)
             }
     }
+
 }
