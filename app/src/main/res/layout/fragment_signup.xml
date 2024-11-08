@@ -27,12 +27,14 @@
             android:layout_height="wrap_content"
             android:text="Choose Picture"
             android:layout_gravity="center"
+            android:backgroundTint="@color/highlight"
             android:layout_marginBottom="16dp" />
 
         <!-- Name -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/highlight"
             android:text="Name"
             android:layout_marginBottom="4dp" />
 
@@ -48,6 +50,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/highlight"
             android:text="Age"
             android:layout_marginBottom="4dp" />
 
@@ -63,6 +66,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/highlight"
             android:text="Email"
             android:layout_marginBottom="4dp" />
 
@@ -78,6 +82,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/highlight"
             android:text="Password"
             android:layout_marginBottom="4dp" />
 
@@ -92,6 +97,7 @@
         <!-- Competition Level (RadioGroup) -->
         <TextView
             android:layout_width="wrap_content"
+            android:textColor="@color/highlight"
             android:layout_height="wrap_content"
             android:text="Competition Level"
             android:layout_marginBottom="4dp" />
@@ -126,6 +132,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/highlight"
             android:text="Location"
             android:layout_marginBottom="4dp" />
 
@@ -142,6 +149,7 @@
             android:id="@+id/signUpButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/highlight"
             android:text="Sign Up" />
 
         <!-- Go to signup -->
@@ -149,6 +157,7 @@
             android:id="@+id/goToLoginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/highlight"
             android:text="Already have an account? Log In"
             android:layout_marginTop="16dp" />
 
