@@ -297,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731027887945</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="ProfileFragment can get data from firebase (profile picture still in progress).&#10;&#10;EditDeleteProfile loads data from passed intents. Still need to implement delete functionality.">
+      <option name="closed" value="true" />
+      <created>1731029956328</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1731029956328</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
