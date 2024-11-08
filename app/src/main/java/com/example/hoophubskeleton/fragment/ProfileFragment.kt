@@ -2,7 +2,6 @@ package com.example.hoophubskeleton.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,23 +10,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.example.hoophubskeleton.EditDeleteProfile
+import androidx.lifecycle.ViewModelProvider
+import com.example.hoophubskeleton.AuthHostActivity
+
 import com.example.hoophubskeleton.R
+import com.example.hoophubskeleton.ViewModel.AuthViewModel
+import com.example.hoophubskeleton.factory.AuthViewModelFactory
 import com.example.hoophubskeleton.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+import coil.load
+import coil.request.CachePolicy
+
+//import com.bumptech.glide.Glide
+
 class ProfileFragment : Fragment() {
 
-    private lateinit var authRepository: AuthRepository
-    private lateinit var editButton: Button
-    private lateinit var nameTextView: TextView
-    private lateinit var ageTextView: TextView
-    private lateinit var emailTextView: TextView
-    private lateinit var competitionTextView: TextView
-    private lateinit var userLocation: TextView
-    private lateinit var userProfilePic: ImageView
+    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,70 +38,65 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        editButton = view.findViewById(R.id.profileEditButton)
-        nameTextView = view.findViewById(R.id.profileName)
-        ageTextView = view.findViewById(R.id.profileAge)
-        emailTextView = view.findViewById(R.id.profileEmail)
-        competitionTextView = view.findViewById(R.id.profileCompetitionLevel)
-        userLocation = view.findViewById((R.id.profileLocation))
-        userProfilePic = view.findViewById(R.id.profilePictureImageView)
 
-        // initializing repo
-        authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
+        val profileImageView = view.findViewById<ImageView>(R.id.profileImageView)
 
-        // fetch user profile data from repo
-        loadUserProfile()
+        // Initialize ViewModel
+        val authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
+        authViewModel = ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
 
+        // Observe userProfile to display user information
+        authViewModel.userProfile.observe(viewLifecycleOwner) { user ->
+            if (user != null) {
+                // Update UI with user data
+                view.findViewById<TextView>(R.id.profileName).text = user.name
+                view.findViewById<TextView>(R.id.profileAge).text = user.age.toString()
+                view.findViewById<TextView>(R.id.profileEmail).text = user.email
+                view.findViewById<TextView>(R.id.profileCompetitionLevel).text = user.competitionLevel
+                view.findViewById<TextView>(R.id.profileLocation).text = user.location
 
+                // Load profile picture
+                profileImageView.load(user.profilePicUrl) {
+                    placeholder(R.drawable.default_profile_pic)
+                    error(R.drawable.default_profile_pic)
+                    memoryCachePolicy(CachePolicy.ENABLED)
+                    diskCachePolicy(CachePolicy.ENABLED)
+                }
 
+            }
+        }
 
-        editButton.setOnClickListener {
-            // passing data to edit profile activity
-            val intent = Intent(requireContext(), EditDeleteProfile::class.java)
-            intent.putExtra("userName", nameTextView.text.toString())
-            intent.putExtra("userAge", ageTextView.text.toString())
-            intent.putExtra("userEmail", emailTextView.text.toString())
-            intent.putExtra("userCompetition", competitionTextView.text.toString())
-            intent.putExtra("userLocation", userLocation.text.toString())
+        // Observe errorMessage for any issues with retrieving user data
+        authViewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+            if (error != null) {
+                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Fetch user profile data when the fragment is created
+        authViewModel.fetchUserProfile()
+
+        // Handle logout button click
+        val logoutButton = view.findViewById<Button>(R.id.profileLogoutButton)
+        logoutButton.setOnClickListener {
+            authViewModel.logOut()
+            // Redirect to AuthHostActivity after logout
+            val intent = Intent(requireContext(), AuthHostActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
-    }
+        // Handle edit profile button click
+        val editButton = view.findViewById<Button>(R.id.profileEditButton)
+        editButton.setOnClickListener {
+            // edit profile logic here
+        }
 
-
-    private fun loadUserProfile() {
-        // getting user data from repo
-        authRepository.getUserProfile { user, error ->
-            if (user != null) {
-                // Populate the UI with user data
-                nameTextView.text = user.name
-                ageTextView.text = user.age.toString()
-                emailTextView.text = user.email
-                competitionTextView.text = user.competitionLevel
-                userLocation.text = user.location
-                // unsure of how to implement this
-                user.profilePicUrl.let { url ->
-                    Log.d("ProfileFrag", "Profile Picture URL: $url") // Log URL
-                    Glide.with(this)
-                        .load(url)
-                        .placeholder(R.drawable.default_profile_pic)
-                        .error(R.drawable.profile_icon)
-                        .into(userProfilePic)
-                }
-            } else {
-
-                error?.let { message ->
-                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                }
-            }
-
+        // Handle delete profile button click
+        val deleteButton = view.findViewById<Button>(R.id.profileDeleteButton)
+        deleteButton.setOnClickListener {
+            // delete logic backend here
         }
     }
-    override fun onResume() {
-        super.onResume()
-        // reload updated user data
-        loadUserProfile()
-    }
-
 }
 

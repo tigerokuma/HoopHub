@@ -14,7 +14,7 @@
 
         <!-- Profile Picture Display -->
         <ImageView
-            android:id="@+id/profilePictureImageView"
+            android:id="@+id/profileImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
@@ -188,6 +188,25 @@
             android:backgroundTint="@color/highlight"
             android:text="Edit Profile" />
 
+        <!-- Log Out Button -->
+        <Button
+            android:id="@+id/profileLogoutButton"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/highlight"
+            android:text="Log Out" />
+
+        <!-- Delete Profile Button -->
+        <Button
+            android:id="@+id/profileDeleteButton"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/highlight"
+            android:text="Delete Profile" />
 
     </LinearLayout>
 </ScrollView>

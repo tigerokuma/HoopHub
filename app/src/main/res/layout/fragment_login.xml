@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
     <!-- Email -->
     <TextView
@@ -40,6 +41,7 @@
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/highlight"
         android:text="Log In" />
 
     <!-- Go to login -->
@@ -48,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Don't have an account? Sign Up"
+        android:backgroundTint="@color/highlight"
         android:layout_marginTop="16dp" />
 
 </LinearLayout>

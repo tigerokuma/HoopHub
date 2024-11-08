@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
+
 }
 
 // Load local.properties
@@ -16,12 +17,12 @@ if (localPropertiesFile.exists()) {
 
 android {
     namespace = "com.example.hoophubskeleton"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.hoophubskeleton"
-        minSdk = 24
-        targetSdk = 34
+        minSdk = 30
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -77,6 +78,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.google.androidbrowserhelper:androidbrowserhelper:2.4.0")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
+    implementation(libs.androidx.core)
 
     // Testing
     testImplementation("junit:junit:4.13.2")
@@ -105,6 +107,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
+
+    implementation("io.coil-kt:coil:2.0.0")
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")
