@@ -1,33 +1,96 @@
-# HoopHub
-CMPT362 Final Project
+# **HoopHub**
+**CMPT362 Final Project**
 
-MainActivity Overview
+HoopHub is a basketball-focused mobile application that allows users to explore nearby basketball courts, manage profiles, and connect with players. The app follows the **MVVM (Model-View-ViewModel)** architecture for clean separation of concerns and scalability.
 
-Top and Bottom Tab Layouts:
+---
 
-The top tab layout (topTabMenu) and bottom tab layout (bottomTabMenu) are initialized with menu items and icons, managed by the MenuIconCreator utility class.
+## **Features**
+- **Players Section**: Explore and manage players in your network.
+- **Courts Section**: Discover nearby basketball courts on an interactive map.
+- **Profile Section**: Update and view user profile information.
+- **Intuitive Navigation**: Top and bottom tab menus for seamless navigation.
+- **Dynamic Data**: Fetches real-time data from Google Places API.
 
-Top Tab Menu:
+---
 
-Switches between the three fragments of "Players", "Courts" (map), and "Profile". All of these are hown in the main content area.
+## **App Overview**
 
-PlayersFragment
+### **MainActivity**
+The `MainActivity` manages the following components:
+1. **Top and Bottom Tab Layouts**:
+   - `topTabMenu`: Switches between Players, Courts, and Profile sections.
+   - `bottomTabMenu`: Displays additional navigation options (if any).
+   - Icons and labels are managed by the `MenuIconCreator` utility class.
 
-// TODO
+2. **Fragment Management**:
+   - Fragments (`PlayersFragment`, `MapFragment`, `ProfileFragment`) are initialized via `fragmentSetup()`.
+   - `ViewPager2` enables swiping between fragments.
+   - Tabs and fragments are synchronized for a consistent UI experience.
 
-MapFragment
+---
 
-// TODO
+## **MVVM Architecture**
+The app uses **MVVM** to maintain a clean separation of concerns:
+- **Model**: Represents data sources such as APIs (Google Places API) and local database entities.
+- **View**: Composable UI components (e.g., `MapAndCourtsView`, `PlayersView`, `ProfileView`) that display data to the user.
+- **ViewModel**: Manages UI-related data, handles business logic, and communicates with the Model.
 
-ProfileFragment
+### **Mermaid Diagram**
+Below is a representation of the MVVM architecture:
 
-// TODO
+```mermaid
+graph TD
+    View["View (UI - Composables)"] --> ViewModel["ViewModel"]
+    ViewModel --> View["UI State (LiveData/StateFlow)"]
+    ViewModel --> Model["Model (API & Database)"]
+    Model --> ViewModel["Provide Data (Repository)"]
 
-Fragment Management:
+```
 
-The fragmentSetup function initializes the fragments, including PlayersFragment, MapFragment, and ProfileFragment, and configures the ViewPager2 with these fragments using the FragmentSetup helper class.
-Fragment icons and labels are aligned with the tab menu items, providing a consistent UI experience.
-Modular Setup Functions:
+---
 
-tabMenuSetup() initializes both the top and bottom tab layouts with items and icons from resources.
-fragmentSetup() handles fragment initialization and associates them with the tabs in the ViewPager2, enabling users to navigate between sections.
+## **App Structure**
+```
+com.example.hoophubskeleton
+├── data
+│   ├── BasketballCourt.kt   # Data class for court information
+│   ├── PlaceApiResponse.kt  # Data class for API response
+├── network
+│   ├── GooglePlacesAPI.kt   # Retrofit API interface
+├── ui
+│   ├── PlayersFragment.kt   # Players section UI
+│   ├── MapFragment.kt       # Map showing basketball courts
+│   ├── ProfileFragment.kt   # User profile UI
+│   ├── MainActivity.kt      # Main Activity managing navigation and fragments
+├── viewmodel
+│   ├── CourtsViewModel.kt   # ViewModel for managing court data
+│   ├── PlayersViewModel.kt  # ViewModel for managing player data
+│   ├── ProfileViewModel.kt  # ViewModel for managing user profile data
+```
+
+---
+
+## **Getting Started**
+
+### **1. Prerequisites**
+- Android Studio
+- Google Maps API key (Add it to `local.properties` as `MAPS_API_KEY`).
+
+### **2. Build and Run**
+- Clone the repository:
+  ```bash
+  git clone <repository-url>
+  ```
+- Open the project in Android Studio.
+- Add your Google Maps API key in `local.properties`:
+  ```properties
+  MAPS_API_KEY=your_api_key_here
+  ```
+- Build and run the app.
+
+---
+
+
+
+Let me know if you’d like any additional details or changes!
