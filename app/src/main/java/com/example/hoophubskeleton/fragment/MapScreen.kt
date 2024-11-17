@@ -11,82 +11,11 @@ import androidx.compose.ui.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.hoophubskeleton.data.BasketballCourt
+import com.example.hoophubskeleton.fetchNearbyBasketballCourts
 import com.google.accompanist.permissions.*
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.compose.*
-
-@Composable
-fun ShowMap() {
-    val context = LocalContext.current // Access context in @Composable
-    var uiSettings by remember {
-        mutableStateOf(
-            MapUiSettings(
-                myLocationButtonEnabled = true,
-                zoomControlsEnabled = true
-            )
-        )
-    }
-    var properties by remember {
-        mutableStateOf(
-            MapProperties(
-                isMyLocationEnabled = true,
-                mapType = MapType.NORMAL
-            )
-        )
-    }
-
-    // Mutable state for user location
-    val userLocation = remember { mutableStateOf<LatLng?>(null) }
-
-    // Fetch user's location in a side effect
-    LaunchedEffect(Unit) {
-        fetchUserLocation(context) { location ->
-            userLocation.value = location ?: LatLng(49.2827, -123.1207) // Default to Vancouver, BC
-        }
-    }
-
-    // Default camera position centered on user location (or Vancouver)
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(userLocation.value ?: LatLng(49.2827, -123.1207), 12f)
-    }
-
-    GoogleMap(
-        modifier = Modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState,
-        properties = properties,
-        uiSettings = uiSettings
-    ) {
-        // Add a red marker at the user's location
-        val location = userLocation.value ?: LatLng(49.2827, -123.1207) // Default to Vancouver
-        Marker(
-            state = MarkerState(position = location),
-            title = "You are here",
-            snippet = "Vancouver, BC"
-        )
-    }
-}
-
-/**
- * Fetch the user's current location using FusedLocationProviderClient.
- */
-fun fetchUserLocation(context: Context, onLocationFetched: (LatLng?) -> Unit) {
-    val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-
-    try {
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                onLocationFetched(LatLng(location.latitude, location.longitude))
-            } else {
-                onLocationFetched(null)
-            }
-        }
-    } catch (e: SecurityException) {
-        e.printStackTrace()
-        onLocationFetched(null)
-    }
-}
-
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -122,24 +51,32 @@ fun MapAndCourtsView() {
     val context = LocalContext.current
     val userLocation = remember { mutableStateOf<LatLng?>(null) }
     val courts = remember { mutableStateListOf<BasketballCourt>() }
-
-    // Mock basketball courts
-    val mockCourts = listOf(
-        BasketballCourt("Downtown Court", "123 Brooklyn St", 4.7, 37.7789, -122.4194),
-        BasketballCourt("Park Side Court", "456 Park Ave", 4.1, 37.7709, -122.4294),
-        BasketballCourt("Bayview Court", "789 Mission St", 4.5, 37.7840, -122.4035)
-    )
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(
+            LatLng(37.7749, -122.4194), 12f // Default to SF
+        )
+    }
 
     LaunchedEffect(Unit) {
         fetchUserLocation(context) { location ->
             userLocation.value = location ?: LatLng(37.7749, -122.4194) // Default to SF
+            cameraPositionState.position = CameraPosition.fromLatLngZoom(
+                userLocation.value ?: LatLng(37.7749, -122.4194), 12f
+            )
+
             if (location != null) {
-                // Calculate distances and sort courts
-                mockCourts.forEach { court ->
-                    court.distance = calculateDistance(location, LatLng(court.latitude, court.longitude))
-                }
-                courts.clear()
-                courts.addAll(mockCourts.sortedBy { it.distance }) // Sort by distance
+                fetchNearbyBasketballCourts(
+                    userLocation = location,
+                    radius = 5000, // 5 km radius
+                    apiKey = "AIzaSyANF3LNJc3vosMWOppgPPf8fbyAoarMaoU", // Replace with your actual API key
+                    onSuccess = { courtsList ->
+                        courts.clear()
+                        courts.addAll(courtsList.sortedBy { calculateDistance(location, LatLng(it.latitude, it.longitude)) })
+                    },
+                    onFailure = { error ->
+                        error.printStackTrace()
+                    }
+                )
             }
         }
     }
@@ -151,11 +88,6 @@ fun MapAndCourtsView() {
                 .fillMaxWidth()
                 .fillMaxHeight(0.66f) // Map occupies 66% of the height
         ) {
-            val cameraPositionState = rememberCameraPositionState {
-                position = CameraPosition.fromLatLngZoom(
-                    userLocation.value ?: LatLng(37.7749, -122.4194), 12f)
-            }
-
             GoogleMap(
                 modifier = Modifier.fillMaxSize(),
                 cameraPositionState = cameraPositionState
@@ -175,6 +107,20 @@ fun MapAndCourtsView() {
                         snippet = court.address
                     )
                 }
+            }
+
+            // Button to recenter the map
+            Button(
+                onClick = {
+                    userLocation.value?.let {
+                        cameraPositionState.position = CameraPosition.fromLatLngZoom(it, 12f)
+                    }
+                },
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
+            ) {
+                Text("Center to Current Location")
             }
         }
 
@@ -238,3 +184,24 @@ fun calculateDistance(userLocation: LatLng, courtLocation: LatLng): Float {
     )
     return results[0] / 1000 // Convert meters to kilometers
 }
+
+/**
+ * Fetch the user's current location using FusedLocationProviderClient.
+ */
+fun fetchUserLocation(context: Context, onLocationFetched: (LatLng?) -> Unit) {
+    val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+
+    try {
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            if (location != null) {
+                onLocationFetched(LatLng(location.latitude, location.longitude))
+            } else {
+                onLocationFetched(null)
+            }
+        }
+    } catch (e: SecurityException) {
+        e.printStackTrace()
+        onLocationFetched(null)
+    }
+}
+
