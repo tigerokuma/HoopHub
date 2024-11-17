@@ -1,4 +1,4 @@
-package com.example.hoophubskeleton
+package com.example.hoophubskeleton.data
 
 data class BasketballCourt(
     val name: String,
