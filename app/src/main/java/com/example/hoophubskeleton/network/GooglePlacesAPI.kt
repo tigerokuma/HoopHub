@@ -10,7 +10,9 @@ interface GooglePlacesAPI {
     fun getNearbyPlaces(
         @Query("location") location: String,
         @Query("radius") radius: Int,
-        @Query("type") type: String,
+        @Query("type") type: String? = null, // Use null if no type is provided
+        @Query("keyword") keyword: String,  // Use keyword for filtering
         @Query("key") apiKey: String
     ): Call<PlaceApiResponse>
 }
+

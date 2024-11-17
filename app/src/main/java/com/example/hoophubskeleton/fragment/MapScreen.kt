@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.hoophubskeleton.data.BasketballCourt
 import com.example.hoophubskeleton.fetchNearbyBasketballCourts
@@ -57,7 +58,6 @@ fun MapAndCourtsView() {
         )
     }
 
-    // Fetch user's location and nearby courts
     LaunchedEffect(Unit) {
         fetchUserLocation(context) { location ->
             userLocation.value = location ?: LatLng(37.7749, -122.4194) // Default to SF
@@ -67,9 +67,9 @@ fun MapAndCourtsView() {
 
             if (location != null) {
                 fetchNearbyBasketballCourts(
+                    context = context, // Pass context to fetch the key dynamically
                     userLocation = location,
                     radius = 5000, // 5 km radius
-                    apiKey = "AIzaSyANF3LNJc3vosMWOppgPPf8fbyAoarMaoU", // Replace with your actual API key
                     onSuccess = { courtsList ->
                         courts.clear()
                         courts.addAll(courtsList.sortedBy { calculateDistance(location, LatLng(it.latitude, it.longitude)) })
