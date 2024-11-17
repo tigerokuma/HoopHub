@@ -57,6 +57,7 @@ fun MapAndCourtsView() {
         )
     }
 
+    // Fetch user's location and nearby courts
     LaunchedEffect(Unit) {
         fetchUserLocation(context) { location ->
             userLocation.value = location ?: LatLng(37.7749, -122.4194) // Default to SF
@@ -90,7 +91,13 @@ fun MapAndCourtsView() {
         ) {
             GoogleMap(
                 modifier = Modifier.fillMaxSize(),
-                cameraPositionState = cameraPositionState
+                cameraPositionState = cameraPositionState,
+                uiSettings = MapUiSettings(
+                    myLocationButtonEnabled = true // Enables the "My Location" button
+                ),
+                properties = MapProperties(
+                    isMyLocationEnabled = true // Enables showing the user's current location on the map
+                )
             ) {
                 userLocation.value?.let { location ->
                     Marker(
@@ -108,20 +115,6 @@ fun MapAndCourtsView() {
                     )
                 }
             }
-
-            // Button to recenter the map
-            Button(
-                onClick = {
-                    userLocation.value?.let {
-                        cameraPositionState.position = CameraPosition.fromLatLngZoom(it, 12f)
-                    }
-                },
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(16.dp)
-            ) {
-                Text("Center to Current Location")
-            }
         }
 
         // Courts List Section
@@ -129,7 +122,7 @@ fun MapAndCourtsView() {
             courts = courts.toList(),
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.34f) // List occupies 34% of the height
+                .fillMaxHeight(1f) // List occupies 34% of the height
         )
     }
 }
@@ -145,7 +138,6 @@ fun CourtList(courts: List<BasketballCourt>, modifier: Modifier = Modifier) {
         }
     }
 }
-
 
 @Composable
 fun CourtCard(court: BasketballCourt) {
@@ -171,7 +163,6 @@ fun CourtCard(court: BasketballCourt) {
         }
     }
 }
-
 
 fun calculateDistance(userLocation: LatLng, courtLocation: LatLng): Float {
     val results = FloatArray(1)
