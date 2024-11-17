@@ -5,7 +5,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 
 class MapFragment : Fragment() {
-
     override fun onCreateView(
         inflater: android.view.LayoutInflater,
         container: android.view.ViewGroup?,
@@ -13,7 +12,7 @@ class MapFragment : Fragment() {
     ): android.view.View {
         return ComposeView(requireContext()).apply {
             setContent {
-                MapScreen()
+                MapWithCourtsScreen() // Updated Composable
             }
         }
     }
