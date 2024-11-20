@@ -79,6 +79,7 @@ dependencies {
     implementation("com.google.androidbrowserhelper:androidbrowserhelper:2.4.0")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation(libs.androidx.core)
+    implementation(libs.cronet.embedded)
 
     // Testing
     testImplementation("junit:junit:4.13.2")
@@ -113,4 +114,8 @@ dependencies {
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
+
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+
 }
