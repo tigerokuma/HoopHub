@@ -16,6 +16,7 @@ import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.ViewModel.PlayerViewModel
 
 class PlayersFragment : Fragment() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -39,7 +40,12 @@ class PlayersFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.playerRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val adapter = PlayerCardAdapter(emptyList())
+        fun onInviteClick() {
+            val inviteBottomSheetFragment = InviteBottomSheetFragment()
+            inviteBottomSheetFragment.show(parentFragmentManager, "InviteBottomSheetFragment")
+        }
+
+        val adapter = PlayerCardAdapter(emptyList(), ::onInviteClick)
         recyclerView.adapter = adapter
 
         playerViewModel.playerCards.observe(viewLifecycleOwner, { playerCards ->
