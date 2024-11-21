@@ -6,3 +6,10 @@ plugins {
     // Add the dependency for the Google services (firebase)
     id("com.google.gms.google-services") version "4.4.2" apply false
 }
+
+buildscript {
+    dependencies {
+        // Add the Safe Args plugin
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.1")
+    }
+}

@@ -9,6 +9,16 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:navGraph="@navigation/nav_graph"
+        app:defaultNavHost="true"
+        android:name="androidx.navigation.fragment.NavHostFragment" />
+
+
+    <!-- Top Menu -->
     <RelativeLayout
         android:id="@+id/menu_container"
         android:layout_width="match_parent"
@@ -18,10 +28,10 @@
         android:clipToPadding="false"
         android:elevation="30dp"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@id/main_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
+
         <!-- Top Tab Layout -->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/top_tab_menu"
@@ -37,7 +47,6 @@
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/highlight"
             app:tabTextColor="@color/text_icon_dark" />
-
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/content_search"
@@ -55,16 +64,27 @@
             app:strokeWidth="2dp" />
     </RelativeLayout>
 
-    <!-- Content Area for Fragments -->
+    <!-- Top ViewPager2 for Fragments -->
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/main_content"
+        android:id="@+id/top_view_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/bottom_tab_menu"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menu_container"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_container" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_view_pager" />
+
+    <!-- Content Area for Bottom Fragments -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/bottom_view_pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/top_view_pager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_tab_menu" />
 
     <!-- Bottom Tab Layout -->
     <com.google.android.material.tabs.TabLayout
@@ -74,9 +94,8 @@
         android:background="@color/app_background"
         android:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:tabIconTint="@color/text_icon_dark"
         app:tabIndicator="@android:color/transparent"
         app:tabIndicatorFullWidth="true"

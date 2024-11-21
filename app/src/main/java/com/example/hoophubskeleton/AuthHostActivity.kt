@@ -2,6 +2,7 @@ package com.example.hoophubskeleton
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -29,10 +30,12 @@ class AuthHostActivity : AppCompatActivity() {
         setContentView(R.layout.activity_auth_host)
 
         // Set up the NavController for the navigation graph
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
-
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        Log.d("AuthHostActivity", "NavHostFragment: $navHostFragment")
+        Log.d("AuthHostActivity", "NavController: ${navHostFragment.navController}")
     }
+
 
     override fun onSupportNavigateUp(): Boolean {
         // Handle navigation when the user presses the Up button

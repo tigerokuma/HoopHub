@@ -10,10 +10,10 @@ import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
 
 object MenuIconCreator {
-    // creates menu icons for the top and bottom tabs of the main page
+    // Creates menu icons for the top and bottom tabs of the main page
 
     class MenuIcon(context: Context) : LinearLayout(context) {
-        // each tab is a menu icon
+        // Each tab is a menu icon
         init {
             LayoutInflater.from(context).inflate(R.layout.generic_menu_item, this, true)
         }
@@ -27,21 +27,43 @@ object MenuIconCreator {
         }
     }
 
-    fun addTabs(tabLayout: TabLayout, tabNames: Array<String>, tabIcons: TypedArray, context: Context) {
-        // adds a menu icon to whatever tablayout is passed to it
+    fun addTabs(tabLayout: TabLayout, tabNames: Array<String>, tabIcons: List<Int>, context: Context) {
+        // Adds a menu icon to whatever TabLayout is passed to it
         for (i in tabNames.indices) {
             val tab = tabLayout.newTab()
-            tab.customView = createTabView(tabNames[i], tabIcons.getResourceId(i, -1), context)
+            tab.customView = createTabView(tabNames[i], tabIcons[i], context)
             tabLayout.addTab(tab)
         }
-        tabIcons.recycle()
     }
 
     private fun createTabView(title: String, iconResId: Int, context: Context): View {
-        // creates and returns a menu icon to add to a tab
+        // Creates and returns a menu icon to add to a tab
         val menuIcon = MenuIcon(context)
         menuIcon.setIcon(iconResId)
         menuIcon.setText(title)
         return menuIcon
+    }
+
+    fun addTabsWithListener(
+        tabLayout: TabLayout,
+        tabNames: Array<String>,
+        tabIcons: List<Int>,
+        context: Context,
+        onTabSelected: (Int) -> Unit
+    ) {
+        for (i in tabNames.indices) {
+            val tab = tabLayout.newTab()
+            tab.customView = createTabView(tabNames[i], tabIcons[i], context)
+            tabLayout.addTab(tab)
+        }
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.let { onTabSelected(it.position) }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
     }
 }

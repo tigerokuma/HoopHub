@@ -6,6 +6,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
 
+    id("androidx.navigation.safeargs.kotlin") 
+
+
 }
 
 // Load local.properties
@@ -113,4 +116,9 @@ dependencies {
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
+    implementation ("androidx.navigation:navigation-dynamic-features-fragment:2.7.0")
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
 }
