@@ -15,7 +15,7 @@ import com.example.hoophubskeleton.R
 
 class PlayerCardAdapter(
     private var playerList: List<PlayerCard>,
-    private val onInviteClick: () -> Unit
+    private val onInviteClick: (PlayerCard) -> Unit
     ) : RecyclerView.Adapter<PlayerCardAdapter.PlayerViewHolder>() {
 
     inner class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,7 +48,7 @@ class PlayerCardAdapter(
         // ToDo: set the image using URL
 
         holder.inviteButton.setOnClickListener{
-            onInviteClick()
+            onInviteClick(playerCard)
         }
     }
 

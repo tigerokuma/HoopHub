@@ -1,7 +1,9 @@
 package com.example.hoophubskeleton.repository
 
 import com.example.hoophubskeleton.model.Game
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.type.DateTime
 
 class GamesRepository(private val firestore: FirebaseFirestore) {
 
@@ -61,5 +63,13 @@ class GamesRepository(private val firestore: FirebaseFirestore) {
                 callback(null, createdError)
             }
         }
+    }
+
+    // Create an invite
+    fun createInvite(game: Game, callback: (Boolean) -> Unit) {
+        firestore.collection("games")
+            .add(game)
+            .addOnSuccessListener { callback(true) }
+            .addOnFailureListener { callback(false) }
     }
 }

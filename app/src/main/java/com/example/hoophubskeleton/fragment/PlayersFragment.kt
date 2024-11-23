@@ -14,14 +14,14 @@ import com.example.hoophubskeleton.model.PlayerCard
 import com.example.hoophubskeleton.adapter.PlayerCardAdapter
 import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.ViewModel.PlayerViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class PlayersFragment : Fragment() {
+    private val playerViewModel: PlayerViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
-    private val playerViewModel: PlayerViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,12 +40,15 @@ class PlayersFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.playerRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        fun onInviteClick() {
-            val inviteBottomSheetFragment = InviteBottomSheetFragment()
-            inviteBottomSheetFragment.show(parentFragmentManager, "InviteBottomSheetFragment")
+        val adapter = PlayerCardAdapter(emptyList()) { playerCard ->
+            val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+            if (currentUserId != null) {
+                val inviteBottomSheetFragment = InviteBottomSheetFragment.newInstance(currentUserId, playerCard.uid)
+                inviteBottomSheetFragment.show(parentFragmentManager, "InviteBottomSheetFragment")
+            } else {
+                Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+            }
         }
-
-        val adapter = PlayerCardAdapter(emptyList(), ::onInviteClick)
         recyclerView.adapter = adapter
 
         playerViewModel.playerCards.observe(viewLifecycleOwner, { playerCards ->
