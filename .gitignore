@@ -5,6 +5,7 @@
 # Ignore .gradle and .idea directories
 /.gradle/
 /.idea/
+*.idea/
 
 
 # Other unnecessary files
