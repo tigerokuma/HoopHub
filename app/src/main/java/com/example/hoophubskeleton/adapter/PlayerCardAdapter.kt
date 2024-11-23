@@ -13,7 +13,10 @@ import com.example.hoophubskeleton.R
 // This is our RecyclerView.Adapter that connects our list of PlayerCard objects
 // to the RecyclerView
 
-class PlayerCardAdapter(private val playerList: List<PlayerCard>) : RecyclerView.Adapter<PlayerCardAdapter.PlayerViewHolder>() {
+class PlayerCardAdapter(
+    private var playerList: List<PlayerCard>,
+    private val onInviteClick: () -> Unit
+    ) : RecyclerView.Adapter<PlayerCardAdapter.PlayerViewHolder>() {
 
     inner class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val playerImage = itemView.findViewById<ImageView>(R.id.playerImage)
@@ -42,10 +45,16 @@ class PlayerCardAdapter(private val playerList: List<PlayerCard>) : RecyclerView
         holder.playerRating.text = "${playerCard.rating}"
         holder.playerLocation.text = playerCard.location
         holder.playerCompetitionLevel.text = playerCard.competitionLevel
-        holder.playerImage.setImageResource(playerCard.imageId)
+        // ToDo: set the image using URL
 
-        // ToDo: set up click listener for the invite button
-        // holder.inviteButton.setOnClickListener{}
+        holder.inviteButton.setOnClickListener{
+            onInviteClick()
+        }
+    }
+
+    fun updateList(newList: List<PlayerCard>) {
+        playerList = newList
+        notifyDataSetChanged()
     }
 
 }

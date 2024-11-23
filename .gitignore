@@ -1,9 +1,11 @@
 # Ignore app build outputs
 /app/build/
 
+
 # Ignore .gradle and .idea directories
 /.gradle/
 /.idea/
+
 
 # Other unnecessary files
 *.iml

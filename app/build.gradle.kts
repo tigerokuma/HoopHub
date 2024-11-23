@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
 
-    id("androidx.navigation.safeargs.kotlin") 
+    id("androidx.navigation.safeargs.kotlin")
 
 
 }
@@ -82,6 +82,7 @@ dependencies {
     implementation("com.google.androidbrowserhelper:androidbrowserhelper:2.4.0")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation(libs.androidx.core)
+    implementation(libs.cronet.embedded)
 
     // Testing
     testImplementation("junit:junit:4.13.2")
@@ -120,5 +121,9 @@ dependencies {
 
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
 
 }
