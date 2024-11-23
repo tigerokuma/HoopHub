@@ -5,6 +5,7 @@ plugins {
 
     // Add the dependency for the Google services (firebase)
     id("com.google.gms.google-services") version "4.4.2" apply false
+
 }
 
 buildscript {

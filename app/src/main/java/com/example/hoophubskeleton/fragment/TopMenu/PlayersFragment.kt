@@ -14,12 +14,9 @@ import com.example.hoophubskeleton.model.PlayerCard
 import com.example.hoophubskeleton.adapter.PlayerCardAdapter
 import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.ViewModel.PlayerViewModel
+import com.example.hoophubskeleton.fragment.InviteBottomSheetFragment
 
 class PlayersFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     private val playerViewModel: PlayerViewModel by viewModels()
 
@@ -34,12 +31,11 @@ class PlayersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up views, click listeners, or bind data here
-
-        // Set up RecyclerView -- this will show our player cards
+        // Set up RecyclerView
         val recyclerView = view.findViewById<RecyclerView>(R.id.playerRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        // Adapter for player cards
         fun onInviteClick() {
             val inviteBottomSheetFragment = InviteBottomSheetFragment()
             inviteBottomSheetFragment.show(parentFragmentManager, "InviteBottomSheetFragment")
@@ -48,30 +44,18 @@ class PlayersFragment : Fragment() {
         val adapter = PlayerCardAdapter(emptyList(), ::onInviteClick)
         recyclerView.adapter = adapter
 
-        playerViewModel.playerCards.observe(viewLifecycleOwner, { playerCards ->
+        // Observe ViewModel for data
+        playerViewModel.playerCards.observe(viewLifecycleOwner) { playerCards ->
             adapter.updateList(playerCards)
-        })
+        }
 
-        playerViewModel.error.observe(viewLifecycleOwner, { error ->
+        playerViewModel.error.observe(viewLifecycleOwner) { error ->
             error?.let {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
-        })
-
-        // Dummy data for PlayerCard items
-//        val samplePlayers = listOf(
-//            PlayerCard("Michael", 5.0, "Wilmington, North Carolina", R.drawable.players_icon, "Competitive"),
-//            PlayerCard("Larry", 4.2, "French Lick, Indiana", R.drawable.players_icon, "Casual"),
-//            PlayerCard("Russell", 1.0, "Long Beach, California", R.drawable.players_icon, "Beginner" )
-//        )
-//
-//        // Initialize adapter using sample list and set it on RecyclerView
-//        val adapter = PlayerCardAdapter(samplePlayers)
-//        recyclerView.adapter = adapter
-//    }
-
-
+        }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         // Clean up resources related to views if necessary

@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,7 @@ class InboxFragment : Fragment() {
     private lateinit var viewModel: MessageViewModel
     private lateinit var adapter: DialogAdapter
     private lateinit var currentUserId: String
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +43,10 @@ class InboxFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_inbox, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navController = findNavController()
 
         // Initialize FirebaseAuth to get the current user
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -58,26 +61,17 @@ class InboxFragment : Fragment() {
         val rvDialogs = view.findViewById<RecyclerView>(R.id.rvDialogs)
         rvDialogs.layoutManager = LinearLayoutManager(requireContext())
 
-// Observe and display dialogs
+        // Observe and display dialogs
         viewModel.getDialogs(currentUserId).observe(viewLifecycleOwner) { dialogs ->
-            val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: return@observe
-            val adapter = DialogAdapter(dialogs, currentUserId) { dialog ->
+            adapter = DialogAdapter(dialogs, currentUserId) { dialog ->
                 val dialogId = dialog.dialogId
 
-                // Safely get NavController
-                val navController = findNavController()
-                navController.navigate(R.id.action_global_to_inboxFragment)
-
-                // Navigate only if NavController is available
-                navController?.let {
-                    val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(dialogId)
-                    it.navigate(action)
-                }
+                // Use Safe Args to navigate to ChatFragment with dialogId
+                val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(dialogId)
+                navController.navigate(action)
             }
             rvDialogs.adapter = adapter
         }
-
-
 
         // Set up "Find User" button
         val findUserButton: Button = view.findViewById(R.id.btnFindUser)
@@ -87,8 +81,6 @@ class InboxFragment : Fragment() {
 
         observeFoundUser()
     }
-
-
 
     private fun openFindUserDialog() {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_find_user, null)

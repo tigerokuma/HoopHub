@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
@@ -8,8 +8,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.hoophubskeleton.fragment.Auth.LoginFragment"
-        android:label="LoginFragment"
-        tools:layout="@layout/fragment_login">
+        android:label="LoginFragment">
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
@@ -18,12 +17,11 @@
             app:destination="@id/playersFragment" />
     </fragment>
 
-    <!-- SignUp Fragment -->
+    <!-- Sign-Up Fragment -->
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.hoophubskeleton.fragment.Auth.SignUpFragment"
-        android:label="SignUpFragment"
-        tools:layout="@layout/fragment_signup">
+        android:label="SignUpFragment">
         <action
             android:id="@+id/action_signUpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -33,98 +31,57 @@
     <fragment
         android:id="@+id/playersFragment"
         android:name="com.example.hoophubskeleton.fragment.TopMenu.PlayersFragment"
-        tools:layout="@layout/player_fragment">
+        android:label="PlayersFragment">
+        <!-- Add actions for navigation -->
         <action
-            android:id="@+id/action_playersFragment_to_inboxFragment"
-            app:destination="@id/inboxFragment" />
+            android:id="@+id/action_playersFragment_to_bookingsFragment"
+            app:destination="@id/bookingFragment" />
+        <action
+            android:id="@+id/action_playersFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_playersFragment_to_MapFragment"
+            app:destination="@id/mapFragment" />
+
     </fragment>
+
+    <!-- Bookings Fragment -->
+    <fragment
+        android:id="@+id/bookingFragment"
+        android:name="com.example.hoophubskeleton.fragment.BottomMenu.BookingsFragment"
+        android:label="BookingsFragment" />
+
+    <!-- Profile Fragment -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.hoophubskeleton.fragment.TopMenu.ProfileFragment"
+        android:label="ProfileFragment" />
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.hoophubskeleton.fragment.TopMenu.MapFragment"
+        android:label="MapFragment" />
 
     <!-- Inbox Fragment -->
     <fragment
         android:id="@+id/inboxFragment"
         android:name="com.example.hoophubskeleton.fragment.InboxFragment"
-        android:label="InboxFragment"
-        tools:layout="@layout/fragment_inbox">
+        android:label="InboxFragment">
         <action
             android:id="@+id/action_inboxFragment_to_chatFragment"
-            app:destination="@id/chatFragment">
-            <argument
-                android:name="dialogId"
-                app:argType="string" />
-        </action>
+            app:destination="@id/chatFragment" />
     </fragment>
 
     <!-- Chat Fragment -->
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.hoophubskeleton.fragment.ChatFragment"
-        android:label="ChatFragment"
-        tools:layout="@layout/fragment_chat">
+        android:label="ChatFragment">
         <argument
             android:name="dialogId"
             app:argType="string" />
     </fragment>
 
 
-
-    <!-- Other Fragments -->
-    <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.example.hoophubskeleton.fragment.TopMenu.MapFragment"
-        android:label="MapFragment"
-        tools:layout="@layout/map_fragment" />
-
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.hoophubskeleton.fragment.TopMenu.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/profile_fragment" />
-
-    <fragment
-        android:id="@+id/bookingsFragment"
-        android:name="com.example.hoophubskeleton.fragment.BottomMenu.BookingsFragment"
-        android:label="BookingsFragment"
-        tools:layout="@layout/fragment_bookings" />
-
-    <fragment
-        android:id="@+id/savedFragment"
-        android:name="com.example.hoophubskeleton.fragment.BottomMenu.SavedFragment"
-        android:label="SavedFragment"
-        tools:layout="@layout/fragment_saved" />
-
-    <fragment
-        android:id="@+id/exploreFragment"
-        android:name="com.example.hoophubskeleton.fragment.BottomMenu.ExploreFragment"
-        android:label="ExploreFragment"
-        tools:layout="@layout/fragment_explore" />
-
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.hoophubskeleton.fragment.BottomMenu.SettingsFragment"
-        android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings" />
-
-    <!-- Global Actions -->
-    <action
-        android:id="@+id/action_global_to_inboxFragment"
-        app:destination="@id/inboxFragment" />
-    <action
-        android:id="@+id/action_global_to_mapFragment"
-        app:destination="@id/mapFragment" />
-    <action
-        android:id="@+id/action_global_to_profileFragment"
-        app:destination="@id/profileFragment" />
-    <action
-        android:id="@+id/action_global_to_bookingsFragment"
-        app:destination="@id/bookingsFragment" />
-    <action
-        android:id="@+id/action_global_to_savedFragment"
-        app:destination="@id/savedFragment" />
-    <action
-        android:id="@+id/action_global_to_exploreFragment"
-        app:destination="@id/exploreFragment" />
-    <action
-        android:id="@+id/action_global_to_settingsFragment"
-        app:destination="@id/settingsFragment" />
 
 </navigation>

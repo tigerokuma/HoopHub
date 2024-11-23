@@ -50,15 +50,12 @@ class LoginFragment : Fragment() {
         // Observe authentication status from ViewModel
         authViewModel.authStatus.observe(viewLifecycleOwner) { (success, message) ->
             if (success) {
-                // Start MainActivity and clear the back stack
-                val intent = Intent(requireContext(), MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
+                // Navigate to PlayersFragment within MainActivity
+                findNavController().navigate(R.id.action_loginFragment_to_playersFragment)
             } else {
                 Toast.makeText(requireContext(), "Login Failed: $message", Toast.LENGTH_SHORT).show()
             }
         }
-
 
         // Handle login button click
         loginButton.setOnClickListener {
@@ -69,6 +66,4 @@ class LoginFragment : Fragment() {
             authViewModel.logIn(email, password)
         }
     }
-
-
 }
