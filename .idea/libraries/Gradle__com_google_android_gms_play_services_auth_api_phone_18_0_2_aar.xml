@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.gms:play-services-auth-api-phone:18.0.2@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/8.9/transforms/36d1985a22c3608aa3e05ee5a5e3c6be/transformed/play-services-auth-api-phone-18.0.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/36d1985a22c3608aa3e05ee5a5e3c6be/transformed/play-services-auth-api-phone-18.0.2/AndroidManifest.xml" />
+      <root url="file://$APPLICATION_HOME_DIR$/jbr/Contents/Home/caches/8.9/transforms/005f387b338b59fdd16b4467695ff756/transformed/play-services-auth-api-phone-18.0.2/AndroidManifest.xml" />
+      <root url="jar://$APPLICATION_HOME_DIR$/jbr/Contents/Home/caches/8.9/transforms/005f387b338b59fdd16b4467695ff756/transformed/play-services-auth-api-phone-18.0.2/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.gms/play-services-auth-api-phone/18.0.2/4cd7032a9749ceb569c55b38440e9b12d7c08f8f/play-services-auth-api-phone-18.0.2-javadoc.jar!/" />
+      <root url="jar://$APPLICATION_HOME_DIR$/jbr/Contents/Home/caches/modules-2/files-2.1/com.google.android.gms/play-services-auth-api-phone/18.0.2/4cd7032a9749ceb569c55b38440e9b12d7c08f8f/play-services-auth-api-phone-18.0.2-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES />
   </library>

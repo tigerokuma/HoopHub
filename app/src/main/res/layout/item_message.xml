@@ -1,0 +1,28 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- Message Text -->
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/msg"
+        android:padding="8dp"
+        android:text="Sample Message"
+        android:textSize="14sp"
+        android:textColor="@color/text_icon_dark" />
+
+    <!-- Timestamp -->
+    <TextView
+        android:id="@+id/tvTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="10:00 AM"
+        android:textSize="12sp"
+        android:textColor="#6D0000" />
+</LinearLayout>

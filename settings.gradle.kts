@@ -10,12 +10,13 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS) // Avoid conflicts
     repositories {
-        google()
-        mavenCentral()
+        google() // Ensure the 'Google' repository is declared here
+        mavenCentral() // Ensure 'Maven Central' is declared here
     }
 }
 

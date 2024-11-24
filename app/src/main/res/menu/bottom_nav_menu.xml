@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/playersFragment"
+        android:icon="@drawable/players_icon"
+        android:title="Players"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/mapFragment"
+        android:icon="@drawable/courts_icon"
+        android:title="Courts"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/inboxFragment"
+        android:icon="@drawable/inbox_icon"
+        android:title="Inbox"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/bookingFragment"
+        android:icon="@drawable/bookings_icon"
+        android:title="Booking"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/profile_icon"
+        android:title="Profile"
+        app:showAsAction="ifRoom" />
+</menu>
