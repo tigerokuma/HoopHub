@@ -45,6 +45,12 @@ class GameViewModel : ViewModel() {
         }
     }
 
+    fun createInvite(game: Game, onComplete: (Boolean) -> Unit) {
+        repository.createInvite(game){ success ->
+            onComplete(success)
+        }
+    }
+
     private fun handleGamesCallback(gameList: List<Game>?, errorMsg: String?) {
         if (gameList != null) {
             _games.value = gameList

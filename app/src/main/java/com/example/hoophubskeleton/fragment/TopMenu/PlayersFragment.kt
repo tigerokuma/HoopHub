@@ -15,10 +15,14 @@ import com.example.hoophubskeleton.adapter.PlayerCardAdapter
 import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.ViewModel.PlayerViewModel
 import com.example.hoophubskeleton.fragment.InviteBottomSheetFragment
+import com.google.firebase.auth.FirebaseAuth
 
 class PlayersFragment : Fragment() {
-
     private val playerViewModel: PlayerViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,31 +35,47 @@ class PlayersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up RecyclerView
+        // Set up views, click listeners, or bind data here
+
+        // Set up RecyclerView -- this will show our player cards
         val recyclerView = view.findViewById<RecyclerView>(R.id.playerRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        // Adapter for player cards
-        fun onInviteClick() {
-            val inviteBottomSheetFragment = InviteBottomSheetFragment()
-            inviteBottomSheetFragment.show(parentFragmentManager, "InviteBottomSheetFragment")
+        val adapter = PlayerCardAdapter(emptyList()) { playerCard ->
+            val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+            if (currentUserId != null) {
+                val inviteBottomSheetFragment = InviteBottomSheetFragment.newInstance(currentUserId, playerCard.uid)
+                inviteBottomSheetFragment.show(parentFragmentManager, "InviteBottomSheetFragment")
+            } else {
+                Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+            }
         }
-
-        val adapter = PlayerCardAdapter(emptyList(), ::onInviteClick)
         recyclerView.adapter = adapter
 
-        // Observe ViewModel for data
-        playerViewModel.playerCards.observe(viewLifecycleOwner) { playerCards ->
+        playerViewModel.playerCards.observe(viewLifecycleOwner, { playerCards ->
             adapter.updateList(playerCards)
-        }
+        })
 
-        playerViewModel.error.observe(viewLifecycleOwner) { error ->
+        playerViewModel.error.observe(viewLifecycleOwner, { error ->
             error?.let {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
-        }
-    }
+        })
 
+        // Dummy data for PlayerCard items
+//        val samplePlayers = listOf(
+//            PlayerCard("Michael", 5.0, "Wilmington, North Carolina", R.drawable.players_icon, "Competitive"),
+//            PlayerCard("Larry", 4.2, "French Lick, Indiana", R.drawable.players_icon, "Casual"),
+//            PlayerCard("Russell", 1.0, "Long Beach, California", R.drawable.players_icon, "Beginner" )
+//        )
+//
+//        // Initialize adapter using sample list and set it on RecyclerView
+//        val adapter = PlayerCardAdapter(samplePlayers)
+//        recyclerView.adapter = adapter
+//    }
+
+
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         // Clean up resources related to views if necessary
