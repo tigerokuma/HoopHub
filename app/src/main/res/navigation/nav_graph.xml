@@ -4,20 +4,84 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
+    <!-- Login Fragment -->
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.hoophubskeleton.fragment.LoginFragment"
-        android:label="LoginFragment" >
+        android:name="com.example.hoophubskeleton.fragment.Auth.LoginFragment"
+        android:label="LoginFragment">
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_playersFragment"
+            app:destination="@id/playersFragment" />
     </fragment>
+
+    <!-- Sign-Up Fragment -->
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.hoophubskeleton.fragment.SignUpFragment"
-        android:label="SignUpFragment" >
+        android:name="com.example.hoophubskeleton.fragment.Auth.SignUpFragment"
+        android:label="SignUpFragment">
         <action
             android:id="@+id/action_signUpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+
+    <!-- Players Fragment -->
+    <fragment
+        android:id="@+id/playersFragment"
+        android:name="com.example.hoophubskeleton.fragment.TopMenu.PlayersFragment"
+        android:label="PlayersFragment">
+        <!-- Add actions for navigation -->
+        <action
+            android:id="@+id/action_playersFragment_to_bookingsFragment"
+            app:destination="@id/bookingFragment" />
+        <action
+            android:id="@+id/action_playersFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_playersFragment_to_MapFragment"
+            app:destination="@id/mapFragment" />
+
+    </fragment>
+
+    <!-- Bookings Fragment -->
+    <fragment
+        android:id="@+id/bookingFragment"
+        android:name="com.example.hoophubskeleton.fragment.BottomMenu.BookingsFragment"
+        android:label="BookingsFragment" />
+
+    <!-- Profile Fragment -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.hoophubskeleton.fragment.TopMenu.ProfileFragment"
+        android:label="ProfileFragment" />
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.hoophubskeleton.fragment.TopMenu.MapFragment"
+        android:label="MapFragment" />
+
+    <!-- Inbox Fragment -->
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.example.hoophubskeleton.fragment.InboxFragment"
+        android:label="InboxFragment">
+        <action
+            android:id="@+id/action_inboxFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+
+    <!-- Chat Fragment -->
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.hoophubskeleton.fragment.ChatFragment"
+        android:label="ChatFragment">
+        <argument
+            android:name="dialogId"
+            app:argType="string" />
+    </fragment>
+
+
+
 </navigation>

@@ -1,3 +1,4 @@
+
 import java.util.Properties
 import java.io.FileInputStream
 
@@ -5,7 +6,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
-
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 // Load local.properties
@@ -40,13 +41,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-
-        // Optionally, if you have specific configurations for other build types
-        debug {
-            // Debug-specific configurations
-        }
-
-        // Remove the 'applicationVariants.all' block
     }
 
     buildFeatures {
@@ -76,10 +70,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("com.google.android.gms:play-services-location:21.0.1")
-    implementation("com.google.androidbrowserhelper:androidbrowserhelper:2.4.0")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
-    implementation(libs.androidx.core)
-    implementation(libs.cronet.embedded)
+    implementation("com.google.androidbrowserhelper:androidbrowserhelper:2.4.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
@@ -97,7 +89,6 @@ dependencies {
 
     // Maps Compose
     implementation("com.google.maps.android:maps-compose:2.11.4")
-    implementation("com.google.android.gms:play-services-maps:18.1.0")
 
     // Accompanist Permissions
     implementation("com.google.accompanist:accompanist-permissions:0.31.5-beta")
@@ -108,14 +99,17 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-database-ktx")
+    implementation("com.google.firebase:firebase-messaging-ktx")
 
-    implementation("io.coil-kt:coil:2.0.0")
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
 
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
-
+    // Coil for image loading
+    implementation("io.coil-kt:coil:2.0.0")
 }

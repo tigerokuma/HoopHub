@@ -1,13 +1,26 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
+    <!-- Base application theme -->
     <style name="Base.Theme.HoopHubSkeleton" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
+        <!-- Customize your light theme here -->
+        <!-- Uncomment and set primary color if needed -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <!-- Application theme -->
     <style name="Theme.HoopHubSkeleton" parent="Base.Theme.HoopHubSkeleton" />
-    // custom orange tint for radiobuttons
+
+    <!-- Custom RadioButton Style -->
     <style name="CustomRadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="buttonTint">@color/highlight</item>
     </style>
+
+
+
+    <!-- Custom Menu Style -->
+    <style name="CustomMenuStyle" parent="Widget.Material3.PopupMenu">
+        <item name="android:popupBackground">@color/highlight</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
 </resources>

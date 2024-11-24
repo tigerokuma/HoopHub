@@ -1,16 +1,16 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.slidingpanelayout:slidingpanelayout:1.2.0@aar" external-system-id="GRADLE">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/8.9/transforms/b6d49b33bb6fb3ac2e33b3937a3a50d7/transformed/slidingpanelayout-1.2.0/annotations.zip!/" />
+      <root url="jar://$APPLICATION_HOME_DIR$/jbr/Contents/Home/caches/8.9/transforms/1b065067bf2e5b773c336c181ec3bc55/transformed/slidingpanelayout-1.2.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/b6d49b33bb6fb3ac2e33b3937a3a50d7/transformed/slidingpanelayout-1.2.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/8.9/transforms/b6d49b33bb6fb3ac2e33b3937a3a50d7/transformed/slidingpanelayout-1.2.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/b6d49b33bb6fb3ac2e33b3937a3a50d7/transformed/slidingpanelayout-1.2.0/res" />
+      <root url="file://$APPLICATION_HOME_DIR$/jbr/Contents/Home/caches/8.9/transforms/1b065067bf2e5b773c336c181ec3bc55/transformed/slidingpanelayout-1.2.0/AndroidManifest.xml" />
+      <root url="jar://$APPLICATION_HOME_DIR$/jbr/Contents/Home/caches/8.9/transforms/1b065067bf2e5b773c336c181ec3bc55/transformed/slidingpanelayout-1.2.0/jars/classes.jar!/" />
+      <root url="file://$APPLICATION_HOME_DIR$/jbr/Contents/Home/caches/8.9/transforms/1b065067bf2e5b773c336c181ec3bc55/transformed/slidingpanelayout-1.2.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.slidingpanelayout/slidingpanelayout/1.2.0/6cdf3fd538b995c58d602da7114a92fdeeff92ac/slidingpanelayout-1.2.0-sources.jar!/" />
+      <root url="jar://$APPLICATION_HOME_DIR$/jbr/Contents/Home/caches/modules-2/files-2.1/androidx.slidingpanelayout/slidingpanelayout/1.2.0/6cdf3fd538b995c58d602da7114a92fdeeff92ac/slidingpanelayout-1.2.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

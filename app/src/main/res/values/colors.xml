@@ -7,4 +7,7 @@
     <color name="button">#403D39</color>
     <color name="unimplemented">#acacac</color>
     <color name="app_background">#FFFCF2</color>
+    <color name="msg">#EBA286</color>
+
+
 </resources>
