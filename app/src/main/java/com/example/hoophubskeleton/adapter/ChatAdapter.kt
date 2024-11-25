@@ -8,6 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.model.Message
 
+import com.google.firebase.Timestamp
+import java.text.SimpleDateFormat
+import java.util.Locale
+
 class ChatAdapter(private val messages: List<Message>, private val currentUserId: String) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -49,17 +53,32 @@ class ChatAdapter(private val messages: List<Message>, private val currentUserId
 
         fun bind(message: Message) {
             messageText.text = message.content
-            timestampText.text = message.timestamp.toString()
+            timestampText.text = formatTimestamp(message.timestamp)
+        }
+
+        // Utility function to format the Firebase Timestamp
+        private fun formatTimestamp(timestamp: Timestamp): String {
+            val date = timestamp.toDate()
+            val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+            return formatter.format(date)
         }
     }
-
+    //DxBY34ppPhUfgc3eqOd72cyo8pi1
     class ReceivedMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val messageText: TextView = itemView.findViewById(R.id.tvMessageReceived)
         private val timestampText: TextView = itemView.findViewById(R.id.tvTimestampReceived)
 
         fun bind(message: Message) {
             messageText.text = message.content
-            timestampText.text = message.timestamp.toString()
+            timestampText.text = formatTimestamp(message.timestamp)
+        }
+
+        // Utility function to format the Firebase Timestamp
+        private fun formatTimestamp(timestamp: Timestamp): String {
+            val date = timestamp.toDate()
+            val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+            return formatter.format(date)
         }
     }
+
 }
