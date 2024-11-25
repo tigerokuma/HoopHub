@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.hoophubskeleton.model.PlayerCard
 import com.example.hoophubskeleton.R
 
@@ -15,13 +16,12 @@ import com.example.hoophubskeleton.R
 
 class PlayerCardAdapter(
     private var playerList: List<PlayerCard>,
-    private val onInviteClick: () -> Unit
+    private val onInviteClick: (PlayerCard) -> Unit
     ) : RecyclerView.Adapter<PlayerCardAdapter.PlayerViewHolder>() {
 
     inner class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val playerImage = itemView.findViewById<ImageView>(R.id.playerImage)
         val playerName = itemView.findViewById<TextView>(R.id.playerName)
-        val playerRating = itemView.findViewById<TextView>(R.id.playerRating)
         val playerLocation = itemView.findViewById<TextView>(R.id.playerLocation)
         val playerCompetitionLevel = itemView.findViewById<TextView>(R.id.playerCompetitionLevel)
         val inviteButton = itemView.findViewById<Button>(R.id.inviteButton)
@@ -42,13 +42,18 @@ class PlayerCardAdapter(
 
         // Now use that playerCard to set the information in the ViewHolder
         holder.playerName.text = playerCard.name
-        holder.playerRating.text = "${playerCard.rating}"
         holder.playerLocation.text = playerCard.location
         holder.playerCompetitionLevel.text = playerCard.competitionLevel
-        // ToDo: set the image using URL
+
+        // Load image using Coil
+        if(playerCard.profilePicUrl.isNullOrBlank()) {
+            holder.playerImage.setImageResource(R.drawable.default_profile_pic)
+        } else {
+            holder.playerImage.load(playerCard.profilePicUrl)
+        }
 
         holder.inviteButton.setOnClickListener{
-            onInviteClick()
+            onInviteClick(playerCard)
         }
     }
 

@@ -17,5 +17,3 @@ class PlayersRepository(private val firestore: FirebaseFirestore) {
             }
     }
 }
-
-// Jeffrey

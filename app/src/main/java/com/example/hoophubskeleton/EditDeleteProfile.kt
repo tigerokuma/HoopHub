@@ -42,6 +42,9 @@ class EditDeleteProfile : AppCompatActivity() {
         //authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
 
         //loadPassedUserData()
+        authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
+
+        loadPassedUserData()
 
 
         cancelButtton.setOnClickListener {
@@ -174,23 +177,6 @@ class EditDeleteProfile : AppCompatActivity() {
             Toast.makeText(this, "User not logged in.", Toast.LENGTH_SHORT).show()
         }
     }
-
-
-    private fun updateUserPassword(newPassword: String) {
-        // used to update password
-        val user = FirebaseAuth.getInstance().currentUser
-
-        user?.updatePassword(newPassword)?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Log.d("EditDeleteProfile", "User password updated successfully.")
-                Toast.makeText(this, "Password updated successfully.", Toast.LENGTH_SHORT).show()
-            } else {
-                Log.e("EditDeleteProfile", "Password update failed: ${task.exception?.message}")
-                Toast.makeText(this, "Failed to update password.", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
 
 }
 

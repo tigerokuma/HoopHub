@@ -10,6 +10,7 @@
         <item name="colorSurface">@color/button</item>
         <item name="android:textColor">@color/text_icon_dark</item>
         <item name="android:navigationBarColor">@color/navbar_day</item>
+
     </style>
 
     <!-- Application theme -->
@@ -32,6 +33,7 @@
         <item name="itemTextColor">@color/text_icon_dark</item>
         <item name="itemRippleColor">@color/highlight</item>
     </style>
+
 
     <!-- Custom Menu Style -->
     <style name="CustomMenuStyle" parent="Widget.Material3.PopupMenu">

@@ -27,5 +27,6 @@
         <item name="itemIconTint">@color/night_text_icon</item>
         <item name="itemTextColor">@color/night_text_icon</item>
         <item name="itemRippleColor">@color/highlight</item>
+
     </style>
 </resources>
