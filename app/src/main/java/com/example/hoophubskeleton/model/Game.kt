@@ -11,7 +11,7 @@ class Game(
     var sentTo: String = "",
     var gameDateTime: Timestamp,
     var inviteAccepted: Boolean= false,
-    var location: GeoPoint = GeoPoint(0.0, 0.0), // latLng?
+    var location: GeoPoint = GeoPoint(0.0, 0.0),
     var timestamp: Timestamp = Timestamp.now() // when invite created
 ) {
 }

@@ -34,14 +34,15 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/playerRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rating: 4.5"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"
-                android:textColor="@android:color/darker_gray" />
+<!--            removed rating. maybe bring it back later if we have time to implement logic-->
+<!--            <TextView-->
+<!--                android:id="@+id/playerRating"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Rating: 4.5"-->
+<!--                android:textSize="14sp"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:textColor="@android:color/darker_gray" />-->
 
             <TextView
                 android:id="@+id/playerLocation"

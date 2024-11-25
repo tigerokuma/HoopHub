@@ -5,8 +5,9 @@ package com.example.hoophubskeleton.model
 data class PlayerCard(
     var uid: String,
     var name: String,
-    var rating: Double,
+//    var rating: Double,
     var location: String, // maybe change later
     var imageId: String?,
-    var competitionLevel: String
+    var competitionLevel: String,
+    var profilePicUrl: String?
 )
