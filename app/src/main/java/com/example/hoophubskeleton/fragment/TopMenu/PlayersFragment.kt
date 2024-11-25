@@ -62,19 +62,6 @@ class PlayersFragment : Fragment() {
             }
         })
 
-        // Dummy data for PlayerCard items
-//        val samplePlayers = listOf(
-//            PlayerCard("Michael", 5.0, "Wilmington, North Carolina", R.drawable.players_icon, "Competitive"),
-//            PlayerCard("Larry", 4.2, "French Lick, Indiana", R.drawable.players_icon, "Casual"),
-//            PlayerCard("Russell", 1.0, "Long Beach, California", R.drawable.players_icon, "Beginner" )
-//        )
-//
-//        // Initialize adapter using sample list and set it on RecyclerView
-//        val adapter = PlayerCardAdapter(samplePlayers)
-//        recyclerView.adapter = adapter
-//    }
-
-
     }
     override fun onDestroyView() {
         super.onDestroyView()

@@ -24,10 +24,10 @@ class PlayerViewModel : ViewModel() {
             PlayerCard(
                 uid = user.uid,
                 name = user.name,
-                rating = 0.0, // change later?
                 location = user.location,
                 imageId = user.profilePicUrl,
-                competitionLevel = user.competitionLevel
+                competitionLevel = user.competitionLevel,
+                profilePicUrl = user.profilePicUrl
             )
         } ?: emptyList()
     }
