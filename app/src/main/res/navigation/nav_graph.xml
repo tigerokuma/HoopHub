@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <!-- Login Fragment -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.hoophubskeleton.fragment.Auth.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_playersFragment"
+            app:destination="@id/playersFragment" />
+    </fragment>
+
+    <!-- Sign-Up Fragment -->
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.hoophubskeleton.fragment.Auth.SignUpFragment"
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_signup">
+        <action
+            android:id="@+id/action_signUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <!-- Players Fragment -->
+    <fragment
+        android:id="@+id/playersFragment"
+        android:name="com.example.hoophubskeleton.fragment.TopMenu.PlayersFragment"
+        android:label="PlayersFragment"
+        tools:layout="@layout/player_fragment">
+        <!-- Add actions for navigation -->
+        <action
+            android:id="@+id/action_playersFragment_to_bookingsFragment"
+            app:destination="@id/bookingFragment" />
+        <action
+            android:id="@+id/action_playersFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_playersFragment_to_MapFragment"
+            app:destination="@id/mapFragment" />
+
+    </fragment>
+
+    <!-- Bookings Fragment -->
+    <fragment
+        android:id="@+id/bookingFragment"
+        android:name="com.example.hoophubskeleton.fragment.BottomMenu.BookingsFragment"
+        android:label="BookingsFragment"
+        tools:layout="@layout/fragment_bookings"/>
+
+    <!-- Profile Fragment -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.hoophubskeleton.fragment.TopMenu.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/profile_fragment">
+
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+
+    <!-- Edit/Delete Profile Fragment -->
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.hoophubskeleton.fragment.TopMenu.EditProfileFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.hoophubskeleton.fragment.TopMenu.MapFragment"
+        android:label="MapFragment"/>
+
+    <!-- Inbox Fragment -->
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.example.hoophubskeleton.fragment.InboxFragment"
+        android:label="InboxFragment"
+        tools:layout="@layout/fragment_inbox">
+        <action
+            android:id="@+id/action_inboxFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+
+    <!-- Chat Fragment -->
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.hoophubskeleton.fragment.ChatFragment"
+        android:label="ChatFragment"
+        tools:layout="@layout/fragment_chat">
+        <argument
+            android:name="dialogId"
+            app:argType="string" />
+    </fragment>
+
+
+</navigation>

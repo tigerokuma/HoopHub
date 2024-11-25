@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="text_icon_dark">#252422</color>
+    <color name="highlight">#EB5E28</color>
+    <color name="button">#403D39</color>
+    <color name="unimplemented">#acacac</color>
+    <color name="app_background">#FFFCF2</color>
+    <color name="msg">#EBA286</color>
+    <color name="navbar_day">#eee5e7</color>
+
+    <color name="night_text_icon">#FFFCF2</color>
+    <color name="night_highlight">#EB5E28</color>
+    <color name="night_button">#403D39</color>
+    <color name="night_unimplemented">#acacac</color>
+    <color name="night_app_background">#403D39</color>
+    <color name="night_msg">#EBA286</color>
+
+
+</resources>

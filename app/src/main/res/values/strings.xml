@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">HoopHub</string>
+    <string name="dateTimeLoc">Select Date, Time, and Location</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_time">Select Time</string>
+    <string name="enter_location">Enter location</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string-array name="top_menu_items">
+        <item>Players</item>
+        <item>Courts</item>
+        <item>Profile</item>
+    </string-array>
+    <string-array name="bottom_menu_items">
+        <item>Inbox</item>
+        <item>Bookings</item>
+        <item>Saved</item>
+        <item>Explore</item>
+        <item>Settings</item>
+    </string-array>
+</resources>
