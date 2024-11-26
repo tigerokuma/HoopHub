@@ -128,7 +128,8 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
                 createdBy = currentUserId,
                 sentTo = invitedUserId,
                 gameDateTime = gameDateTime,
-                location = geoPoint
+                location = geoPoint,
+                timestamp = Timestamp.now()
             )
 
             gameViewModel.createInvite(game) { success ->

@@ -48,7 +48,7 @@
     <!-- Bookings Fragment -->
     <fragment
         android:id="@+id/bookingFragment"
-        android:name="com.example.hoophubskeleton.fragment.BottomMenu.BookingsFragment"
+        android:name="com.example.hoophubskeleton.fragment.BottomMenu.BookingFragment"
         android:label="BookingsFragment" />
 
     <!-- Profile Fragment -->

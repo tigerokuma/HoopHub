@@ -6,12 +6,21 @@ import com.google.firebase.firestore.GeoPoint
 // This represents a game stored in Firebase. These game objects are created when one
 // player sends another player an invite to a game.
 
-class Game(
-    var createdBy: String = "",
-    var sentTo: String = "",
-    var gameDateTime: Timestamp,
-    var inviteAccepted: Boolean= false,
-    var location: GeoPoint = GeoPoint(0.0, 0.0),
-    var timestamp: Timestamp = Timestamp.now() // when invite created
-) {
+
+enum class GameStatus {
+    PENDING,
+    ACCEPTED,
+    CANCELLED,
+    DECLINED
 }
+
+
+data class Game(
+    val id: String = "",
+    val createdBy: String = "",
+    val sentTo: String = "",
+    val gameDateTime: Timestamp = Timestamp.now(),
+    val location: GeoPoint = GeoPoint(0.0, 0.0),
+    var status: GameStatus = GameStatus.PENDING,
+    var timestamp: Timestamp = Timestamp.now()
+)
