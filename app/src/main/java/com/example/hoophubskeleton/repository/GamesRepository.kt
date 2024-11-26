@@ -1,75 +1,63 @@
 package com.example.hoophubskeleton.repository
 
+import android.location.Location
 import com.example.hoophubskeleton.model.Game
-import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.type.DateTime
+import com.google.firebase.firestore.GeoPoint
 
-class GamesRepository(private val firestore: FirebaseFirestore) {
+class GamesRepository {
 
-    // Return a list of all games.
-    fun getAllGames(callback: (List<Game>?, String?) -> Unit) {
-        firestore.collection("games").get()
-            .addOnSuccessListener { result ->
-                val games = result.toObjects(Game::class.java)
-                callback(games, null)
-            }
-            .addOnFailureListener{ e ->
-                callback(null, e.message)
-            }
-    }
+    private val firestore = FirebaseFirestore.getInstance()
 
-    // Return a list of games initiated by a player
-    fun getGamesStartedByUser(userId : String, callback: (List<Game>?, String?) -> Unit) {
+    fun getGamesNearLocation(
+        latitude: Double,
+        longitude: Double,
+        radiusKm: Double,
+        callback: (List<Game>) -> Unit
+    ) {
         firestore.collection("games")
-            .whereEqualTo("createdBy", userId)
             .get()
-            .addOnSuccessListener { result ->
-                val games = result.toObjects(Game::class.java)
-                callback(games, null)
-            }
-            .addOnFailureListener { e ->
-                callback(null, e.localizedMessage ?: "Unknown error")
-            }
-    }
-
-    // Return a list of games a player was invited to
-    fun getGamesUserInvitedTo(userId: String, callback: (List<Game>?, String?) -> Unit) {
-        firestore.collection("games")
-            .whereEqualTo("sentTo", userId)
-            .get()
-            .addOnSuccessListener { result ->
-                val games = result.toObjects(Game::class.java)
-                callback(games, null)
-            }
-            .addOnFailureListener { e ->
-                callback(null, e.localizedMessage ?: "Unknown error")
-            }
-    }
-
-    // Return a list of all games that a player is involved in
-    fun getAllGamesForUser(userId: String, callback: (List<Game>?, String?) -> Unit) {
-        getGamesStartedByUser(userId) { createdGames, createdError ->
-            if (createdGames != null) {
-                getGamesUserInvitedTo(userId) { invitedGames, invitedError ->
-                    if(invitedGames != null) {
-                        val allGames = createdGames + invitedGames
-                        callback(allGames, null)
-                    } else {
-                        callback(null, invitedError)
+            .addOnSuccessListener { snapshot ->
+                val games = snapshot.toObjects(Game::class.java)
+                val nearbyGames = games.filter { game ->
+                    val gameLocation = game.location
+                    val userLocation = Location("").apply {
+                        setLatitude(latitude)
+                        setLongitude(longitude)
                     }
+                    val gameLocationLatLng = Location("").apply {
+                        setLatitude(gameLocation.latitude)
+                        setLongitude(gameLocation.longitude)
+                    }
+                    gameLocationLatLng.distanceTo(userLocation) <= (radiusKm * 1000)
                 }
-            } else {
-                callback(null, createdError)
+                callback(nearbyGames)
             }
-        }
+            .addOnFailureListener { e ->
+                e.printStackTrace()
+                callback(emptyList()) // Return an empty list in case of error
+            }
     }
 
-    // Create an invite
-    fun createInvite(game: Game, callback: (Boolean) -> Unit) {
-        firestore.collection("games")
-            .add(game)
-            .addOnSuccessListener { callback(true) }
-            .addOnFailureListener { callback(false) }
+
+
+    fun getCurrentUserLocation(callback: (Double, Double) -> Unit) {
+        // Simulate fetching user's current location
+        // Replace this with actual location data
+        callback(37.7749, -122.4194) // San Francisco, for example
     }
+
+    fun addUserToGameParticipants(gameId: String, userId: String, onComplete: () -> Unit) {
+        val gameRef = firestore.collection("games").document(gameId)
+        gameRef.update("participants", FieldValue.arrayUnion(userId))
+            .addOnSuccessListener {
+                onComplete() // Notify ViewModel that the operation succeeded
+            }
+            .addOnFailureListener { e ->
+                e.printStackTrace()
+                //  Handle error scenarios
+            }
+    }
+
 }

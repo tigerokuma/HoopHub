@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
@@ -13,8 +13,8 @@
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_playersFragment"
-            app:destination="@id/playersFragment" />
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 
     <!-- Sign-Up Fragment -->
@@ -27,31 +27,19 @@
             app:destination="@id/loginFragment" />
     </fragment>
 
-    <!-- Players Fragment -->
+    <!-- Main Fragment (Hosts Players and Games Tabs) -->
     <fragment
-        android:id="@+id/playersFragment"
-        android:name="com.example.hoophubskeleton.fragment.TopMenu.PlayersFragment"
-        android:label="PlayersFragment">
-        <!-- Add actions for navigation -->
-        <action
-            android:id="@+id/action_playersFragment_to_bookingsFragment"
-            app:destination="@id/bookingFragment" />
-        <action
-            android:id="@+id/action_playersFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
-            android:id="@+id/action_playersFragment_to_MapFragment"
-            app:destination="@id/mapFragment" />
+        android:id="@+id/mainFragment"
+        android:name="com.example.hoophubskeleton.fragment.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main" />
 
-    </fragment>
-
-    <!-- Bookings Fragment -->
+    <!-- Other Fragments for Bottom Navigation -->
     <fragment
         android:id="@+id/bookingFragment"
         android:name="com.example.hoophubskeleton.fragment.BottomMenu.BookingsFragment"
         android:label="BookingsFragment" />
 
-    <!-- Profile Fragment -->
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.hoophubskeleton.fragment.TopMenu.ProfileFragment"
@@ -62,7 +50,6 @@
         android:name="com.example.hoophubskeleton.fragment.TopMenu.MapFragment"
         android:label="MapFragment" />
 
-    <!-- Inbox Fragment -->
     <fragment
         android:id="@+id/inboxFragment"
         android:name="com.example.hoophubskeleton.fragment.InboxFragment"
@@ -72,7 +59,6 @@
             app:destination="@id/chatFragment" />
     </fragment>
 
-    <!-- Chat Fragment -->
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.hoophubskeleton.fragment.ChatFragment"
@@ -81,7 +67,4 @@
             android:name="dialogId"
             app:argType="string" />
     </fragment>
-
-
-
 </navigation>

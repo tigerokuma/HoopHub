@@ -50,8 +50,8 @@ class LoginFragment : Fragment() {
         // Observe authentication status from ViewModel
         authViewModel.authStatus.observe(viewLifecycleOwner) { (success, message) ->
             if (success) {
-                // Navigate to PlayersFragment within MainActivity
-                findNavController().navigate(R.id.action_loginFragment_to_playersFragment)
+                // Navigate to MainFragment (hosting Players and Games tabs)
+                findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
             } else {
                 Toast.makeText(requireContext(), "Login Failed: $message", Toast.LENGTH_SHORT).show()
             }
