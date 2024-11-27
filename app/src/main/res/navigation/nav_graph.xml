@@ -27,9 +27,6 @@
         <action
             android:id="@+id/action_signUpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_signUpFragment_to_playersFragment"
-            app:destination="@id/playersFragment" />
     </fragment>
 
     <!-- Main Fragment (Hosts Players and Games Tabs) -->
@@ -45,7 +42,7 @@
         android:id="@+id/bookingFragment"
         android:name="com.example.hoophubskeleton.fragment.BottomMenu.BookingsFragment"
         android:label="BookingsFragment"
-        tools:layout="@layout/fragment_bookings" />
+        tools:layout="@layout/fragment_bookings"/>
 
     <fragment
         android:id="@+id/profileFragment"
@@ -68,7 +65,7 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.hoophubskeleton.fragment.TopMenu.MapFragment"
-        android:label="MapFragment" />
+        android:label="MapFragment"/>
 
     <fragment
         android:id="@+id/inboxFragment"
