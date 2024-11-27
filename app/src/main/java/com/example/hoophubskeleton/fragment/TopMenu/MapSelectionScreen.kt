@@ -55,35 +55,43 @@ fun MapWithMarkersForSelection(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Google Map View
-        GoogleMap(
-            modifier = Modifier.fillMaxSize(),
-            cameraPositionState = cameraPositionState,
-            uiSettings = MapUiSettings(
-                myLocationButtonEnabled = true
-            ),
-            properties = MapProperties(
-                isMyLocationEnabled = true
-            )
+        // Card around the map for styling
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp, start = 16.dp, end = 16.dp) // Add spacing around the map
+                .height(400.dp), // Adjust height as needed
+            shape = MaterialTheme.shapes.medium // Rounded corners
         ) {
-            userLocation.value?.let { location ->
-                Marker(
-                    state = MarkerState(position = location),
-                    title = "You are here",
-                    snippet = "Your location"
+            GoogleMap(
+                modifier = Modifier.fillMaxSize(),
+                cameraPositionState = cameraPositionState,
+                uiSettings = MapUiSettings(
+                    myLocationButtonEnabled = true
+                ),
+                properties = MapProperties(
+                    isMyLocationEnabled = true
                 )
-            }
+            ) {
+                userLocation.value?.let { location ->
+                    Marker(
+                        state = MarkerState(position = location),
+                        title = "You are here",
+                        snippet = "Your location"
+                    )
+                }
 
-            courts.forEach { court ->
-                Marker(
-                    state = MarkerState(position = LatLng(court.latitude, court.longitude)),
-                    title = court.name,
-                    snippet = court.address,
-                    onClick = {
-                        onCourtSelected(court)
-                        true
-                    }
-                )
+                courts.forEach { court ->
+                    Marker(
+                        state = MarkerState(position = LatLng(court.latitude, court.longitude)),
+                        title = court.name,
+                        snippet = court.address,
+                        onClick = {
+                            onCourtSelected(court)
+                            true
+                        }
+                    )
+                }
             }
         }
 
