@@ -112,4 +112,8 @@ dependencies {
 
     // Coil for image loading
     implementation("io.coil-kt:coil:2.0.0")
+
+    // UI
+    implementation ("com.google.android.material:material:1.9.0")
+
 }

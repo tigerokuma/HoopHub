@@ -10,12 +10,18 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.data.BasketballCourt
 import com.example.hoophubskeleton.fetchNearbyBasketballCourts
 import com.google.accompanist.permissions.*
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.compose.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import androidx.compose.foundation.clickable
+import androidx.compose.ui.res.colorResource
+import com.google.android.gms.maps.CameraUpdateFactory
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -47,14 +53,27 @@ fun MapWithCourtsScreen() {
 }
 
 @Composable
-fun MapAndCourtsView() {
+fun MapAndCourtsView(onCourtSelected: (BasketballCourt) -> Unit = {}) {
     val context = LocalContext.current
     val userLocation = remember { mutableStateOf<LatLng?>(null) }
     val courts = remember { mutableStateListOf<BasketballCourt>() }
+    val selectedCourt = remember { mutableStateOf<BasketballCourt?>(null) } // Store selected court
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(
             LatLng(37.7749, -122.4194), 12f // Default to SF
         )
+    }
+
+    // Animate camera when a court is selected
+    LaunchedEffect(selectedCourt.value) {
+        selectedCourt.value?.let { court ->
+            cameraPositionState.animate(
+                update = CameraUpdateFactory.newLatLngZoom(
+                    LatLng(court.latitude, court.longitude),
+                    14f // Zoom level
+                )
+            )
+        }
     }
 
     LaunchedEffect(Unit) {
@@ -66,9 +85,9 @@ fun MapAndCourtsView() {
 
             if (location != null) {
                 fetchNearbyBasketballCourts(
-                    context = context, // Pass context to fetch the key dynamically
+                    context = context,
                     userLocation = location,
-                    radius = 5000, // 5 km radius
+                    radius = 5000,
                     onSuccess = { courtsList ->
                         courts.clear()
                         courts.addAll(courtsList.sortedBy { calculateDistance(location, LatLng(it.latitude, it.longitude)) })
@@ -110,7 +129,8 @@ fun MapAndCourtsView() {
                     Marker(
                         state = MarkerState(position = LatLng(court.latitude, court.longitude)),
                         title = court.name,
-                        snippet = court.address
+                        snippet = court.address,
+                        icon = getScaledBitmapDescriptor(context, R.drawable.pin_basketball, 100, 100) // Larger marker size
                     )
                 }
             }
@@ -119,6 +139,9 @@ fun MapAndCourtsView() {
         // Courts List Section
         CourtList(
             courts = courts.toList(),
+            onCourtClicked = { court ->
+                selectedCourt.value = court // Update selected court
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(1f) // List occupies 34% of the height
@@ -126,38 +149,81 @@ fun MapAndCourtsView() {
     }
 }
 
+
+fun getScaledBitmapDescriptor(context: Context, resId: Int, width: Int = 150, height: Int = 150): BitmapDescriptor {
+    val bitmap = BitmapFactory.decodeResource(context.resources, resId)
+    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false) // Scale the bitmap
+    return BitmapDescriptorFactory.fromBitmap(scaledBitmap)
+}
+
 @Composable
-fun CourtList(courts: List<BasketballCourt>, modifier: Modifier = Modifier) {
+fun CourtList(
+    courts: List<BasketballCourt>,
+    onCourtClicked: (BasketballCourt) -> Unit, // Regular lambda
+    modifier: Modifier = Modifier
+) {
     LazyColumn(
         modifier = modifier
             .padding(8.dp)
     ) {
         items(courts) { court ->
-            CourtCard(court)
+            CourtCard(court = court, onClick = { onCourtClicked(court) }) // Pass the lambda here
         }
     }
 }
 
 @Composable
-fun CourtCard(court: BasketballCourt) {
+fun CourtCard(
+    court: BasketballCourt,
+    onClick: () -> Unit // Regular lambda
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 8.dp, horizontal = 8.dp) // Add horizontal padding for better spacing
+            .clickable { onClick() }, // Trigger navigation on click
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp), // Subtle elevation
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface // Card background color
+        ),
+        shape = MaterialTheme.shapes.medium // Rounded corners
     ) {
         Row(
             modifier = Modifier
-                .padding(8.dp)
+                .padding(16.dp) // Add padding inside the card
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
-                Text(text = court.name, style = MaterialTheme.typography.titleMedium)
-                Text(text = court.address, style = MaterialTheme.typography.bodyMedium)
+                // Court Name
+                Text(
+                    text = court.name,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = colorResource(id = R.color.highlight) // Use the orange highlight color
+                )
+                // Court Address
+                Text(
+                    text = court.address,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f) // Muted color for the address
+                )
             }
-            Column(horizontalAlignment = Alignment.End) {
-                Text(text = "${court.distance} km", style = MaterialTheme.typography.bodySmall)
-                Text(text = "⭐ ${court.rating}", style = MaterialTheme.typography.bodySmall)
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                // Court Distance
+                Text(
+                    text = "${court.distance} km",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = colorResource(id = R.color.highlight) // Use the orange highlight color
+                )
+                // Court Rating
+                Text(
+                    text = "⭐ ${court.rating}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.tertiary
+                )
             }
         }
     }

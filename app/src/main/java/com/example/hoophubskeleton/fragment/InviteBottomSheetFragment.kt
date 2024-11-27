@@ -22,6 +22,11 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
+import androidx.compose.ui.platform.ComposeView
+import androidx.core.view.isVisible
+import com.example.hoophubskeleton.data.BasketballCourt
+import com.example.hoophubskeleton.fragment.TopMenu.MapPopup
+import com.example.hoophubskeleton.fragment.TopMenu.MapWithMarkersForSelection
 
 class InviteBottomSheetFragment : BottomSheetDialogFragment() {
 
@@ -33,6 +38,9 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
     private val gameViewModel: GameViewModel by viewModels()
     private lateinit var currentUserId: String
     private lateinit var invitedUserId: String
+
+    private lateinit var selectOnMapButton: Button
+    private lateinit var mapPopupContainer: ViewGroup
 
 
     override fun onCreateView(
@@ -46,40 +54,34 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize views
         selectDateButton = view.findViewById(R.id.selectDateButton)
         selectTimeButton = view.findViewById(R.id.selectTimeButton)
         locationEditText = view.findViewById(R.id.locationEditText)
         confirmButton = view.findViewById(R.id.inviteConfirmButton)
         cancelButton = view.findViewById(R.id.inviteCancelButton)
+        selectOnMapButton = view.findViewById(R.id.selectOnMapButton)
+        mapPopupContainer = view.findViewById(R.id.map_popup_container)
 
+        // Retrieve user IDs from arguments
         val currentId = arguments?.getString("currentUserId")
         val invitedId = arguments?.getString("invitedUserId")
 
-        // Ensure we have currentUserId and invitedUser
         if (currentId == null || invitedId == null) {
             Toast.makeText(requireContext(), "Error: Missing user data.", Toast.LENGTH_SHORT).show()
-            dismiss() // Close the fragment since this is useless without IDs
+            dismiss()
             return
         }
 
         currentUserId = currentId
         invitedUserId = invitedId
 
-        selectDateButton.setOnClickListener {
-            showDatePickerDialog()
-        }
-
-        selectTimeButton.setOnClickListener {
-            showTimePickerDialog()
-        }
-
-        confirmButton.setOnClickListener {
-           // onConfirmClicked()
-        }
-
-        cancelButton.setOnClickListener {
-            dismiss()
-        }
+        // Set up button listeners
+        selectDateButton.setOnClickListener { showDatePickerDialog() }
+        selectTimeButton.setOnClickListener { showTimePickerDialog() }
+        selectOnMapButton.setOnClickListener { showMapPopup() }
+//        confirmButton.setOnClickListener { onConfirmClicked() }
+        cancelButton.setOnClickListener { dismiss() }
     }
 
     private fun showDatePickerDialog() {
@@ -183,6 +185,40 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
 
         return GeoPoint(latitude, longitude)
     }
+
+
+    private fun showMapPopup() {
+        mapPopupContainer.isVisible = true
+
+        val composeView = ComposeView(requireContext()).apply {
+            setContent {
+                MapWithMarkersForSelection(
+                    onCourtSelected = { court ->
+                        handleCourtSelection(court)
+                    },
+                    onDismiss = {
+                        hideMapPopup()
+                    }
+                )
+            }
+        }
+
+        mapPopupContainer.removeAllViews()
+        mapPopupContainer.addView(composeView)
+    }
+
+
+    private fun hideMapPopup() {
+        mapPopupContainer.isVisible = false // Hide container
+    }
+
+    private fun handleCourtSelection(court: BasketballCourt) {
+        val formattedLocation = "${court.name} (${court.latitude}, ${court.longitude})"
+        locationEditText.setText(formattedLocation) // Show name and coordinates in the EditText
+        hideMapPopup()
+        Toast.makeText(requireContext(), "Selected: ${court.name}", Toast.LENGTH_SHORT).show()
+    }
+
 
 
 }
