@@ -1,11 +1,14 @@
 package com.example.hoophubskeleton
 
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.hoophubskeleton.fragment.MainFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
