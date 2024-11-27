@@ -12,16 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.ViewModel.GameViewModel
 import com.example.hoophubskeleton.ViewModel.PlayerViewModel
-import com.example.hoophubskeleton.adapter.BookingCardAdapter
+//import com.example.hoophubskeleton.adapter.BookingCardAdapter
 import com.example.hoophubskeleton.model.BookingCard
 import com.example.hoophubskeleton.model.CardType
 import com.google.firebase.auth.FirebaseAuth
 import com.example.hoophubskeleton.model.Game
-import com.example.hoophubskeleton.model.GameStatus
+//import com.example.hoophubskeleton.model.GameStatus
 import com.example.hoophubskeleton.model.PlayerCard
 
 class BookingFragment : Fragment() {
-    private val gameViewModel : GameViewModel by viewModels()
+  /*  private val gameViewModel : GameViewModel by viewModels()
     private val playerViewModel : PlayerViewModel by viewModels()
 
     private lateinit var bookingCardAdapter: BookingCardAdapter
@@ -169,6 +169,6 @@ class BookingFragment : Fragment() {
         }
     }
 
-
+    */
 
 }

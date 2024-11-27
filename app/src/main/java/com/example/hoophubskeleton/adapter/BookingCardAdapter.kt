@@ -13,20 +13,20 @@ import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.fragment.BottomMenu.BookingFragment
 import com.example.hoophubskeleton.model.BookingCard
 import com.example.hoophubskeleton.model.CardType
-
+/*
 class BookingCardAdapter(
     private var bookingList: List<BookingCard>,
     private val handleBookingCardClick: (BookingCard, BookingFragment.Action) -> Unit
     ) : RecyclerView.Adapter<BookingCardAdapter.BookingViewHolder>() {
-        inner class BookingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val playerImage: ImageView = itemView.findViewById(R.id.playerImage)
-            val playerName: TextView = itemView.findViewById(R.id.playerName)
-            val competitionLevel: TextView = itemView.findViewById(R.id.playerCompetitionLevel)
-            val location: TextView = itemView.findViewById(R.id.gameLocation)
-            val dateTime: TextView = itemView.findViewById(R.id.gameDateTime)
-            val bookingButton1: Button = itemView.findViewById(R.id.bookingButton1)
-            val bookingButton2: Button = itemView.findViewById(R.id.bookingButton2)
-        }
+    inner class BookingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val playerImage: ImageView = itemView.findViewById(R.id.playerImage)
+        val playerName: TextView = itemView.findViewById(R.id.playerName)
+        val competitionLevel: TextView = itemView.findViewById(R.id.playerCompetitionLevel)
+        val location: TextView = itemView.findViewById(R.id.gameLocation)
+        val dateTime: TextView = itemView.findViewById(R.id.gameDateTime)
+        val bookingButton1: Button = itemView.findViewById(R.id.bookingButton1)
+        val bookingButton2: Button = itemView.findViewById(R.id.bookingButton2)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -47,7 +47,7 @@ class BookingCardAdapter(
         holder.dateTime.text = bookingCard.dateTime
 
         // Load image using Coli
-        if(bookingCard.otherPlayerImageUrl.isNullOrBlank()) {
+        if (bookingCard.otherPlayerImageUrl.isNullOrBlank()) {
             holder.playerImage.setImageResource(R.drawable.default_profile_pic)
         } else {
             holder.playerImage.load(bookingCard.otherPlayerImageUrl)
@@ -62,6 +62,7 @@ class BookingCardAdapter(
                     handleBookingCardClick(bookingCard, BookingFragment.Action.CANCEL_INVITE)
                 }
             }
+
             CardType.PENDING_RECEIVED -> {
                 holder.bookingButton1.text = "Accept"
                 holder.bookingButton2.text = "Decline"
@@ -73,6 +74,7 @@ class BookingCardAdapter(
                     handleBookingCardClick(bookingCard, BookingFragment.Action.DECLINE_INVITE)
                 }
             }
+
             CardType.ACCEPTED -> {
                 holder.bookingButton1.text = "Cancel"
                 holder.bookingButton2.visibility = View.GONE // Hide the second button
@@ -89,5 +91,6 @@ class BookingCardAdapter(
         notifyDataSetChanged()
     }
 
-    }
+}
 
+*/

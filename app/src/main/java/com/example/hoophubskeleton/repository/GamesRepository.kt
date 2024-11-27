@@ -5,7 +5,7 @@ import com.example.hoophubskeleton.model.Game
 
 import com.google.firebase.firestore.FieldValue
 
-import com.example.hoophubskeleton.model.GameStatus
+//import com.example.hoophubskeleton.model.GameStatus
 import com.google.firebase.Timestamp
 
 import com.google.firebase.firestore.FirebaseFirestore
@@ -83,33 +83,33 @@ class GamesRepository {
             }
     }
 
-    fun acceptInvite(gameId: String, callback: (Boolean) -> Unit) {
-        firestore.collection("games").document(gameId)
-            .update("status", GameStatus.ACCEPTED)
-            .addOnSuccessListener { callback(true) }
-            .addOnFailureListener { callback(false) }
-    }
-
-    fun declineInvite(gameId: String, callback: (Boolean) -> Unit) {
-        firestore.collection("games").document(gameId)
-            .update("status", GameStatus.DECLINED)
-            .addOnSuccessListener { callback(true) }
-            .addOnFailureListener {callback(false)}
-    }
-
-    fun cancelInvite(gameId: String, callback: (Boolean) -> Unit) {
-        firestore.collection("games").document(gameId)
-            .update("status", GameStatus.CANCELLED)
-            .addOnSuccessListener { callback(true) }
-            .addOnFailureListener { callback(false) }
-    }
-
-    fun cancelGame(gameId: String, callback: (Boolean) -> Unit) {
-       firestore.collection("games").document(gameId)
-           .update("status", GameStatus.CANCELLED.name)
-           .addOnSuccessListener { callback(true) }
-           .addOnFailureListener { callback(false) }
-    }
+//    fun acceptInvite(gameId: String, callback: (Boolean) -> Unit) {
+//        firestore.collection("games").document(gameId)
+//            .update("status", GameStatus.ACCEPTED)
+//            .addOnSuccessListener { callback(true) }
+//            .addOnFailureListener { callback(false) }
+//    }
+//
+//    fun declineInvite(gameId: String, callback: (Boolean) -> Unit) {
+//        firestore.collection("games").document(gameId)
+//            .update("status", GameStatus.DECLINED)
+//            .addOnSuccessListener { callback(true) }
+//            .addOnFailureListener {callback(false)}
+//    }
+//
+//    fun cancelInvite(gameId: String, callback: (Boolean) -> Unit) {
+//        firestore.collection("games").document(gameId)
+//            .update("status", GameStatus.CANCELLED)
+//            .addOnSuccessListener { callback(true) }
+//            .addOnFailureListener { callback(false) }
+//    }
+//
+//    fun cancelGame(gameId: String, callback: (Boolean) -> Unit) {
+//       firestore.collection("games").document(gameId)
+//           .update("status", GameStatus.CANCELLED.name)
+//           .addOnSuccessListener { callback(true) }
+//           .addOnFailureListener { callback(false) }
+//    }
 
 }
 
