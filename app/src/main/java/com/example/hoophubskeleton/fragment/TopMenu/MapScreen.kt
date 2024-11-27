@@ -154,25 +154,54 @@ fun CourtCard(court: BasketballCourt) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 8.dp, horizontal = 8.dp), // Add horizontal padding for better spacing
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp), // Add subtle elevation
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface // Set card background color
+        ),
+        shape = MaterialTheme.shapes.medium // Apply rounded corners
     ) {
         Row(
             modifier = Modifier
-                .padding(8.dp)
+                .padding(16.dp) // Add padding inside the card
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
-                Text(text = court.name, style = MaterialTheme.typography.titleMedium)
-                Text(text = court.address, style = MaterialTheme.typography.bodyMedium)
+                // Court Name
+                Text(
+                    text = court.name,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary // Use theme primary color
+                )
+                // Court Address
+                Text(
+                    text = court.address,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f) // Slightly muted color
+                )
             }
-            Column(horizontalAlignment = Alignment.End) {
-                Text(text = "${court.distance} km", style = MaterialTheme.typography.bodySmall)
-                Text(text = "⭐ ${court.rating}", style = MaterialTheme.typography.bodySmall)
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                // Court Distance
+                Text(
+                    text = "${court.distance} km",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+                // Court Rating
+                Text(
+                    text = "⭐ ${court.rating}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.tertiary
+                )
             }
         }
     }
 }
+
 
 fun calculateDistance(userLocation: LatLng, courtLocation: LatLng): Float {
     val results = FloatArray(1)
