@@ -26,6 +26,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.isVisible
 import com.example.hoophubskeleton.data.BasketballCourt
 import com.example.hoophubskeleton.fragment.TopMenu.MapPopup
+import com.example.hoophubskeleton.fragment.TopMenu.MapWithMarkersForSelection
 
 class InviteBottomSheetFragment : BottomSheetDialogFragment() {
 
@@ -187,12 +188,11 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
 
 
     private fun showMapPopup() {
-        mapPopupContainer.isVisible = true // Make container visible
+        mapPopupContainer.isVisible = true
 
-        // Add the ComposeView dynamically for MapPopup
         val composeView = ComposeView(requireContext()).apply {
             setContent {
-                MapPopup(
+                MapWithMarkersForSelection(
                     onCourtSelected = { court ->
                         handleCourtSelection(court)
                     },
@@ -203,20 +203,22 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
             }
         }
 
-        // Clear previous views and add ComposeView
         mapPopupContainer.removeAllViews()
         mapPopupContainer.addView(composeView)
     }
+
 
     private fun hideMapPopup() {
         mapPopupContainer.isVisible = false // Hide container
     }
 
     private fun handleCourtSelection(court: BasketballCourt) {
-        locationEditText.setText("${court.latitude},${court.longitude}")
+        val formattedLocation = "${court.name} (${court.latitude}, ${court.longitude})"
+        locationEditText.setText(formattedLocation) // Show name and coordinates in the EditText
         hideMapPopup()
         Toast.makeText(requireContext(), "Selected: ${court.name}", Toast.LENGTH_SHORT).show()
     }
+
 
 
 }

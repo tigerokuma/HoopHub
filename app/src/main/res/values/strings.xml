@@ -6,7 +6,7 @@
     <string name="enter_location">Enter location</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
-    <string name="select_on_map" />
+    <string name="select_on_map">Select Basketball Court</string>
     <string-array name="top_menu_items">
         <item>Players</item>
         <item>Courts</item>
