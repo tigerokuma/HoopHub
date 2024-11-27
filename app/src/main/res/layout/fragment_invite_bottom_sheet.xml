@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Existing Views -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,6 +39,22 @@
         android:hint="@string/enter_location"
         android:layout_marginTop="8dp"/>
 
+    <Button
+        android:id="@+id/selectOnMapButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select_on_map"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/highlight"
+        android:textColor="@color/white"/>
+
+    <!-- Popup Container for Map -->
+    <FrameLayout
+        android:id="@+id/map_popup_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,7 +63,7 @@
 
         <Button
             android:id="@+id/inviteConfirmButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/confirm"
             android:layout_marginTop="16dp"
@@ -55,13 +73,12 @@
 
         <Button
             android:id="@+id/inviteCancelButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/highlight"
-            android:textColor="@color/white"
-            />
-
+            android:textColor="@color/white"/>
     </LinearLayout>
+
 </LinearLayout>

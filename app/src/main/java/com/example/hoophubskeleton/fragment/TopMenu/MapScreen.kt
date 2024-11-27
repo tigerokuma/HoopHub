@@ -47,7 +47,8 @@ fun MapWithCourtsScreen() {
 }
 
 @Composable
-fun MapAndCourtsView() {
+fun MapAndCourtsView(    onCourtSelected: (BasketballCourt) -> Unit = {} // Default empty lambda for optional usage
+) {
     val context = LocalContext.current
     val userLocation = remember { mutableStateOf<LatLng?>(null) }
     val courts = remember { mutableStateListOf<BasketballCourt>() }
