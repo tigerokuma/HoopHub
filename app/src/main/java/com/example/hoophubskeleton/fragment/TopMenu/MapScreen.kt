@@ -10,12 +10,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.data.BasketballCourt
 import com.example.hoophubskeleton.fetchNearbyBasketballCourts
 import com.google.accompanist.permissions.*
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.compose.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -47,8 +50,7 @@ fun MapWithCourtsScreen() {
 }
 
 @Composable
-fun MapAndCourtsView(    onCourtSelected: (BasketballCourt) -> Unit = {} // Default empty lambda for optional usage
-) {
+fun MapAndCourtsView(onCourtSelected: (BasketballCourt) -> Unit = {}) {
     val context = LocalContext.current
     val userLocation = remember { mutableStateOf<LatLng?>(null) }
     val courts = remember { mutableStateListOf<BasketballCourt>() }
@@ -111,7 +113,8 @@ fun MapAndCourtsView(    onCourtSelected: (BasketballCourt) -> Unit = {} // Defa
                     Marker(
                         state = MarkerState(position = LatLng(court.latitude, court.longitude)),
                         title = court.name,
-                        snippet = court.address
+                        snippet = court.address,
+                        icon = getScaledBitmapDescriptor(context, R.drawable.pin_basketball, 100, 100) // Larger marker size
                     )
                 }
             }
@@ -126,6 +129,13 @@ fun MapAndCourtsView(    onCourtSelected: (BasketballCourt) -> Unit = {} // Defa
         )
     }
 }
+
+fun getScaledBitmapDescriptor(context: Context, resId: Int, width: Int = 150, height: Int = 150): BitmapDescriptor {
+    val bitmap = BitmapFactory.decodeResource(context.resources, resId)
+    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false) // Scale the bitmap
+    return BitmapDescriptorFactory.fromBitmap(scaledBitmap)
+}
+
 
 @Composable
 fun CourtList(courts: List<BasketballCourt>, modifier: Modifier = Modifier) {

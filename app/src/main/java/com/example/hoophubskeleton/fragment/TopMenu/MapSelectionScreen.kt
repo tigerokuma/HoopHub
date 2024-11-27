@@ -1,13 +1,16 @@
 package com.example.hoophubskeleton.fragment.TopMenu
 
 import android.Manifest
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.data.BasketballCourt
 import com.example.hoophubskeleton.fetchNearbyBasketballCourts
 import com.google.accompanist.permissions.*
@@ -55,42 +58,55 @@ fun MapWithMarkersForSelection(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Card around the map for styling
-        Card(
+        // Border for the map
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp, start = 16.dp, end = 16.dp) // Add spacing around the map
-                .height(400.dp), // Adjust height as needed
-            shape = MaterialTheme.shapes.medium // Rounded corners
-        ) {
-            GoogleMap(
-                modifier = Modifier.fillMaxSize(),
-                cameraPositionState = cameraPositionState,
-                uiSettings = MapUiSettings(
-                    myLocationButtonEnabled = true
-                ),
-                properties = MapProperties(
-                    isMyLocationEnabled = true
+                .height(410.dp) // Slightly larger to include the border
+                .border(
+                    width = 4.dp,
+                    color = colorResource(id = R.color.highlight), // Use @color/highlight
+                    shape = MaterialTheme.shapes.medium
                 )
+        ) {
+            // Card containing the map
+            Card(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(1.dp), // Spacing between the map and the border
+                shape = MaterialTheme.shapes.medium
             ) {
-                userLocation.value?.let { location ->
-                    Marker(
-                        state = MarkerState(position = location),
-                        title = "You are here",
-                        snippet = "Your location"
+                GoogleMap(
+                    modifier = Modifier.fillMaxSize(),
+                    cameraPositionState = cameraPositionState,
+                    uiSettings = MapUiSettings(
+                        myLocationButtonEnabled = true
+                    ),
+                    properties = MapProperties(
+                        isMyLocationEnabled = true
                     )
-                }
+                ) {
+                    userLocation.value?.let { location ->
+                        Marker(
+                            state = MarkerState(position = location),
+                            title = "You are here",
+                            snippet = "Your location"
+                        )
+                    }
 
-                courts.forEach { court ->
-                    Marker(
-                        state = MarkerState(position = LatLng(court.latitude, court.longitude)),
-                        title = court.name,
-                        snippet = court.address,
-                        onClick = {
-                            onCourtSelected(court)
-                            true
-                        }
-                    )
+                    courts.forEach { court ->
+                        Marker(
+                            state = MarkerState(position = LatLng(court.latitude, court.longitude)),
+                            title = court.name,
+                            snippet = court.address,
+                            icon = getScaledBitmapDescriptor(context, R.drawable.pin_basketball, 150, 150), // Custom marker
+                            onClick = {
+                                onCourtSelected(court)
+                                true
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -98,9 +114,12 @@ fun MapWithMarkersForSelection(
         // Close Button
         Button(
             onClick = { onDismiss() },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(id = R.color.highlight) // Set the background color
+            ),
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .padding(16.dp)
+                .padding(20.dp)
         ) {
             Text("Close")
         }
