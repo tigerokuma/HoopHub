@@ -12,5 +12,22 @@ data class Game(
     var gameDateTime: Timestamp = Timestamp.now(), // Firestore Timestamp
     var location: GeoPoint = GeoPoint(0.0, 0.0), // Use GeoPoint instead of List<Double>
     var skillLevel: String = "",
-    var participants: List<String> = mutableListOf()
+    var participants: List<String> = mutableListOf())
+/*
+enum class GameStatus {
+    PENDING,
+    ACCEPTED,
+    CANCELLED,
+    DECLINED
+}
+
+data class Game(
+    val id: String = "",
+    val createdBy: String = "",
+    val sentTo: String = "",
+    val gameDateTime: Timestamp = Timestamp.now(),
+    val location: GeoPoint = GeoPoint(0.0, 0.0),
+    var status: GameStatus = GameStatus.PENDING,
+    var timestamp: Timestamp = Timestamp.now()
 )
+*/

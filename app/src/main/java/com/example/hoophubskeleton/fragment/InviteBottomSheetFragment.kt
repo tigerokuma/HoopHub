@@ -74,9 +74,9 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
             showTimePickerDialog()
         }
 
-//        confirmButton.setOnClickListener {
-//            onConfirmClicked()
-//        }
+        confirmButton.setOnClickListener {
+            onConfirmClicked()
+        }
 
         cancelButton.setOnClickListener {
             dismiss()
@@ -109,43 +109,44 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
         timePickerDialog.show()
         }
 
-//    private fun onConfirmClicked() {
-//        val date = selectDateButton.text.toString()
-//        val time = selectTimeButton.text.toString()
-//        val location = locationEditText.text.toString()
-//
-//        // Validate inputs
-//        if (date.isBlank() || time.isBlank() || location.isBlank()) {
-//            Toast.makeText(requireContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//
-//        try {
-//            val gameDateTime = convertDateTimeToTimestamp(date, time)
-//            val geoPoint = convertLocationToGeoPoint(location)
-//
-//            val game = Game(
-//                createdBy = currentUserId,
-//                sentTo = invitedUserId,
-//                gameDateTime = gameDateTime,
-//                location = geoPoint
-//            )
-//
-//            gameViewModel.createInvite(game) { success ->
-//                context?.let { safeContext ->
-//                    if (success) {
-//                        Toast.makeText(safeContext, "Invite sent.", Toast.LENGTH_SHORT).show()
-//                    } else {
-//                        Toast.makeText(safeContext, "Failed to send invite.", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//                dismiss()
-//            }
-//
-//        } catch (e: IllegalArgumentException) {
-//            Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
-//        }
-//    }
+    private fun onConfirmClicked() {
+        val date = selectDateButton.text.toString()
+        val time = selectTimeButton.text.toString()
+        val location = locationEditText.text.toString()
+
+        // Validate inputs
+        if (date.isBlank() || time.isBlank() || location.isBlank()) {
+            Toast.makeText(requireContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        try {
+            val gameDateTime = convertDateTimeToTimestamp(date, time)
+            val geoPoint = convertLocationToGeoPoint(location)
+
+            val game = Game(
+                createdBy = currentUserId,
+                sentTo = invitedUserId,
+                gameDateTime = gameDateTime,
+                location = geoPoint,
+                timestamp = Timestamp.now()
+            )
+
+            gameViewModel.createInvite(game) { success ->
+                context?.let { safeContext ->
+                    if (success) {
+                        Toast.makeText(safeContext, "Invite sent.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(safeContext, "Failed to send invite.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                dismiss()
+            }
+
+        } catch (e: IllegalArgumentException) {
+            Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     // This lets us call newInstance on the class itself rather than on an instance of the class.
     // It wouldn't make sense to first create an instance of the class and then call a method on that
