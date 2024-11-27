@@ -1,6 +1,7 @@
 package com.example.hoophubskeleton
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -29,6 +30,7 @@ class EditDeleteProfile : AppCompatActivity() {
     private lateinit var competitionEditGroup: RadioGroup
     private lateinit var locationEditText: EditText
     private lateinit var userProfilePic: ImageView
+    private var imageUri: Uri? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_delete_profile)
@@ -37,6 +39,9 @@ class EditDeleteProfile : AppCompatActivity() {
         deleteButtton = findViewById(R.id.profileDeleteButton)
         cancelButtton = findViewById(R.id.profileGoBack)
 
+        //authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
+
+        //loadPassedUserData()
         authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
 
         loadPassedUserData()
@@ -99,59 +104,6 @@ class EditDeleteProfile : AppCompatActivity() {
         locationEditText.setText(userLocation)
     }
 
-    private fun deleteAccount() {
-        /*
-        Log.d("fragDelete:", "attempting to delete")
-
-        val user = FirebaseAuth.getInstance().currentUser
-        val firestore = FirebaseFirestore.getInstance()
-
-        Log.d("fragDelete:", "attempting to delete user: ${user?.uid}")
-
-        if (user != null) {
-            Log.d("fragDelete:", "user not null")
-            // delete user data from firestore
-            firestore.collection("users").document(user.uid).delete()
-                .addOnCompleteListener { task ->
-                    Log.d("fragDelete:", "oncompletelistener")
-                    if (task.isSuccessful) {
-                        Log.d("fragDelete:", "Firestore document deletion successful")
-
-                        // delete user's authentication account
-                        user.delete().addOnCompleteListener { deleteTask ->
-                            if (deleteTask.isSuccessful) {
-                                FirebaseAuth.getInstance().signOut()
-
-                                // clear related cache and files
-                                cacheDir.deleteRecursively()
-                                filesDir.deleteRecursively()
-
-                                FirebaseFirestore.getInstance().clearPersistence()
-                                clearInstanceState = true
-                                Log.d("fragDelete:", "Account Deleted")
-                                restartApp()
-                            } else {
-                                // failure in deleting the firbase auth account
-                                Log.e("fragDelete:", "Failed to delete authentication account", deleteTask.exception)
-                            }
-                        }.addOnFailureListener { exception ->
-                            // log exception from account deletion
-                            Log.e("fragDelete:", "Error deleting authentication account", exception)
-                        }
-                    } else {
-                        // log exception deleting user data from firestore
-                        Log.e("fragDelete:", "Failed to delete user data from Firestore", task.exception)
-                    }
-                }.addOnFailureListener { exception ->
-                    // log exception deleting firestore document
-                    Log.e("fragDelete:", "Error deleting Firestore document", exception)
-                }
-        } else {
-            Log.d("fragDelete:", "Cannot delete null user")
-        }
-         */
-    }
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         if (clearInstanceState) {
@@ -177,7 +129,6 @@ class EditDeleteProfile : AppCompatActivity() {
         // delete
         builder.setPositiveButton("Delete") { dialog, _ ->
             dialog.dismiss()
-            deleteAccount()
             finishAffinity()
         }
 
@@ -226,40 +177,6 @@ class EditDeleteProfile : AppCompatActivity() {
             Toast.makeText(this, "User not logged in.", Toast.LENGTH_SHORT).show()
         }
     }
-
-    private fun reauthenticateUser(email: String, currentPassword: String, onReauthenticated: () -> Unit) {
-        // used to change password
-        val user = FirebaseAuth.getInstance().currentUser
-        val credential = EmailAuthProvider.getCredential(email, currentPassword)
-
-        user?.reauthenticate(credential)?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Log.d("EditDeleteProfile", "User re-authenticated.")
-                onReauthenticated()
-            } else {
-                Log.e("EditDeleteProfile", "Re-authentication failed: ${task.exception?.message}")
-                Toast.makeText(this, "Re-authentication failed. Please check your password.", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-
-    }
-
-    private fun updateUserPassword(newPassword: String) {
-        // used to update password
-        val user = FirebaseAuth.getInstance().currentUser
-
-        user?.updatePassword(newPassword)?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Log.d("EditDeleteProfile", "User password updated successfully.")
-                Toast.makeText(this, "Password updated successfully.", Toast.LENGTH_SHORT).show()
-            } else {
-                Log.e("EditDeleteProfile", "Password update failed: ${task.exception?.message}")
-                Toast.makeText(this, "Failed to update password.", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
 
 }
 
