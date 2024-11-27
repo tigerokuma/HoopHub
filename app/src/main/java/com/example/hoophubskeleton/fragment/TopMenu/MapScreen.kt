@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.*
 import com.google.maps.android.compose.*
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import androidx.compose.ui.res.colorResource
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -155,11 +156,11 @@ fun CourtCard(court: BasketballCourt) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp, horizontal = 8.dp), // Add horizontal padding for better spacing
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp), // Add subtle elevation
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp), // Subtle elevation
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface // Set card background color
+            containerColor = MaterialTheme.colorScheme.surface // Card background color
         ),
-        shape = MaterialTheme.shapes.medium // Apply rounded corners
+        shape = MaterialTheme.shapes.medium // Rounded corners
     ) {
         Row(
             modifier = Modifier
@@ -172,13 +173,13 @@ fun CourtCard(court: BasketballCourt) {
                 Text(
                     text = court.name,
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.primary // Use theme primary color
+                    color = colorResource(id = R.color.highlight) // Use the orange highlight color
                 )
                 // Court Address
                 Text(
                     text = court.address,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f) // Slightly muted color
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f) // Muted color for the address
                 )
             }
             Column(
@@ -189,7 +190,7 @@ fun CourtCard(court: BasketballCourt) {
                 Text(
                     text = "${court.distance} km",
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.secondary
+                    color = colorResource(id = R.color.highlight) // Use the orange highlight color
                 )
                 // Court Rating
                 Text(
