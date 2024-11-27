@@ -1,7 +1,10 @@
 package com.example.hoophubskeleton.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Paint
 import android.location.Geocoder
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +53,7 @@ class GameAdapter(
         // Set number of participants
         holder.participantsCountTextView.text = "Participants: ${game.participants.size}"
 
-        // Convert GeoPoint to an address (as before)
+        // Convert GeoPoint to an address
         val location = game.location
         val geocoder = Geocoder(context, Locale.getDefault())
         try {
@@ -60,9 +63,41 @@ class GameAdapter(
             } else {
                 "Location: Address not found"
             }
+
+            // Add click listener to open Google Maps
+            holder.locationTextView.setOnClickListener {
+                val address = if (!addresses.isNullOrEmpty()) {
+                    addresses[0].getAddressLine(0)
+                } else {
+                    "${location.latitude}, ${location.longitude}"
+                }
+                val geoUri = "geo:${location.latitude},${location.longitude}?q=${Uri.encode(address)}"
+                val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
+                mapIntent.setPackage("com.google.android.apps.maps") // Open in Google Maps app if available
+                it.context.startActivity(mapIntent)
+            }
+
+            // Add underline and clickable styling
+            holder.locationTextView.apply {
+                setTextColor(context.getColor(android.R.color.holo_blue_light)) // Use built-in blue
+                paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG // Add underline
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             holder.locationTextView.text = "Location: Unable to fetch address"
+            // Add a default click listener if the address is unavailable
+            holder.locationTextView.setOnClickListener {
+                val geoUri = "geo:${location.latitude},${location.longitude}?q=${location.latitude},${location.longitude}"
+                val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
+                mapIntent.setPackage("com.google.android.apps.maps")
+                it.context.startActivity(mapIntent)
+            }
+
+            // Add underline and clickable styling for fallback
+            holder.locationTextView.apply {
+                setTextColor(context.getColor(android.R.color.holo_blue_light)) // Use built-in blue
+                paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG // Add underline
+            }
         }
 
         // Handle participation button
