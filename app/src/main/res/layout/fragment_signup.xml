@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="Choose Picture"
             android:layout_gravity="center"
-            android:backgroundTint="@color/highlight"
+            style="@style/CustomButtonStyle"
             android:layout_marginBottom="16dp" />
 
         <!-- Name -->
@@ -113,18 +113,21 @@
                 android:id="@+id/radioBeginner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/CustomRadioButtonStyle"
                 android:text="Beginner" />
 
             <RadioButton
                 android:id="@+id/radioCasual"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/CustomRadioButtonStyle"
                 android:text="Casual" />
 
             <RadioButton
                 android:id="@+id/radioCompetitive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/CustomRadioButtonStyle"
                 android:text="Competitive" />
         </RadioGroup>
 
@@ -149,7 +152,7 @@
             android:id="@+id/signUpButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/highlight"
+            style="@style/CustomButtonStyle"
             android:text="Sign Up" />
 
         <!-- Go to signup -->
@@ -157,7 +160,7 @@
             android:id="@+id/goToLoginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/highlight"
+            style="@style/CustomButtonStyle"
             android:text="Already have an account? Log In"
             android:layout_marginTop="16dp" />
 
