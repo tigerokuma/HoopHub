@@ -110,6 +110,8 @@ class SignUpFragment : Fragment() {
 
                 authViewModel.signUp(email, password, user)
             }
+
+            findNavController().navigate(R.id.action_signUpFragment_to_playersFragment)
         }
     }
 
