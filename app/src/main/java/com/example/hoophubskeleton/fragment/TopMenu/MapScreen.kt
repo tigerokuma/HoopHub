@@ -19,7 +19,9 @@ import com.google.android.gms.maps.model.*
 import com.google.maps.android.compose.*
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.res.colorResource
+import com.google.android.gms.maps.CameraUpdateFactory
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -55,10 +57,23 @@ fun MapAndCourtsView(onCourtSelected: (BasketballCourt) -> Unit = {}) {
     val context = LocalContext.current
     val userLocation = remember { mutableStateOf<LatLng?>(null) }
     val courts = remember { mutableStateListOf<BasketballCourt>() }
+    val selectedCourt = remember { mutableStateOf<BasketballCourt?>(null) } // Store selected court
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(
             LatLng(37.7749, -122.4194), 12f // Default to SF
         )
+    }
+
+    // Animate camera when a court is selected
+    LaunchedEffect(selectedCourt.value) {
+        selectedCourt.value?.let { court ->
+            cameraPositionState.animate(
+                update = CameraUpdateFactory.newLatLngZoom(
+                    LatLng(court.latitude, court.longitude),
+                    14f // Zoom level
+                )
+            )
+        }
     }
 
     LaunchedEffect(Unit) {
@@ -70,9 +85,9 @@ fun MapAndCourtsView(onCourtSelected: (BasketballCourt) -> Unit = {}) {
 
             if (location != null) {
                 fetchNearbyBasketballCourts(
-                    context = context, // Pass context to fetch the key dynamically
+                    context = context,
                     userLocation = location,
-                    radius = 5000, // 5 km radius
+                    radius = 5000,
                     onSuccess = { courtsList ->
                         courts.clear()
                         courts.addAll(courtsList.sortedBy { calculateDistance(location, LatLng(it.latitude, it.longitude)) })
@@ -124,6 +139,9 @@ fun MapAndCourtsView(onCourtSelected: (BasketballCourt) -> Unit = {}) {
         // Courts List Section
         CourtList(
             courts = courts.toList(),
+            onCourtClicked = { court ->
+                selectedCourt.value = court // Update selected court
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(1f) // List occupies 34% of the height
@@ -131,31 +149,39 @@ fun MapAndCourtsView(onCourtSelected: (BasketballCourt) -> Unit = {}) {
     }
 }
 
+
 fun getScaledBitmapDescriptor(context: Context, resId: Int, width: Int = 150, height: Int = 150): BitmapDescriptor {
     val bitmap = BitmapFactory.decodeResource(context.resources, resId)
     val scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false) // Scale the bitmap
     return BitmapDescriptorFactory.fromBitmap(scaledBitmap)
 }
 
-
 @Composable
-fun CourtList(courts: List<BasketballCourt>, modifier: Modifier = Modifier) {
+fun CourtList(
+    courts: List<BasketballCourt>,
+    onCourtClicked: (BasketballCourt) -> Unit, // Regular lambda
+    modifier: Modifier = Modifier
+) {
     LazyColumn(
         modifier = modifier
             .padding(8.dp)
     ) {
         items(courts) { court ->
-            CourtCard(court)
+            CourtCard(court = court, onClick = { onCourtClicked(court) }) // Pass the lambda here
         }
     }
 }
 
 @Composable
-fun CourtCard(court: BasketballCourt) {
+fun CourtCard(
+    court: BasketballCourt,
+    onClick: () -> Unit // Regular lambda
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp, horizontal = 8.dp), // Add horizontal padding for better spacing
+            .padding(vertical = 8.dp, horizontal = 8.dp) // Add horizontal padding for better spacing
+            .clickable { onClick() }, // Trigger navigation on click
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp), // Subtle elevation
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface // Card background color
@@ -202,7 +228,6 @@ fun CourtCard(court: BasketballCourt) {
         }
     }
 }
-
 
 fun calculateDistance(userLocation: LatLng, courtLocation: LatLng): Float {
     val results = FloatArray(1)
