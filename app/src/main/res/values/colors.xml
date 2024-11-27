@@ -8,6 +8,15 @@
     <color name="unimplemented">#acacac</color>
     <color name="app_background">#FFFCF2</color>
     <color name="msg">#EBA286</color>
+    <color name="navbar_day">#eee5e7</color>
+
+    <color name="night_text_icon">#FFFCF2</color>
+    <color name="night_highlight">#EB5E28</color>
+    <color name="night_button">#403D39</color>
+    <color name="night_unimplemented">#acacac</color>
+    <color name="night_app_background">#403D39</color>
+    <color name="night_msg">#EBA286</color>
+
 
 
 </resources>

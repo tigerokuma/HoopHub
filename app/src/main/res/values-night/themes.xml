@@ -3,5 +3,30 @@
     <style name="Base.Theme.HoopHubSkeleton" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorAccent">@color/highlight</item>
+        <item name="colorPrimary">@color/night_app_background</item>
+        <item name="colorSurface">@color/button</item>
+        <item name="android:textColor">@color/night_text_icon</item>
+    </style>
+
+    <!-- Custom Menu Style -->
+    <style name="CustomMenuStyle" parent="Widget.Material3.PopupMenu">
+        <item name="android:popupBackground">@color/highlight</item>
+        <item name="android:textColor">@color/night_app_background</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.Material3.Button">
+        <item name="android:backgroundTint">@color/highlight</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+    <!-- Style for BottomNavigationView -->
+    <style name="CustomBottomNavigationStyle" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:background">@color/night_app_background</item>
+        <item name="itemIconTint">@color/night_text_icon</item>
+        <item name="itemTextColor">@color/night_text_icon</item>
+        <item name="itemRippleColor">@color/highlight</item>
+
     </style>
 </resources>

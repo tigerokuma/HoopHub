@@ -2,6 +2,7 @@ package com.example.hoophubskeleton.fragment.TopMenu
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,22 +13,32 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.hoophubskeleton.AuthHostActivity
+import androidx.navigation.fragment.findNavController
+
 
 import com.example.hoophubskeleton.R
-import com.example.hoophubskeleton.ViewModel.AuthViewModel
-import com.example.hoophubskeleton.factory.AuthViewModelFactory
-import com.example.hoophubskeleton.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 import coil.load
 import coil.request.CachePolicy
+import coil.transform.CircleCropTransformation
+import com.example.hoophubskeleton.EditDeleteProfile
+import com.example.hoophubskeleton.ViewModel.AuthViewModel
+import com.example.hoophubskeleton.factory.AuthViewModelFactory
+import com.example.hoophubskeleton.repository.AuthRepository
+import com.example.hoophubskeleton.repository.ProfileRepository
+import com.example.hoophubskeleton.viewmodel.ProfileViewModel
 
 //import com.bumptech.glide.Glide
 
 class ProfileFragment : Fragment() {
 
+    // used to log out
     private lateinit var authViewModel: AuthViewModel
+    // used to pull details from user profile
+    private lateinit var profileViewModel: ProfileViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,18 +52,22 @@ class ProfileFragment : Fragment() {
 
         val profileImageView = view.findViewById<ImageView>(R.id.profileImageView)
 
-        // Initialize ViewModel
+        // Initialize repositories and ViewModels
         val authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
-        authViewModel = ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
+        val profileRepository = ProfileRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
 
-        // Observe userProfile to display user information
-        authViewModel.userProfile.observe(viewLifecycleOwner) { user ->
+        authViewModel = ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
+        profileViewModel = ProfileViewModel(profileRepository)
+
+
+        // Observer to display user information
+        profileViewModel.userProfile.observe(viewLifecycleOwner) { user ->
             if (user != null) {
-                // Update UI with user data
                 view.findViewById<TextView>(R.id.profileName).text = user.name
                 view.findViewById<TextView>(R.id.profileAge).text = user.age.toString()
                 view.findViewById<TextView>(R.id.profileEmail).text = user.email
-                view.findViewById<TextView>(R.id.profileCompetitionLevel).text = user.competitionLevel
+                view.findViewById<TextView>(R.id.profileCompetitionLevel).text =
+                    user.competitionLevel
                 view.findViewById<TextView>(R.id.profileLocation).text = user.location
 
                 // Load profile picture
@@ -61,26 +76,24 @@ class ProfileFragment : Fragment() {
                     error(R.drawable.default_profile_pic)
                     memoryCachePolicy(CachePolicy.ENABLED)
                     diskCachePolicy(CachePolicy.ENABLED)
+                    transformations(CircleCropTransformation())
                 }
-
             }
         }
 
-        // Observe errorMessage for any issues with retrieving user data
-        authViewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+        profileViewModel.errorMessage.observe(viewLifecycleOwner) { error ->
             if (error != null) {
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Fetch user profile data when the fragment is created
-        authViewModel.fetchUserProfile()
+        // Getting profile data
+        profileViewModel.fetchUserProfile()
 
         // Handle logout button click
         val logoutButton = view.findViewById<Button>(R.id.profileLogoutButton)
         logoutButton.setOnClickListener {
-            authViewModel.logOut()
-            // Redirect to AuthHostActivity after logout
+            Log.d("ProfileFragment: ", "Logging out")
             val intent = Intent(requireContext(), AuthHostActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
@@ -89,14 +102,10 @@ class ProfileFragment : Fragment() {
         // Handle edit profile button click
         val editButton = view.findViewById<Button>(R.id.profileEditButton)
         editButton.setOnClickListener {
-            // edit profile logic here
+            val navController = findNavController()
+            navController.navigate(R.id.action_profileFragment_to_editProfileFragment)
         }
 
-        // Handle delete profile button click
-        val deleteButton = view.findViewById<Button>(R.id.profileDeleteButton)
-        deleteButton.setOnClickListener {
-            // delete logic backend here
-        }
     }
 }
 
