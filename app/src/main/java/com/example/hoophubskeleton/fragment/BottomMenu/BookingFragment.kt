@@ -87,7 +87,8 @@ class BookingFragment : Fragment() {
                 location = game.location,
                 dateTime = game.gameDateTime,
                 competitionLevel = game.skillLevel,
-                maxParticipants = game.maxParticipants
+                maxParticipants = game.maxParticipants,
+                courtName = game.courtName
             )
         }
     }
