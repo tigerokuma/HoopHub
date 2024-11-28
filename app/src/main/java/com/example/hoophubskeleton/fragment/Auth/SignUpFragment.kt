@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -97,6 +98,20 @@ class SignUpFragment : Fragment() {
                 else -> ""
             }
 
+            // Validate inputs
+            if (email.isEmpty()) {
+                Toast.makeText(requireContext(), "Email cannot be empty.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (password.isEmpty()) {
+                Toast.makeText(requireContext(), "Password cannot be empty.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (name.isEmpty()) {
+                Toast.makeText(requireContext(), "Name cannot be empty.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             uploadImageToFirebaseStorage { profilePicUrl ->
                 val user = User(
                     uid = "",
@@ -111,6 +126,22 @@ class SignUpFragment : Fragment() {
                 authViewModel.signUp(email, password, user)
             }
         }
+
+        // Observe the sign-up status
+        authViewModel.authStatus.observe(viewLifecycleOwner) { (success, message) ->
+            if (success) {
+                // Navigate to MainFragment upon successful sign-up
+                Toast.makeText(requireContext(), "Sign-up successful!: $message", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_signUpFragment_to_mainFragment)
+            } else {
+                // Show error message if sign-up fails
+                Toast.makeText(requireContext(), "Sign-up failed: $message", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+
+
+
     }
 
     private fun openGallery() {

@@ -44,4 +44,20 @@ class ProfileRepository(
         }
     }
 
+    fun deleteUserProfile(callback: (Boolean, String?) -> Unit) {
+        val uid = firebaseAuth.currentUser?.uid
+        if (uid != null) {
+            firestore.collection("users").document(uid).delete()
+                .addOnSuccessListener {
+                    callback(true, null) // Success
+                }
+                .addOnFailureListener { e ->
+                    callback(false, e.message) // Failure
+                }
+        } else {
+            callback(false, "User not logged in")
+        }
+    }
+
+
 }

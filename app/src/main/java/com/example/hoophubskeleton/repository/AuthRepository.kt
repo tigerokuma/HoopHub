@@ -74,4 +74,31 @@ class AuthRepository(
         }
     }
 
+    fun deleteUserCredentials(callback: (Boolean, String?) -> Unit) {
+        val uid = firebaseAuth.currentUser?.uid
+        val user = firebaseAuth.currentUser
+        if (uid != null && user != null) {
+            // delete user document in FirebaseAuth
+            firestore.collection("users").document(uid)
+                .delete()
+                .addOnSuccessListener {
+                    // delete user authentication account
+                    user.delete()
+                        .addOnSuccessListener {
+                            callback(true, null) // Success
+                        }
+                        .addOnFailureListener { exception ->
+                            callback(false, exception.message) // Failure
+                        }
+                }
+                .addOnFailureListener { exception ->
+                    callback(false, exception.message) // Failure with error message
+                }
+        } else {
+            callback(false, "User not logged in")
+        }
+    }
+
+
+
 }

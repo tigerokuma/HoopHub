@@ -54,4 +54,13 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
             }
         }
     }
+
+    private val _deleteStatus = MutableLiveData<Pair<Boolean, String?>>()
+    val deleteStatus: LiveData<Pair<Boolean, String?>> get() = _deleteStatus
+
+    fun deleteUserCredentials() {
+        authRepository.deleteUserCredentials { success, message ->
+            _deleteStatus.value = Pair(success, message) // Update LiveData with the result
+        }
+    }
 }

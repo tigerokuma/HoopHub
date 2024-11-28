@@ -2,6 +2,7 @@ package com.example.hoophubskeleton.fragment.TopMenu
 
 import ProfileViewModelFactory
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -16,19 +17,21 @@ import android.widget.ImageView
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavOptions
 import com.example.hoophubskeleton.R
 import androidx.navigation.fragment.findNavController
 import coil.load
 import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
+import com.example.hoophubskeleton.ViewModel.AuthViewModel
+import com.example.hoophubskeleton.factory.AuthViewModelFactory
 import com.example.hoophubskeleton.model.User
+import com.example.hoophubskeleton.repository.AuthRepository
 import com.example.hoophubskeleton.repository.ProfileRepository
 import com.example.hoophubskeleton.viewmodel.ProfileViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -42,6 +45,8 @@ class EditProfileFragment : Fragment() {
     private lateinit var emailEditText: TextView
     private lateinit var competitionEditGroup: RadioGroup
     private lateinit var locationEditText: EditText
+    private lateinit var authViewModel: AuthViewModel
+    private lateinit var profileViewModel: ProfileViewModel
     private var imageUri: Uri? = null
     private lateinit var profileImageView: ImageView
     private val pickImageLauncher = registerForActivityResult(
@@ -68,9 +73,11 @@ class EditProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        val authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
+        authViewModel = ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
         val repository = ProfileRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
         val factory = ProfileViewModelFactory(repository)
-        val profileViewModel = ViewModelProvider(this, factory).get(ProfileViewModel::class.java)
+        profileViewModel = ViewModelProvider(this, factory).get(ProfileViewModel::class.java)
         profileViewModel.fetchUserProfile()
 
         updateButton = view.findViewById(R.id.profileUpdateButton)
@@ -110,6 +117,29 @@ class EditProfileFragment : Fragment() {
                     diskCachePolicy(CachePolicy.ENABLED)
                     transformations(CircleCropTransformation())
                 }
+            }
+        }
+
+        // Observing deletion status of profile
+        profileViewModel.deleteStatus.observe(viewLifecycleOwner) { status ->
+            val (success, message) = status
+            if (success) {
+                Toast.makeText(context, "Profile deleted successfully.", Toast.LENGTH_SHORT).show()
+                // Navigate to login or another relevant screen
+                findNavController().navigate(R.id.loginFragment)
+            } else {
+                Toast.makeText(context, "Failed to delete profile: $message", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Observing deletion status of credentials
+        authViewModel.deleteStatus.observe(viewLifecycleOwner) { status ->
+            val (success, message) = status
+            if (success) {
+                Toast.makeText(requireContext(), "Profile deleted successfully.", Toast.LENGTH_SHORT).show()
+
+            } else {
+                Toast.makeText(requireContext(), "Failed to delete profile: $message", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -161,6 +191,10 @@ class EditProfileFragment : Fragment() {
 
         cancelButtton.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        deleteButtton.setOnClickListener {
+            showDeleteConfirmationDialog()
         }
     }
 
@@ -233,6 +267,56 @@ class EditProfileFragment : Fragment() {
             Log.e("EditProfileFragment", "No user is logged in.")
             callback(false, "User is not logged in.")
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("EditProfileFragment", "Updating indicator tab to ProfileFragment")
+        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView.menu.findItem(R.id.profileFragment)?.isChecked = true
+        Log.e("EditProfileFragment", "R.id.profileFragment: ${R.id.profileFragment}")
+        Log.e("EditProfileFragment", "SelectedItem BottomNavMenu: ${bottomNavigationView.selectedItemId}")
+
+
+    }
+
+    private fun deleteAccountCredentials() {
+        authViewModel.deleteUserCredentials()
+    }
+
+    private fun deleteUserProfile() {
+        profileViewModel.deleteUserProfile()
+    }
+
+    private fun showDeleteConfirmationDialog() {
+        val customView = LayoutInflater.from(context).inflate(R.layout.custom_alert_dialog, null)
+        val title = customView.findViewById<TextView>(R.id.customTitle)
+        val message = customView.findViewById<TextView>(R.id.customMessage)
+        val cancelButton = customView.findViewById<Button>(R.id.cancelButton)
+        val confirmButton = customView.findViewById<Button>(R.id.confirmButton)
+
+        title.text = "Delete Profile"
+        message.text = "We're sorry to see you go. Are you sure you want to delete your profile? This action cannot be undone."
+        cancelButton.text = "Cancel"
+        confirmButton.text = "Delete"
+
+
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(customView)
+            .create()
+
+        // Set up button actions
+        cancelButton.setOnClickListener {
+            dialog.dismiss() // Close dialog when "Cancel" is clicked
+        }
+
+        confirmButton.setOnClickListener {
+            dialog.dismiss() // Close dialog
+        }
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
     }
 
 

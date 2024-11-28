@@ -37,4 +37,18 @@ class ProfileViewModel(private val profileRepository: ProfileRepository) : ViewM
         }
     }
 
+    private val _deleteStatus = MutableLiveData<Pair<Boolean, String?>>()
+    val deleteStatus: LiveData<Pair<Boolean, String?>> get() = _deleteStatus
+
+    fun deleteUserProfile() {
+        profileRepository.deleteUserProfile { success, error ->
+            if (success) {
+                _userProfile.value = null // Clear the profile data from LiveData
+                _deleteStatus.value = Pair(true, null) // Notify success to the UI
+            } else {
+                _deleteStatus.value = Pair(false, error) // Notify failure to the UI
+            }
+        }
+    }
+
 }

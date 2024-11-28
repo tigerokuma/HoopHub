@@ -2,6 +2,7 @@ package com.example.hoophubskeleton.fragment.Auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,8 +35,10 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Initialize ViewModel
-        val authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
-        authViewModel = ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
+        val authRepository =
+            AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
+        authViewModel =
+            ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
 
         val emailEditText: EditText = view.findViewById(R.id.emailEditText)
         val passwordEditText: EditText = view.findViewById(R.id.passwordEditText)
@@ -53,7 +56,8 @@ class LoginFragment : Fragment() {
                 // Navigate to MainFragment (hosting Players and Games tabs)
                 findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
             } else {
-                Toast.makeText(requireContext(), "Login Failed: $message", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Login Failed: $message", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -62,8 +66,18 @@ class LoginFragment : Fragment() {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            // Call the ViewModel to log in
-            authViewModel.logIn(email, password)
+            if (email.isNullOrBlank() || password.isNullOrBlank()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Login Failed. Please fill out both fields.",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                Log.d("LoginFragment", "Login failure: User email or password blank")
+            } else {
+                // Call the ViewModel to log in
+                authViewModel.logIn(email, password)
+            }
         }
     }
 }
