@@ -1,5 +1,6 @@
 package com.example.hoophubskeleton.ViewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +11,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import androidx.lifecycle.map
 import com.example.hoophubskeleton.model.BookingCard
-//import com.example.hoophubskeleton.model.GameStatus
+import com.example.hoophubskeleton.model.GameStatus
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -21,6 +22,10 @@ class GameViewModel : ViewModel() {
     // LiveData to hold the list of games
     private val _upcomingGames = MutableLiveData<List<Game>>()
     val upcomingGames: LiveData<List<Game>> get() = _upcomingGames
+
+    private val _games = MutableLiveData<List<Game>?>()
+    val games: LiveData<List<Game>?> get() = _games
+
 
     // Fetch games near a specific location
     fun fetchGamesNearLocation(latitude: Double, longitude: Double, radiusKm: Double = 100.0) {
@@ -37,29 +42,32 @@ class GameViewModel : ViewModel() {
     val error: LiveData<String?> get() = _error
 
 
-//    fun fetchAllGames() {
-//        repository.getAllGames { gameList, errorMsg ->
-//            handleGamesCallback(gameList, errorMsg)
-//        }
-//    }
-//
-//    fun fetchGamesStartedByUser(userId: String) {
-//        repository.getGamesStartedByUser(userId) { gameList, errorMsg ->
-//            handleGamesCallback(gameList, errorMsg)
-//        }
-//    }
+    fun fetchAllGames() {
+        repository.getAllGames { gameList, errorMsg ->
+            handleGamesCallback(gameList, errorMsg)
+        }
+    }
 
-//    fun fetchGamesUserInvitedTo(userId: String) {
-//        repository.getGamesUserInvitedTo(userId) { gameList, errorMsg ->
-//            handleGamesCallback(gameList, errorMsg)
-//        }
-//    }
-//
-//    fun fetchAllGamesForUser(userId: String) {
-//        repository.getAllGamesForUser(userId) { gameList, errorMsg ->
-//            handleGamesCallback(gameList, errorMsg)
-//        }
-//    }
+    fun fetchGamesStartedByUser(userId: String) {
+        repository.getGamesStartedByUser(userId) { gameList, errorMsg ->
+            handleGamesCallback(gameList, errorMsg)
+        }
+    }
+
+    fun fetchGamesUserInvitedTo(userId: String) {
+        repository.getGamesUserInvitedTo(userId) { gameList, errorMsg ->
+            handleGamesCallback(gameList, errorMsg)
+        }
+    }
+
+    fun fetchAllGamesForUser(userId: String) {
+        repository.getAllGamesForUser(userId) { gameList, errorMsg ->
+            handleGamesCallback(gameList, errorMsg)
+        }
+        Log.d("PaulTest", "Games: ${_games}")
+    }
+
+
 
     fun createInvite(game: Game, onComplete: (Boolean) -> Unit) {
         repository.createInvite(game){ success ->
@@ -67,39 +75,46 @@ class GameViewModel : ViewModel() {
         }
     }
 
-//    private fun handleGamesCallback(gameList: List<Game>?, errorMsg: String?) {
-//        if (gameList != null) {
-//            _games.value = gameList
-//            _error.value = null
-//        } else {
-//            _error.value = errorMsg
+    private fun handleGamesCallback(gameList: List<Game>?, errorMsg: String?) {
+        if (gameList != null) {
+            _games.value = gameList
+            _error.value = null
+        } else {
+            _error.value = errorMsg
+        }
+    }
+
+    fun acceptInvite(game: Game, callback: (Boolean) -> Unit) {
+        repository.acceptInvite(game.id, callback)
+    }
+
+    fun cancelInvite(game: Game, callback: (Boolean) -> Unit) {
+        repository.cancelInvite(game.id, callback)
+    }
+
+    fun declineInvite(game: Game, callback: (Boolean) -> Unit) {
+        repository.declineInvite(game.id, callback)
+    }
+
+    fun cancelGame(game: Game, callback: (Boolean) -> Unit) {
+        repository.cancelGame(game.id) { success ->
+            callback(success)
+        }
+    }
+
+    // This function takes a booking card and retrieves the appropriate game based on the players
+    // involved.
+//    fun getGameFromBookingCard(bookingCard: BookingCard, participants: List<String>): Game? {
+//        return games.value?.find { game ->
+//            // Convert to set because a direct comparison of arrays might not work. Firebase
+//            // could alter the order of participants. We don't just want to check reference
+//            // equality.
+//            game.participants.toSet() == participants.toSet()
 //        }
 //    }
 
-//    fun acceptInvite(game: Game, callback: (Boolean) -> Unit) {
-//        repository.acceptInvite(game.id, callback)
-//    }
-//
-//    fun cancelInvite(game: Game, callback: (Boolean) -> Unit) {
-//        repository.cancelInvite(game.id, callback)
-//    }
-//
-//    fun declineInvite(game: Game, callback: (Boolean) -> Unit) {
-//        repository.declineInvite(game.id, callback)
-//    }
-//
-//    fun cancelGame(game: Game, callback: (Boolean) -> Unit) {
-//        repository.cancelGame(game.id) { success ->
-//            callback(success)
-//        }
-//    }
-//
-//    fun getGameFromBookingCard(bookingCard: BookingCard): Game? {
-//        return games.value?.find { game ->
-//            (game.createdBy == bookingCard.otherPlayerName && game.sentTo == currentUserId) ||
-//                    (game.sentTo == bookingCard.otherPlayerName && game.createdBy == currentUserId)
-//        }
-//    }
+
+
     // Fetch games near the current user's location, filter by future dates, and sort by date
     fun fetchGamesNearLocationToCurrentUser() {
         repository.getCurrentUserLocation { latitude, longitude ->
@@ -135,5 +150,20 @@ class GameViewModel : ViewModel() {
         }
     }
 
+    fun leaveGame(gameId: String, userId: String, callback: (Boolean) -> Unit) {
+        repository.leaveGame(gameId, userId) { success ->
+            callback(success)
+        }
+    }
+
+    fun listenToGamesForUser(userId: String) {
+        repository.listenToGamesForUser(userId) { games, error ->
+            if (games != null) {
+                _games.value = games
+            } else {
+                _error.value = error
+            }
+        }
+    }
 
 }
