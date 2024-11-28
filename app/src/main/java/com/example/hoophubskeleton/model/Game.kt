@@ -25,6 +25,7 @@ data class Game(
     val id: String = "",
     val gameDateTime: Timestamp = Timestamp.now(),
     val location: GeoPoint = GeoPoint(0.0, 0.0),
+    val courtName: String = "",
     var timestamp: Timestamp = Timestamp.now(),
     var participants: List<String> = mutableListOf(),
     val skillLevel: String = "",

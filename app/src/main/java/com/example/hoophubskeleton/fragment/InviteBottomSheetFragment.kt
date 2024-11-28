@@ -47,6 +47,7 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
 
     private lateinit var playersPerTeamSpinner: Spinner
     private var playersPerTeam: Int = 1
+    private lateinit var courtName: String
 
 
     override fun onCreateView(
@@ -147,7 +148,8 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
                 gameDateTime = gameDateTime,
                 location = geoPoint,
                 timestamp = Timestamp.now(),
-                maxParticipants = maxParticipants
+                maxParticipants = maxParticipants,
+                courtName = courtName
             )
 
             gameViewModel.createInvite(game) { success ->
@@ -219,6 +221,7 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun handleCourtSelection(court: BasketballCourt) {
         geoPoint = GeoPoint(court.latitude, court.longitude)
+        courtName = court.name
 
 //        val formattedLocation = "${court.name} (${court.latitude}, ${court.longitude})"
 //        locationEditText.setText(formattedLocation) // Show name and coordinates in the EditText

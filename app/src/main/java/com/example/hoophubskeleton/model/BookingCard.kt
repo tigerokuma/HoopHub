@@ -14,5 +14,6 @@ data class BookingCard(
     val competitionLevel: String, // General competition level (e.g., "Casual")
     val location: GeoPoint,
     val dateTime: Timestamp,
-    val maxParticipants: Int
+    val maxParticipants: Int,
+    val courtName: String
 )

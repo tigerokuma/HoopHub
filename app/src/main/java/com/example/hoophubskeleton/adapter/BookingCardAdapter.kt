@@ -50,8 +50,8 @@ class BookingCardAdapter(
         holder.participantsCount.text = participantsCountText
 
         // Display location as GeoPoint
-        val geoPoint = bookingCard.location
-        holder.gameLocation.text = "Lat: ${geoPoint.latitude}, Lng: ${geoPoint.longitude}"
+        // val geoPoint = bookingCard.location
+        holder.gameLocation.text = bookingCard.courtName
 
         // Handle button click
         holder.leaveGameButton.setOnClickListener {
