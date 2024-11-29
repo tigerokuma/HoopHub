@@ -11,15 +11,11 @@ import android.app.TimePickerDialog
 import android.icu.util.Calendar
 import android.widget.AdapterView
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Spinner
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import com.example.hoophubskeleton.ViewModel.GameViewModel
+import com.example.hoophubskeleton.viewmodel.GameViewModel
 import com.example.hoophubskeleton.model.Game
-import com.example.hoophubskeleton.repository.GamesRepository
-import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Locale
 import com.google.firebase.Timestamp
@@ -27,7 +23,6 @@ import com.google.firebase.firestore.GeoPoint
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.isVisible
 import com.example.hoophubskeleton.data.BasketballCourt
-import com.example.hoophubskeleton.fragment.TopMenu.MapPopup
 import com.example.hoophubskeleton.fragment.TopMenu.MapWithMarkersForSelection
 
 class InviteBottomSheetFragment : BottomSheetDialogFragment() {
@@ -47,6 +42,7 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
 
     private lateinit var playersPerTeamSpinner: Spinner
     private var playersPerTeam: Int = 1
+    private lateinit var courtName: String
 
 
     override fun onCreateView(
@@ -141,21 +137,27 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
         try {
             val gameDateTime = convertDateTimeToTimestamp(date, time)
             val maxParticipants = playersPerTeam*2
+            val participants = if (invitedUserId.isNotEmpty()) {
+                listOf(currentUserId, invitedUserId)
+            } else {
+                listOf(currentUserId)
+            }
 
             val game = Game(
-                participants = listOf(currentUserId, invitedUserId),
+                participants = participants,
                 gameDateTime = gameDateTime,
                 location = geoPoint,
                 timestamp = Timestamp.now(),
-                maxParticipants = maxParticipants
+                maxParticipants = maxParticipants,
+                courtName = courtName
             )
 
             gameViewModel.createInvite(game) { success ->
                 context?.let { safeContext ->
                     if (success) {
-                        Toast.makeText(safeContext, "Invite sent.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(safeContext, "Game created.", Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(safeContext, "Failed to send invite.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(safeContext, "Failed to create game.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 dismiss()
@@ -219,6 +221,7 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun handleCourtSelection(court: BasketballCourt) {
         geoPoint = GeoPoint(court.latitude, court.longitude)
+        courtName = court.name
 
 //        val formattedLocation = "${court.name} (${court.latitude}, ${court.longitude})"
 //        locationEditText.setText(formattedLocation) // Show name and coordinates in the EditText

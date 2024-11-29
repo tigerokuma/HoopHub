@@ -319,7 +319,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/construction/baseline_construction_24.xml" />
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material/icons/materialicons/chat/baseline_chat_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -330,8 +330,8 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="dc5a3d" />
-                            <entry key="outputName" value="baseline_construction_24" />
-                            <entry key="sourceFile" value="C:\Users\Jeffr\AndroidStudioProjects\HoopHubSkeleton" />
+                            <entry key="outputName" value="baseline_chat_24" />
+                            <entry key="sourceFile" value="/C:\Users\Jeffr\AndroidStudioProjects\HoopHubSkeleton" />
                           </map>
                         </option>
                       </PersistentState>

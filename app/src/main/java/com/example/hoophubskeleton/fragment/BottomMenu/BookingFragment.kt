@@ -11,13 +11,15 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoophubskeleton.R
-import com.example.hoophubskeleton.ViewModel.GameViewModel
-import com.example.hoophubskeleton.ViewModel.PlayerViewModel
+import com.example.hoophubskeleton.viewmodel.GameViewModel
+import com.example.hoophubskeleton.viewmodel.PlayerViewModel
 import com.example.hoophubskeleton.adapter.BookingCardAdapter
+import com.example.hoophubskeleton.fragment.InviteBottomSheetFragment
 import com.example.hoophubskeleton.model.BookingCard
 import com.google.firebase.auth.FirebaseAuth
 import com.example.hoophubskeleton.model.Game
 import com.example.hoophubskeleton.model.PlayerCard
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class BookingFragment : Fragment() {
     private val gameViewModel: GameViewModel by viewModels()
@@ -41,6 +43,15 @@ class BookingFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.bookingRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        val addGameFab = view.findViewById<FloatingActionButton>(R.id.addGameFab)
+        addGameFab.setOnClickListener {
+            val fragment = InviteBottomSheetFragment.newInstance(
+                currentUserId = currentUserId,
+                invitedUserId = "" // Pass the correct user ID or adjust as needed
+            )
+            fragment.show(parentFragmentManager, "InviteBottomSheetFragment")
+        }
 
         bookingCardAdapter = BookingCardAdapter(emptyList()) { bookingCard ->
             handleBookingCardClick(bookingCard)
@@ -87,7 +98,8 @@ class BookingFragment : Fragment() {
                 location = game.location,
                 dateTime = game.gameDateTime,
                 competitionLevel = game.skillLevel,
-                maxParticipants = game.maxParticipants
+                maxParticipants = game.maxParticipants,
+                courtName = game.courtName
             )
         }
     }

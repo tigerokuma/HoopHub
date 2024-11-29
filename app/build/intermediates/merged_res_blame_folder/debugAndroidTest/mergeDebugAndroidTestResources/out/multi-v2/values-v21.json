@@ -4,7 +4,7 @@
             "outputFile": "com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-3:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "/Applications/Android Studio.app/Contents/jbr/Contents/Home/caches/8.9/transforms/8024fbea96742334420989856c7db7d4/transformed/core-1.5.0/res/values-v21/values.xml",
+                    "source": "/Users/paulatwal/.gradle/caches/8.9/transforms/be04ee20ca52236edf8af803b4677603/transformed/core-1.5.0/res/values-v21/values.xml",
                     "from": {
                         "startLines": "4,13",
                         "startColumns": "0,0",
