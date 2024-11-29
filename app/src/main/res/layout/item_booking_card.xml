@@ -37,7 +37,7 @@
             android:id="@+id/gameLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location (GeoPoint or address)"
+            android:text="Location"
             android:textSize="14sp"
             android:textColor="?attr/colorTertiary" />
 
