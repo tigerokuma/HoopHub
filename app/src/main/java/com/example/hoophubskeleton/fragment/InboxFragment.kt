@@ -2,7 +2,6 @@ package com.example.hoophubskeleton.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,15 +16,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoophubskeleton.R
-import com.example.hoophubskeleton.ViewModel.MessageViewModel
+import com.example.hoophubskeleton.viewmodel.MessageViewModel
 import com.example.hoophubskeleton.adapter.DialogAdapter
 import com.example.hoophubskeleton.factory.MessageViewModelFactory
 import com.example.hoophubskeleton.model.User
 import com.example.hoophubskeleton.repository.MessageRepository
 import com.google.firebase.auth.FirebaseAuth
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 //4YZaFWflCLbHNzLbXUxqGJwWU9f2

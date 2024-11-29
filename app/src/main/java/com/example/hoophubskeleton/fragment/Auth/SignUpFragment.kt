@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.hoophubskeleton.R
-import com.example.hoophubskeleton.ViewModel.AuthViewModel
+import com.example.hoophubskeleton.viewmodel.AuthViewModel
 import com.example.hoophubskeleton.factory.AuthViewModelFactory
 import com.example.hoophubskeleton.model.User
 import com.example.hoophubskeleton.repository.AuthRepository

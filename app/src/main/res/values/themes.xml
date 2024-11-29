@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/highlight</item>
         <item name="colorPrimary">@color/app_background</item>
         <item name="colorSurface">@color/button</item>
+        <item name="colorSecondary">@color/text_icon_dark</item>
+        <item name="colorTertiary">@color/unimplemented</item>
         <item name="android:textColor">@color/text_icon_dark</item>
         <item name="android:navigationBarColor">@color/text_icon_dark</item>
         <item name="android:windowFullscreen">false</item> <!-- Ensure status bar is visible -->

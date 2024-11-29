@@ -25,7 +25,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
-import com.example.hoophubskeleton.ViewModel.AuthViewModel
+import com.example.hoophubskeleton.viewmodel.AuthViewModel
 import com.example.hoophubskeleton.factory.AuthViewModelFactory
 import com.example.hoophubskeleton.model.User
 import com.example.hoophubskeleton.repository.AuthRepository
@@ -312,12 +312,43 @@ class EditProfileFragment : Fragment() {
         }
 
         confirmButton.setOnClickListener {
-            dialog.dismiss() // Close dialog
+            deletePlayer()
+            dialog.dismiss()
         }
 
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.show()
     }
+
+    private fun deletePlayer() {
+        // Trigger profile deletion
+        profileViewModel.deleteUserProfile()
+
+        // Trigger credentials deletion
+        authViewModel.deleteUserCredentials()
+
+        // Observe deletion statuses
+        profileViewModel.deleteStatus.observe(viewLifecycleOwner) { (success, message) ->
+            if (success) {
+                Log.d("EditProfileFragment", "Profile deleted successfully.")
+            } else {
+                Log.e("EditProfileFragment", "Failed to delete profile: $message")
+                Toast.makeText(requireContext(), "Failed to delete profile: $message", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        authViewModel.deleteStatus.observe(viewLifecycleOwner) { (success, message) ->
+            if (success) {
+                Log.d("EditProfileFragment", "Credentials deleted successfully.")
+                // Navigate to login fragment after both deletions succeed
+                findNavController().navigate(R.id.loginFragment)
+            } else {
+                Log.e("EditProfileFragment", "Failed to delete credentials: $message")
+                Toast.makeText(requireContext(), "Failed to delete credentials: $message", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
 
 

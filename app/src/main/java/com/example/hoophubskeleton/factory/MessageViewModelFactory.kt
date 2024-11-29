@@ -2,7 +2,7 @@ package com.example.hoophubskeleton.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.hoophubskeleton.ViewModel.MessageViewModel
+import com.example.hoophubskeleton.viewmodel.MessageViewModel
 import com.example.hoophubskeleton.repository.MessageRepository
 
 
