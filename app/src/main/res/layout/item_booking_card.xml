@@ -6,87 +6,61 @@
     app:cardCornerRadius="12dp"
     app:cardElevation="6dp">
 
+
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/playerImage"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginEnd="16dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/players_icon" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/playerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Player Name"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/gameDateTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="December 1, 14:30"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"
-                android:textColor="@android:color/darker_gray" />
-
-            <TextView
-                android:id="@+id/gameLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location: Austin, TX"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"
-                android:textColor="@android:color/darker_gray" />
-
-            <TextView
-                android:id="@+id/playerCompetitionLevel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Superplayer"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"
-                android:textColor="@android:color/darker_gray" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/buttonLayout"
+        <!-- Date TextView -->
+        <TextView
+            android:id="@+id/gameDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:text="Month, Date"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
 
-            <Button
-                android:id="@+id/bookingButton1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Accept"
-                android:layout_gravity="center_vertical"
-                android:backgroundTint="@color/highlight" />
-            <Button
-                android:id="@+id/bookingButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Decline"
-                android:layout_gravity="center_vertical"
-                android:backgroundTint="@color/highlight" />
-        </LinearLayout>
+        <!-- Time TextView -->
+        <TextView
+            android:id="@+id/gameTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <!-- Location TextView -->
+        <TextView
+            android:id="@+id/gameLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location (GeoPoint or address)"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/participantsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2/6"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:clickable="true"
+            android:focusable="true"/>
 
 
+        <!-- Leave Button -->
+        <Button
+            android:id="@+id/leaveGameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Leave"
+            android:backgroundTint="@color/highlight"
+            android:textColor="@color/white" />
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

@@ -11,10 +11,26 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dateTimeLoc"
+        android:text="Select Details"
         android:textSize="18sp"
         android:textStyle="bold"
         android:paddingBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Players per team"
+        />
+
+    <Spinner
+        android:id="@+id/playersPerTeamSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:spinnerMode="dropdown"
+        android:entries="@array/players_per_team"
+        android:backgroundTint="@color/highlight" />
 
     <Button
         android:id="@+id/selectDateButton"
@@ -33,12 +49,12 @@
         android:backgroundTint="@color/highlight"
         android:textColor="@color/white"/>
 
-    <EditText
-        android:id="@+id/locationEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/enter_location"
-        android:layout_marginTop="8dp"/>
+<!--    <EditText-->
+<!--        android:id="@+id/locationEditText"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="@string/enter_location"-->
+<!--        android:layout_marginTop="8dp"/>-->
 
     <Button
         android:id="@+id/selectOnMapButton"

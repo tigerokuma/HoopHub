@@ -7,13 +7,13 @@ import com.google.firebase.firestore.GeoPoint
 // player sends another player an invite to a game.
 
 
-data class Game(
-    var id: String = "",
-    var gameDateTime: Timestamp = Timestamp.now(), // Firestore Timestamp
-    var location: GeoPoint = GeoPoint(0.0, 0.0), // Use GeoPoint instead of List<Double>
-    var skillLevel: String = "",
-    var participants: List<String> = mutableListOf())
-/*
+//data class Game(
+//    var id: String = "",
+//    var gameDateTime: Timestamp = Timestamp.now(), // Firestore Timestamp
+//    var location: GeoPoint = GeoPoint(0.0, 0.0), // Use GeoPoint instead of List<Double>
+//    var skillLevel: String = "",
+//    var participants: List<String> = mutableListOf())
+
 enum class GameStatus {
     PENDING,
     ACCEPTED,
@@ -23,11 +23,11 @@ enum class GameStatus {
 
 data class Game(
     val id: String = "",
-    val createdBy: String = "",
-    val sentTo: String = "",
     val gameDateTime: Timestamp = Timestamp.now(),
     val location: GeoPoint = GeoPoint(0.0, 0.0),
-    var status: GameStatus = GameStatus.PENDING,
-    var timestamp: Timestamp = Timestamp.now()
+    val courtName: String = "",
+    var timestamp: Timestamp = Timestamp.now(),
+    var participants: List<String> = mutableListOf(),
+    val skillLevel: String = "",
+    val maxParticipants: Int = 2
 )
-*/

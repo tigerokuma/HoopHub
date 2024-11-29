@@ -9,8 +9,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.icu.util.Calendar
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -32,15 +34,20 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
 
     private lateinit var selectDateButton: Button
     private lateinit var selectTimeButton: Button
-    private lateinit var locationEditText: EditText
+//    private lateinit var locationEditText: EditText
     private lateinit var confirmButton: Button
     private lateinit var cancelButton: Button
     private val gameViewModel: GameViewModel by viewModels()
     private lateinit var currentUserId: String
     private lateinit var invitedUserId: String
+    private lateinit var geoPoint: GeoPoint
 
     private lateinit var selectOnMapButton: Button
     private lateinit var mapPopupContainer: ViewGroup
+
+    private lateinit var playersPerTeamSpinner: Spinner
+    private var playersPerTeam: Int = 1
+    private lateinit var courtName: String
 
 
     override fun onCreateView(
@@ -57,11 +64,11 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
         // Initialize views
         selectDateButton = view.findViewById(R.id.selectDateButton)
         selectTimeButton = view.findViewById(R.id.selectTimeButton)
-        locationEditText = view.findViewById(R.id.locationEditText)
         confirmButton = view.findViewById(R.id.inviteConfirmButton)
         cancelButton = view.findViewById(R.id.inviteCancelButton)
         selectOnMapButton = view.findViewById(R.id.selectOnMapButton)
         mapPopupContainer = view.findViewById(R.id.map_popup_container)
+        playersPerTeamSpinner = view.findViewById(R.id.playersPerTeamSpinner)
 
         // Retrieve user IDs from arguments
         val currentId = arguments?.getString("currentUserId")
@@ -80,8 +87,20 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
         selectDateButton.setOnClickListener { showDatePickerDialog() }
         selectTimeButton.setOnClickListener { showTimePickerDialog() }
         selectOnMapButton.setOnClickListener { showMapPopup() }
-//        confirmButton.setOnClickListener { onConfirmClicked() }
+        confirmButton.setOnClickListener { onConfirmClicked() }
         cancelButton.setOnClickListener { dismiss() }
+
+        // Set up Spinner
+        playersPerTeamSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                playersPerTeam = parent?.getItemAtPosition(position).toString().toInt()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Default 1 if nothing selected
+                playersPerTeam = 1
+            }
+        }
     }
 
     private fun showDatePickerDialog() {
@@ -110,44 +129,49 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
         timePickerDialog.show()
         }
 
-//    private fun onConfirmClicked() {
-//        val date = selectDateButton.text.toString()
-//        val time = selectTimeButton.text.toString()
-//        val location = locationEditText.text.toString()
-//
-//        // Validate inputs
-//        if (date.isBlank() || time.isBlank() || location.isBlank()) {
-//            Toast.makeText(requireContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//
-//        try {
-//            val gameDateTime = convertDateTimeToTimestamp(date, time)
-//            val geoPoint = convertLocationToGeoPoint(location)
-//
-//            val game = Game(
-//                createdBy = currentUserId,
-//                sentTo = invitedUserId,
-//                gameDateTime = gameDateTime,
-//                location = geoPoint,
-//                timestamp = Timestamp.now()
-//            )
-//
-//            gameViewModel.createInvite(game) { success ->
-//                context?.let { safeContext ->
-//                    if (success) {
-//                        Toast.makeText(safeContext, "Invite sent.", Toast.LENGTH_SHORT).show()
-//                    } else {
-//                        Toast.makeText(safeContext, "Failed to send invite.", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//                dismiss()
-//            }
-//
-//        } catch (e: IllegalArgumentException) {
-//            Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
-//        }
-//    }
+    private fun onConfirmClicked() {
+        val date = selectDateButton.text.toString()
+        val time = selectTimeButton.text.toString()
+
+        // Validate inputs
+        if (date.isBlank() || time.isBlank() || !this::geoPoint.isInitialized) {
+            Toast.makeText(requireContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        try {
+            val gameDateTime = convertDateTimeToTimestamp(date, time)
+            val maxParticipants = playersPerTeam*2
+            val participants = if (invitedUserId.isNotEmpty()) {
+                listOf(currentUserId, invitedUserId)
+            } else {
+                listOf(currentUserId)
+            }
+
+            val game = Game(
+                participants = participants,
+                gameDateTime = gameDateTime,
+                location = geoPoint,
+                timestamp = Timestamp.now(),
+                maxParticipants = maxParticipants,
+                courtName = courtName
+            )
+
+            gameViewModel.createInvite(game) { success ->
+                context?.let { safeContext ->
+                    if (success) {
+                        Toast.makeText(safeContext, "Game created.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(safeContext, "Failed to create game.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                dismiss()
+            }
+
+        } catch (e: IllegalArgumentException) {
+            Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     // This lets us call newInstance on the class itself rather than on an instance of the class.
     // It wouldn't make sense to first create an instance of the class and then call a method on that
@@ -172,18 +196,6 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
         } catch (e: Exception) {
             throw IllegalArgumentException("Invalid date/time format")
         }
-    }
-
-
-    private fun convertLocationToGeoPoint(location: String): GeoPoint {
-        val latLng = location.split(",")
-        if (latLng.size != 2) throw IllegalArgumentException("Invalid location format")
-
-        val latitude = latLng[0].toDoubleOrNull()
-        val longitude = latLng[1].toDoubleOrNull()
-        if (latitude == null || longitude == null) throw IllegalArgumentException("Invalid latitude/longitude")
-
-        return GeoPoint(latitude, longitude)
     }
 
 
@@ -213,10 +225,15 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun handleCourtSelection(court: BasketballCourt) {
-        val formattedLocation = "${court.name} (${court.latitude}, ${court.longitude})"
-        locationEditText.setText(formattedLocation) // Show name and coordinates in the EditText
+        geoPoint = GeoPoint(court.latitude, court.longitude)
+        courtName = court.name
+
+//        val formattedLocation = "${court.name} (${court.latitude}, ${court.longitude})"
+//        locationEditText.setText(formattedLocation) // Show name and coordinates in the EditText
         hideMapPopup()
         Toast.makeText(requireContext(), "Selected: ${court.name}", Toast.LENGTH_SHORT).show()
+
+
     }
 
 
