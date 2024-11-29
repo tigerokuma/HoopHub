@@ -3,22 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="80dp"
-    android:fillViewport="true">
+    android:background="?attr/colorPrimary"
+    android:fillViewport="true"
+    android:padding="16dp">
 
     <LinearLayout
-        android:background="@drawable/top_gradient"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorPrimary"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingBottom="80dp">
 
         <!-- Profile Picture Display -->
         <ImageView
             android:id="@+id/profileImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_gravity="left"
+            android:layout_gravity="center"
             android:layout_marginBottom="8dp"
             android:contentDescription="Profile Picture"
             android:scaleType="centerCrop"
@@ -81,6 +82,31 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"
+            android:text="Account Security"
+            android:textColor="@color/highlight"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Password -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Password"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/profilePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="*********" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
             android:text="Skill and Location"
             android:textColor="@color/highlight"
             android:textSize="20sp"
@@ -128,7 +154,7 @@
 
         <Button
             android:id="@+id/profileEditButton"
-            style="@style/OrangeButtonStyle"
+            style="@style/CustomButtonStyle"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -137,7 +163,7 @@
         <!-- Log Out Button -->
         <Button
             android:id="@+id/profileLogoutButton"
-            style="@style/OrangeButtonStyle"
+            style="@style/CustomButtonStyle"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

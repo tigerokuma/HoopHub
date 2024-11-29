@@ -11,8 +11,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.hoophubskeleton.fragment.TopMenu.EditProfileFragment
-
 /*
 The following code for taking and storing a photo was adapted from the worked-through
 code shown in the September 13th, 2024 lecture.
@@ -21,7 +19,7 @@ External permissions adapted from
 Manage External Storage Permission -Android Studio — Java
 https://medium.com/@kezzieleo/manage-external-storage-permission-android-studio-java-9c3554cf79a7
 */
-object ProfileUtil {
+object Util {
 
     fun checkPermissions(activity: Activity?) {
         if (Build.VERSION.SDK_INT < 23) return
@@ -43,7 +41,6 @@ object ProfileUtil {
 
 
     fun getBitmap(context: Context, imgUri: Uri): Bitmap {
-        val inputStream = context.contentResolver.openInputStream(imgUri)
         var bitmap = BitmapFactory.decodeStream(context.contentResolver.openInputStream(imgUri))
         val matrix = Matrix()
         var ret = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
