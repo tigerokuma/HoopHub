@@ -2,6 +2,7 @@ package com.example.hoophubskeleton.fragment.TopMenu
 
 import ProfileViewModelFactory
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
@@ -18,6 +19,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.hoophubskeleton.R
@@ -25,6 +27,8 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
+import com.example.hoophubskeleton.ProfileImageLauncher
+import com.example.hoophubskeleton.ProfileUtil
 import com.example.hoophubskeleton.viewmodel.AuthViewModel
 import com.example.hoophubskeleton.factory.AuthViewModelFactory
 import com.example.hoophubskeleton.model.User
@@ -35,6 +39,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import java.io.File
 
 class EditProfileFragment : Fragment() {
     private lateinit var updateButton: Button
@@ -55,11 +60,40 @@ class EditProfileFragment : Fragment() {
         if (result.resultCode == Activity.RESULT_OK && result.data != null) {
             imageUri = result.data?.data
             profileImageView.setImageURI(imageUri)
+            val bitmap = imageUri?.let { ProfileUtil.getBitmap(requireContext(), it) }
+            bitmap?.let { profileViewModel.tempUserImage.value = it }
             Log.d("EditProfileFragment", "Selected Image URI: $imageUri")
         } else {
-            Log.e("EditProfileFragment", "Image selection failed or canceled. Retaining current imageUri: $imageUri")
+            Log.e(
+                "EditProfileFragment",
+                "Image selection failed or canceled. Retaining current imageUri: $imageUri"
+            )
         }
     }
+    private val snappedPhotoLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                Log.d("EditProfileFragment", "Camera result OK")
+                Log.d("EditProfileFragment", "Image URI in result: $imageUri")
+
+                if (imageUri != null) {
+                    try {
+                        Log.d("EditProfileFragment", "Attempting to create bitmap from URI")
+                        val bitmap = ProfileUtil.getBitmap(requireContext(), imageUri!!)
+                        bitmap?.let {
+                            Log.d("EditProfileFragment", "Bitmap created successfully")
+                            profileViewModel.tempUserImage.value = it
+                        } ?: Log.e("EditProfileFragment", "Bitmap is null")
+                    } catch (e: Exception) {
+                        Log.e("EditProfileFragment", "Error creating bitmap: ${e.message}", e)
+                    }
+                } else {
+                    Log.e("EditProfileFragment", "Image URI is null after camera result")
+                }
+            } else {
+                Log.e("EditProfileFragment", "Camera result NOT OK: ${result.resultCode}")
+            }
+        }
 
 
     override fun onCreateView(
@@ -73,9 +107,12 @@ class EditProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
-        authViewModel = ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
-        val repository = ProfileRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
+        val authRepository =
+            AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
+        authViewModel =
+            ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
+        val repository =
+            ProfileRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
         val factory = ProfileViewModelFactory(repository)
         profileViewModel = ViewModelProvider(this, factory).get(ProfileViewModel::class.java)
         profileViewModel.fetchUserProfile()
@@ -92,8 +129,26 @@ class EditProfileFragment : Fragment() {
         locationEditText = view.findViewById(R.id.editProfileLocation)
 
         profileImageView.setOnClickListener {
-            openGallery()
+            ProfileUtil.checkPermissions(requireActivity())
+            imageUri = createImageUri()
+            ProfileImageLauncher(
+                requireContext(),
+                snappedPhotoLauncher,
+                pickImageLauncher,
+                imageUri
+            ).launch()
+            //openGallery()
         }
+
+        profileViewModel.tempUserImage.observe(viewLifecycleOwner) { bitmap ->
+            if (bitmap != null) {
+                Log.d("EditProfileFragment", "tempUserImage updated, setting bitmap to ImageView")
+                profileImageView.setImageBitmap(bitmap)
+            } else {
+                Log.e("EditProfileFragment", "tempUserImage is null")
+            }
+        }
+
 
         // Observer to display user information
         profileViewModel.userProfile.observe(viewLifecycleOwner) { user ->
@@ -128,7 +183,8 @@ class EditProfileFragment : Fragment() {
                 // Navigate to login or another relevant screen
                 findNavController().navigate(R.id.loginFragment)
             } else {
-                Toast.makeText(context, "Failed to delete profile: $message", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Failed to delete profile: $message", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -136,10 +192,18 @@ class EditProfileFragment : Fragment() {
         authViewModel.deleteStatus.observe(viewLifecycleOwner) { status ->
             val (success, message) = status
             if (success) {
-                Toast.makeText(requireContext(), "Profile deleted successfully.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Profile deleted successfully.",
+                    Toast.LENGTH_SHORT
+                ).show()
 
             } else {
-                Toast.makeText(requireContext(), "Failed to delete profile: $message", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to delete profile: $message",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -177,7 +241,11 @@ class EditProfileFragment : Fragment() {
                             // Update the user profile after password change
                             updateUserProfile(profileViewModel, updatedUser)
                         } else {
-                            Toast.makeText(requireContext(), "Password update failed: $message", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Password update failed: $message",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 } else {
@@ -226,12 +294,19 @@ class EditProfileFragment : Fragment() {
         storageReference.putFile(imageUri!!)
             .addOnSuccessListener {
                 storageReference.downloadUrl.addOnSuccessListener { uri ->
-                    Log.d("EditDeleteProfileFragment", "Image uploaded successfully. Download URL: $uri")
+                    Log.d(
+                        "EditDeleteProfileFragment",
+                        "Image uploaded successfully. Download URL: $uri"
+                    )
                     onSuccess(uri.toString()) // Return the new download URL
                 }
             }
             .addOnFailureListener { exception ->
-                Log.e("EditDeleteProfileFragment", "Failed to upload image: ${exception.message}", exception)
+                Log.e(
+                    "EditDeleteProfileFragment",
+                    "Failed to upload image: ${exception.message}",
+                    exception
+                )
             }
     }
 
@@ -242,7 +317,11 @@ class EditProfileFragment : Fragment() {
             if (error != null) {
                 Toast.makeText(requireContext(), "Update failed: $error", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Profile updated successfully!",
+                    Toast.LENGTH_SHORT
+                ).show()
                 findNavController().popBackStack() // Navigate back to the previous fragment
             }
         }
@@ -259,7 +338,11 @@ class EditProfileFragment : Fragment() {
                         callback(true, null)
                     } else {
                         val errorMessage = task.exception?.message
-                        Log.e("EditProfileFragment", "Failed to update password: $errorMessage", task.exception)
+                        Log.e(
+                            "EditProfileFragment",
+                            "Failed to update password: $errorMessage",
+                            task.exception
+                        )
                         callback(false, errorMessage)
                     }
                 }
@@ -272,21 +355,18 @@ class EditProfileFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.e("EditProfileFragment", "Updating indicator tab to ProfileFragment")
-        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val bottomNavigationView =
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.menu.findItem(R.id.profileFragment)?.isChecked = true
         Log.e("EditProfileFragment", "R.id.profileFragment: ${R.id.profileFragment}")
-        Log.e("EditProfileFragment", "SelectedItem BottomNavMenu: ${bottomNavigationView.selectedItemId}")
+        Log.e(
+            "EditProfileFragment",
+            "SelectedItem BottomNavMenu: ${bottomNavigationView.selectedItemId}"
+        )
 
 
     }
 
-    private fun deleteAccountCredentials() {
-        authViewModel.deleteUserCredentials()
-    }
-
-    private fun deleteUserProfile() {
-        profileViewModel.deleteUserProfile()
-    }
 
     private fun showDeleteConfirmationDialog() {
         val customView = LayoutInflater.from(context).inflate(R.layout.custom_alert_dialog, null)
@@ -296,10 +376,10 @@ class EditProfileFragment : Fragment() {
         val confirmButton = customView.findViewById<Button>(R.id.confirmButton)
 
         title.text = "Delete Profile"
-        message.text = "We're sorry to see you go. Are you sure you want to delete your profile? This action cannot be undone."
+        message.text =
+            "We're sorry to see you go. Are you sure you want to delete your profile? This action cannot be undone."
         cancelButton.text = "Cancel"
         confirmButton.text = "Delete"
-
 
 
         val dialog = AlertDialog.Builder(requireContext())
@@ -333,7 +413,11 @@ class EditProfileFragment : Fragment() {
                 Log.d("EditProfileFragment", "Profile deleted successfully.")
             } else {
                 Log.e("EditProfileFragment", "Failed to delete profile: $message")
-                Toast.makeText(requireContext(), "Failed to delete profile: $message", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to delete profile: $message",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -344,12 +428,21 @@ class EditProfileFragment : Fragment() {
                 findNavController().navigate(R.id.loginFragment)
             } else {
                 Log.e("EditProfileFragment", "Failed to delete credentials: $message")
-                Toast.makeText(requireContext(), "Failed to delete credentials: $message", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to delete credentials: $message",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
 
-
+    private fun createImageUri(): Uri? {
+        val imageFile = File(requireContext().getExternalFilesDir(null), "profile_image.jpg")
+        Log.d("EditProfileFragment", "File exists: ${imageFile.exists()}, Path: ${imageFile.absolutePath}")
+        val uri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.fileprovider", imageFile)
+        Log.d("EditProfileFragment", "Created Image URI: $uri")
+        return uri    }
 
 
 

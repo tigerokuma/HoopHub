@@ -18,7 +18,7 @@
         <item name="itemTextColor">@color/white</item>
     </style>
 
-    <style name="CustomButtonStyle" parent="Widget.Material3.Button">
+    <style name="OrangeButtonStyle" parent="Widget.Material3.Button">
         <item name="android:backgroundTint">@color/highlight</item>
         <item name="android:textColor">@color/white</item>
     </style>

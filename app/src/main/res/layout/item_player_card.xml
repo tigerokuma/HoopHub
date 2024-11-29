@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:text="Invite"
             android:layout_gravity="center_vertical"
-            style="@style/CustomButtonStyle" />
+            style="@style/OrangeButtonStyle" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
