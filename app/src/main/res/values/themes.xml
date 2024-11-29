@@ -9,7 +9,11 @@
         <item name="colorPrimary">@color/app_background</item>
         <item name="colorSurface">@color/button</item>
         <item name="android:textColor">@color/text_icon_dark</item>
-        <item name="android:navigationBarColor">@color/navbar_day</item>
+        <item name="android:navigationBarColor">@color/text_icon_dark</item>
+        <item name="android:windowFullscreen">false</item> <!-- Ensure status bar is visible -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@color/text_icon_dark</item><!-- Light icons -->
 
     </style>
 
@@ -28,17 +32,16 @@
 
     <!-- Style for BottomNavigationView -->
     <style name="CustomBottomNavigationStyle" parent="Widget.Material3.BottomNavigationView">
-        <item name="android:background">@color/navbar_day</item>
-        <item name="itemIconTint">@color/text_icon_dark</item>
-        <item name="itemTextColor">@color/text_icon_dark</item>
-        <item name="itemRippleColor">@color/highlight</item>
+        <item name="android:background">@color/button</item>
+        <item name="itemIconTint">@color/highlight</item>
+        <item name="itemTextColor">@color/unimplemented</item>
     </style>
 
 
     <!-- Custom Menu Style -->
     <style name="CustomMenuStyle" parent="Widget.Material3.PopupMenu">
         <item name="android:popupBackground">@color/highlight</item>
-        <item name="android:textColor">@color/text_icon_dark</item>
+        <item name="android:textColor">@color/unimplemented</item>
     </style>
 
 

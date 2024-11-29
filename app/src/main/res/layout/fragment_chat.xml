@@ -45,9 +45,8 @@
             android:id="@+id/btnSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FF5722"
+            style="@style/CustomButtonStyle"
             android:padding="8dp"
-            android:text="Send"
-            android:textColor="#FFFFFF" />
+            android:text="Send" />
     </LinearLayout>
 </LinearLayout>

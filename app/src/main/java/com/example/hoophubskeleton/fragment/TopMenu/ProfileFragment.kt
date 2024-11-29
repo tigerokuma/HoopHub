@@ -1,5 +1,6 @@
 package com.example.hoophubskeleton.fragment.TopMenu
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -93,19 +94,50 @@ class ProfileFragment : Fragment() {
         // Handle logout button click
         val logoutButton = view.findViewById<Button>(R.id.profileLogoutButton)
         logoutButton.setOnClickListener {
-            Log.d("ProfileFragment: ", "Logging out")
-            val intent = Intent(requireContext(), AuthHostActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+           showLogoutDialog()
         }
 
         // Handle edit profile button click
         val editButton = view.findViewById<Button>(R.id.profileEditButton)
         editButton.setOnClickListener {
-            val navController = findNavController()
-            navController.navigate(R.id.action_profileFragment_to_editProfileFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
         }
 
     }
+
+    private fun showLogoutDialog() {
+        val customView = LayoutInflater.from(context).inflate(R.layout.custom_alert_dialog, null)
+        val title = customView.findViewById<TextView>(R.id.customTitle)
+        val message = customView.findViewById<TextView>(R.id.customMessage)
+        val cancelButton = customView.findViewById<Button>(R.id.cancelButton)
+        val confirmButton = customView.findViewById<Button>(R.id.confirmButton)
+
+        title.text = "Logout"
+        message.text = "Are you sure you want to logout?"
+        cancelButton.text = "Cancel"
+        confirmButton.text = "Logout"
+
+
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(customView)
+            .create()
+
+        // Set up button actions
+        cancelButton.setOnClickListener {
+            dialog.dismiss() // Close dialog when "Cancel" is clicked
+        }
+
+        confirmButton.setOnClickListener {
+            authViewModel.logOut()
+            findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+            dialog.dismiss() // Close dialog
+        }
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+    }
+
+
 }
 

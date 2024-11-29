@@ -9,10 +9,11 @@
         <item name="android:textColor">@color/night_text_icon</item>
     </style>
 
-    <!-- Custom Menu Style -->
-    <style name="CustomMenuStyle" parent="Widget.Material3.PopupMenu">
-        <item name="android:popupBackground">@color/highlight</item>
-        <item name="android:textColor">@color/night_app_background</item>
+    <!-- Style for BottomNavigationView -->
+    <style name="CustomBottomNavigationStyle" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:background">@color/button</item>
+        <item name="itemIconTint">@color/highlight</item>
+        <item name="itemTextColor">@color/highlight</item>
     </style>
 
     <style name="CustomButtonStyle" parent="Widget.Material3.Button">
@@ -21,12 +22,4 @@
     </style>
 
 
-    <!-- Style for BottomNavigationView -->
-    <style name="CustomBottomNavigationStyle" parent="Widget.Material3.BottomNavigationView">
-        <item name="android:background">@color/night_app_background</item>
-        <item name="itemIconTint">@color/night_text_icon</item>
-        <item name="itemTextColor">@color/night_text_icon</item>
-        <item name="itemRippleColor">@color/highlight</item>
-
-    </style>
 </resources>
