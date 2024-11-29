@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:text="Invite"
                 android:layout_gravity="center_vertical"
-                style="@style/CustomButtonStyle" />
+                style="@style/OrangeButtonStyle" />
 
             <ImageButton
                 android:id="@+id/messageIcon"
@@ -75,11 +75,10 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/baseline_chat_24"
                 android:layout_marginTop="8dp"
-                android:tint="@color/highlight"
-                android:backgroundTint="@color/white"/>
+                android:backgroundTint="@color/white"
+                app:tint="@color/highlight" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>
