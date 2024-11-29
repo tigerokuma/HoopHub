@@ -87,9 +87,10 @@ class ChatFragment : Fragment() {
         }
     }
     override fun onResume() {
+        // changes indicator icon to inbox
         super.onResume()
         val bottomNavigationView =
-            requireActivity().findViewById<BottomNavigationView>(R.id.inboxFragment)
-        bottomNavigationView.menu.findItem(R.id.inboxFragment)?.isChecked = true
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView?.menu?.findItem(R.id.inboxFragment)?.isChecked = true
     }
 }

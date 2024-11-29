@@ -60,7 +60,7 @@ class EditProfileFragment : Fragment() {
         if (result.resultCode == Activity.RESULT_OK && result.data != null) {
             imageUri = result.data?.data
             profileImageView.setImageURI(imageUri)
-            val bitmap = imageUri?.let { ProfileUtil.getBitmap(requireContext(), it) }
+            val bitmap = imageUri?.let { ProfileUtil.getBitmapFromURI(requireContext(), it) }
             bitmap?.let { profileViewModel.tempUserImage.value = it }
             Log.d("EditProfileFragment", "Selected Image URI: $imageUri")
         } else {
@@ -79,7 +79,7 @@ class EditProfileFragment : Fragment() {
                 if (imageUri != null) {
                     try {
                         Log.d("EditProfileFragment", "Attempting to create bitmap from URI")
-                        val bitmap = ProfileUtil.getBitmap(requireContext(), imageUri!!)
+                        val bitmap = ProfileUtil.getBitmapFromURI(requireContext(), imageUri!!)
                         bitmap?.let {
                             Log.d("EditProfileFragment", "Bitmap created successfully")
                             profileViewModel.tempUserImage.value = it

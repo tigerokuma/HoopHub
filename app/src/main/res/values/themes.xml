@@ -16,7 +16,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@color/text_icon_dark</item><!-- Light icons -->
-
+        <item name="timestampTextColor">@color/dayTextColor</item>
     </style>
 
     <!-- Application theme -->

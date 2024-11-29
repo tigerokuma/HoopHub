@@ -11,7 +11,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.hoophubskeleton.fragment.TopMenu.EditProfileFragment
 
 /*
 The following code for taking and storing a photo was adapted from the worked-through
@@ -42,7 +41,7 @@ object ProfileUtil {
     }
 
 
-    fun getBitmap(context: Context, imgUri: Uri): Bitmap {
+    fun getBitmapFromURI(context: Context, imgUri: Uri): Bitmap {
         val inputStream = context.contentResolver.openInputStream(imgUri)
         var bitmap = BitmapFactory.decodeStream(context.contentResolver.openInputStream(imgUri))
         val matrix = Matrix()

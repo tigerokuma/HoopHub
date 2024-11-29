@@ -16,5 +16,6 @@
     <color name="night_unimplemented">#acacac</color>
     <color name="night_app_background">#403D39</color>
     <color name="night_msg">#EBA286</color>
+    <color name="dayTextColor">#4F0000</color>
 
 </resources>
