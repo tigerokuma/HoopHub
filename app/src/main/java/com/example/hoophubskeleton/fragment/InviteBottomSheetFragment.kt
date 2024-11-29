@@ -142,9 +142,14 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
         try {
             val gameDateTime = convertDateTimeToTimestamp(date, time)
             val maxParticipants = playersPerTeam*2
+            val participants = if (invitedUserId.isNotEmpty()) {
+                listOf(currentUserId, invitedUserId)
+            } else {
+                listOf(currentUserId)
+            }
 
             val game = Game(
-                participants = listOf(currentUserId, invitedUserId),
+                participants = participants,
                 gameDateTime = gameDateTime,
                 location = geoPoint,
                 timestamp = Timestamp.now(),
@@ -155,9 +160,9 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
             gameViewModel.createInvite(game) { success ->
                 context?.let { safeContext ->
                     if (success) {
-                        Toast.makeText(safeContext, "Invite sent.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(safeContext, "Game created.", Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(safeContext, "Failed to send invite.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(safeContext, "Failed to create game.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 dismiss()

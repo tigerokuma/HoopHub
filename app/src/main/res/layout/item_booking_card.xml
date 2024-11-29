@@ -6,72 +6,6 @@
     app:cardCornerRadius="12dp"
     app:cardElevation="6dp">
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:padding="16dp">-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/playerImage"-->
-<!--            android:layout_width="64dp"-->
-<!--            android:layout_height="64dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            android:src="@drawable/players_icon" />-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/playerName"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Player Name"-->
-<!--                android:textSize="18sp"-->
-<!--                android:textStyle="bold" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/gameDateTime"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="December 1, 14:30"-->
-<!--                android:textSize="14sp"-->
-<!--                android:layout_marginTop="4dp"-->
-<!--                android:textColor="@android:color/darker_gray" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/gameLocation"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Location: Austin, TX"-->
-<!--                android:textSize="14sp"-->
-<!--                android:layout_marginTop="4dp"-->
-<!--                android:textColor="@android:color/darker_gray" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/playerCompetitionLevel"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Superplayer"-->
-<!--                android:textSize="14sp"-->
-<!--                android:layout_marginTop="4dp"-->
-<!--                android:textColor="@android:color/darker_gray" />-->
-<!--        </LinearLayout>-->
-
-<!--        <Button-->
-<!--            android:id="@+id/leaveGameButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Leave Game"-->
-<!--            android:backgroundTint="@color/highlight" />-->
-
-
-
-<!--    </LinearLayout>-->
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -114,7 +48,9 @@
             android:layout_height="wrap_content"
             android:text="2/6"
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@android:color/darker_gray"
+            android:clickable="true"
+            android:focusable="true"/>
 
 
         <!-- Leave Button -->
