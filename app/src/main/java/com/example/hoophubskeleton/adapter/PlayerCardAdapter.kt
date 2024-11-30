@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -16,8 +17,9 @@ import com.example.hoophubskeleton.R
 
 class PlayerCardAdapter(
     private var playerList: List<PlayerCard>,
-    private val onInviteClick: (PlayerCard) -> Unit
-    ) : RecyclerView.Adapter<PlayerCardAdapter.PlayerViewHolder>() {
+    private val onInviteClick: (PlayerCard) -> Unit,
+    private val onMessageClick: (PlayerCard) -> Unit // Added a callback for the message icon click
+) : RecyclerView.Adapter<PlayerCardAdapter.PlayerViewHolder>() {
 
     inner class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val playerImage = itemView.findViewById<ImageView>(R.id.playerImage)
@@ -25,6 +27,7 @@ class PlayerCardAdapter(
         val playerLocation = itemView.findViewById<TextView>(R.id.playerLocation)
         val playerCompetitionLevel = itemView.findViewById<TextView>(R.id.playerCompetitionLevel)
         val inviteButton = itemView.findViewById<Button>(R.id.inviteButton)
+        val messageIcon = itemView.findViewById<ImageButton>(R.id.messageIcon) // Added reference
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
@@ -46,14 +49,19 @@ class PlayerCardAdapter(
         holder.playerCompetitionLevel.text = playerCard.competitionLevel
 
         // Load image using Coil
-        if(playerCard.profilePicUrl.isNullOrBlank()) {
+        if (playerCard.profilePicUrl.isNullOrBlank()) {
             holder.playerImage.setImageResource(R.drawable.default_profile_pic)
         } else {
             holder.playerImage.load(playerCard.profilePicUrl)
         }
 
-        holder.inviteButton.setOnClickListener{
+        holder.inviteButton.setOnClickListener {
             onInviteClick(playerCard)
+        }
+
+        // Set the click listener for the message icon
+        holder.messageIcon.setOnClickListener {
+            onMessageClick(playerCard)
         }
     }
 
@@ -61,5 +69,4 @@ class PlayerCardAdapter(
         playerList = newList
         notifyDataSetChanged()
     }
-
 }
