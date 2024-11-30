@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoophubskeleton.R
-import com.example.hoophubskeleton.viewmodel.MessageViewModel
+import com.example.hoophubskeleton.ViewModel.MessageViewModel
 import com.example.hoophubskeleton.adapter.DialogAdapter
 import com.example.hoophubskeleton.factory.MessageViewModelFactory
 import com.example.hoophubskeleton.model.User

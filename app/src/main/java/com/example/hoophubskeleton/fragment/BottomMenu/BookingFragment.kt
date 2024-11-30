@@ -11,8 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoophubskeleton.R
-import com.example.hoophubskeleton.viewmodel.GameViewModel
-import com.example.hoophubskeleton.viewmodel.PlayerViewModel
+import com.example.hoophubskeleton.ViewModel.GameViewModel
+import com.example.hoophubskeleton.ViewModel.PlayerViewModel
 import com.example.hoophubskeleton.adapter.BookingCardAdapter
 import com.example.hoophubskeleton.fragment.InviteBottomSheetFragment
 import com.example.hoophubskeleton.model.BookingCard

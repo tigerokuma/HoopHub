@@ -14,7 +14,7 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import com.example.hoophubskeleton.viewmodel.GameViewModel
+import com.example.hoophubskeleton.ViewModel.GameViewModel
 import com.example.hoophubskeleton.model.Game
 import java.text.SimpleDateFormat
 import java.util.Locale

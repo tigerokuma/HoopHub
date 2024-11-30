@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoophubskeleton.adapter.PlayerCardAdapter
 import com.example.hoophubskeleton.R
-import com.example.hoophubskeleton.viewmodel.PlayerViewModel
+import com.example.hoophubskeleton.ViewModel.PlayerViewModel
 import com.example.hoophubskeleton.fragment.InviteBottomSheetFragment
 import com.google.firebase.auth.FirebaseAuth
 

@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoophubskeleton.R
-import com.example.hoophubskeleton.viewmodel.MessageViewModel
+import com.example.hoophubskeleton.ViewModel.MessageViewModel
 import com.example.hoophubskeleton.adapter.ChatAdapter
 import com.example.hoophubskeleton.factory.MessageViewModelFactory
 import com.example.hoophubskeleton.repository.MessageRepository

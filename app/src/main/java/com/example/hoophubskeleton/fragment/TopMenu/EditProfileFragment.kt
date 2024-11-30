@@ -29,12 +29,12 @@ import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
 import com.example.hoophubskeleton.ProfileImageLauncher
 import com.example.hoophubskeleton.ProfileUtil
-import com.example.hoophubskeleton.viewmodel.AuthViewModel
+import com.example.hoophubskeleton.ViewModel.AuthViewModel
 import com.example.hoophubskeleton.factory.AuthViewModelFactory
 import com.example.hoophubskeleton.model.User
 import com.example.hoophubskeleton.repository.AuthRepository
 import com.example.hoophubskeleton.repository.ProfileRepository
-import com.example.hoophubskeleton.viewmodel.ProfileViewModel
+import com.example.hoophubskeleton.ViewModel.ProfileViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

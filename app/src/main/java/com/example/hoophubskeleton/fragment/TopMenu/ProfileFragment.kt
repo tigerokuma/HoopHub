@@ -21,11 +21,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import coil.load
 import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
-import com.example.hoophubskeleton.viewmodel.AuthViewModel
+import com.example.hoophubskeleton.ViewModel.AuthViewModel
 import com.example.hoophubskeleton.factory.AuthViewModelFactory
 import com.example.hoophubskeleton.repository.AuthRepository
 import com.example.hoophubskeleton.repository.ProfileRepository
-import com.example.hoophubskeleton.viewmodel.ProfileViewModel
+import com.example.hoophubskeleton.ViewModel.ProfileViewModel
 
 //import com.bumptech.glide.Glide
 

@@ -1,4 +1,4 @@
-package com.example.hoophubskeleton.viewmodel
+package com.example.hoophubskeleton.ViewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

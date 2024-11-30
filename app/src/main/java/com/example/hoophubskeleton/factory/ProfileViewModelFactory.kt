@@ -1,7 +1,7 @@
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.hoophubskeleton.repository.ProfileRepository
-import com.example.hoophubskeleton.viewmodel.ProfileViewModel
+import com.example.hoophubskeleton.ViewModel.ProfileViewModel
 
 class ProfileViewModelFactory(
     private val repository: ProfileRepository
