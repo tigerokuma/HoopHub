@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:text="Location: Loading address..."
         android:layout_marginTop="4dp"
-        android:textColor="@color/black"
         android:clickable="true"
         android:focusable="true"
         android:ellipsize="end"
@@ -43,8 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Participants: 0"
-        android:textSize="14sp"
-        android:textColor="@color/black" />
+        android:textSize="14sp" />
 
 
     <!-- Participate Button -->
@@ -53,5 +51,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        style="@style/OrangeButtonStyle"
         android:text="Participate" />
 </LinearLayout>

@@ -11,15 +11,11 @@ import android.app.TimePickerDialog
 import android.icu.util.Calendar
 import android.widget.AdapterView
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Spinner
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.hoophubskeleton.ViewModel.GameViewModel
 import com.example.hoophubskeleton.model.Game
-import com.example.hoophubskeleton.repository.GamesRepository
-import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Locale
 import com.google.firebase.Timestamp
@@ -27,7 +23,6 @@ import com.google.firebase.firestore.GeoPoint
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.isVisible
 import com.example.hoophubskeleton.data.BasketballCourt
-import com.example.hoophubskeleton.fragment.TopMenu.MapPopup
 import com.example.hoophubskeleton.fragment.TopMenu.MapWithMarkersForSelection
 
 class InviteBottomSheetFragment : BottomSheetDialogFragment() {

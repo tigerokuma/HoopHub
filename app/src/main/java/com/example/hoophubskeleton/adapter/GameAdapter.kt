@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.model.Game
@@ -104,6 +105,9 @@ class GameAdapter(
         if (game.participants.contains(currentUserId)) {
             holder.participateButton.text = "Already Participating"
             holder.participateButton.isEnabled = false
+            // Grey button if user already participating
+            holder.participateButton.backgroundTintList = ContextCompat.getColorStateList(context, R.color.unimplemented)
+            holder.participateButton.setTextColor(ContextCompat.getColor(context, R.color.text_icon_dark))
         } else {
             holder.participateButton.text = "Participate"
             holder.participateButton.isEnabled = true

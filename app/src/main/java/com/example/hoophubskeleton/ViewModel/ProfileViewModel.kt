@@ -1,5 +1,6 @@
 package com.example.hoophubskeleton.ViewModel
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,8 @@ class ProfileViewModel(private val profileRepository: ProfileRepository) : ViewM
 
     private val _userProfile = MutableLiveData<User?>()
     val userProfile: LiveData<User?> get() = _userProfile
+    // Temporarily stores image upon state change
+    var tempUserImage = MutableLiveData<Bitmap>()
 
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> get() = _errorMessage
