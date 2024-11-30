@@ -14,14 +14,16 @@
 
         <ImageView
             android:id="@+id/playerImage"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginEnd="16dp"
             android:scaleType="centerCrop"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/players_icon" />
 
+
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -31,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Player Name"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 
@@ -50,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:text="Superplayer"
                 android:textSize="14sp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:textColor="@android:color/darker_gray" />
 
         </LinearLayout>
@@ -61,22 +63,29 @@
             android:orientation="vertical"
             android:gravity="end">
 
-            <Button
-                android:id="@+id/inviteButton"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Invite"
-                android:layout_gravity="center_vertical"
-                style="@style/CustomButtonStyle" />
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/messageIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_chat_24"
-                android:layout_marginTop="8dp"
-                android:tint="@color/highlight"
-                android:backgroundTint="@color/white"/>
+                <Button
+                    android:id="@+id/inviteButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Invite"
+                    android:layout_gravity="center_vertical"
+                    style="@style/CustomButtonStyle" />
+                <ImageButton
+                    android:id="@+id/messageIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/compose"
+                    android:layout_marginTop="2dp"
+                    android:tint="@color/highlight"
+                    android:backgroundTint="@color/white"/>
+            </LinearLayout>
+
+
 
         </LinearLayout>
 

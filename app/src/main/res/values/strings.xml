@@ -27,4 +27,6 @@
         <item>5</item>
     </string-array>
 
+    <string name="HEADER_DELTA"><b><u>Location: Loading address...</u></b></string>
+
 </resources>

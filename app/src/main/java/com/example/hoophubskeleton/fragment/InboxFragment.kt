@@ -112,33 +112,37 @@ class InboxFragment : Fragment() {
         }
     }
 
-
     private fun showSearchResults(users: List<User>) {
+        // Inflate the dialog view
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_search_results, null)
-        val rvSearchResults = dialogView.findViewById<RecyclerView>(R.id.rvSearchResults)
 
+        // Create the dialog instance
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        // Set up RecyclerView
+        val rvSearchResults = dialogView.findViewById<RecyclerView>(R.id.rvSearchResults)
         rvSearchResults.layoutManager = LinearLayoutManager(requireContext())
         val searchAdapter = SearchAdapter(users) { user ->
-            viewModel.createOrFetchDialog(currentUserId, user.uid) { dialogId ->
-                // DOESNT WORK : Dismiss search result dialog when navigating
-                searchResultDialog?.dismiss()
-                searchResultDialog = null
+            // Dismiss the dialog before navigating
+            dialog.dismiss()
 
+            viewModel.createOrFetchDialog(currentUserId, user.uid) { dialogId ->
                 val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(dialogId)
                 navController.navigate(action)
             }
         }
         rvSearchResults.adapter = searchAdapter
 
-        // Build and assign the dialog before showing
-        val builder = AlertDialog.Builder(requireContext())
-            .setTitle("Search Results")
-            .setView(dialogView)
-            .setNegativeButton("Cancel") { _, _ ->
-                searchResultDialog = null
-            }
+        // Set up Cancel button with clear focus management
+        val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+        btnCancel.setOnClickListener {
+            dialog.dismiss() // Dismiss the dialog when Cancel is clicked
+        }
 
-        searchResultDialog = builder.create()
-        searchResultDialog?.show()
+        // Show the dialog
+        dialog.show()
     }
+
 }

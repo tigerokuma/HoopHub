@@ -35,8 +35,6 @@ class GamesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_games, container, false)
-        // Create dummy games at the beginning
-       // createDummyGames()
 
         // Initialize views
         gamesRecyclerView = view.findViewById(R.id.gamesRecyclerView)
@@ -52,9 +50,13 @@ class GamesFragment : Fragment() {
         val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
         if (currentUserId != null) {
             gamesViewModel.upcomingGames.observe(viewLifecycleOwner) { games ->
+                // Filter out games the user is participating in
+                val filteredGames = games.filter { game ->
+                    !game.participants.contains(currentUserId)
+                }
                 gamesAdapter = GameAdapter(
                     context = requireContext(),
-                    games = games,
+                    games = filteredGames,
                     currentUserId = currentUserId,
                     onParticipateClick = { game ->
                         // Handle participation
@@ -95,55 +97,55 @@ class GamesFragment : Fragment() {
         // Fetch games near current user location by default
         gamesViewModel.fetchGamesNearLocationToCurrentUser()
     }
-
-    fun createDummyGames() {
-        val firestore = FirebaseFirestore.getInstance()
-        val sanFranciscoLocation = GeoPoint(37.7749, -122.4194) // GeoPoint for SF location
-
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-
-        val games = listOf(
-            Game(
-                id = firestore.collection("games").document().id,
-                gameDateTime = Timestamp(dateFormat.parse("2025-01-05 10:30:00")!!), // Jan 5, 2025, 10:30 AM
-                location = sanFranciscoLocation,
-                skillLevel = "Beginner",
-                participants = mutableListOf()
-            ),
-            Game(
-                id = firestore.collection("games").document().id,
-                gameDateTime = Timestamp(dateFormat.parse("2025-01-12 15:45:00")!!), // Jan 12, 2025, 3:45 PM
-                location = sanFranciscoLocation,
-                skillLevel = "Intermediate",
-                participants = mutableListOf()
-            ),
-            Game(
-                id = firestore.collection("games").document().id,
-                gameDateTime = Timestamp(dateFormat.parse("2025-01-20 18:00:00")!!), // Jan 20, 2025, 6:00 PM
-                location = sanFranciscoLocation,
-                skillLevel = "Pro",
-                participants = mutableListOf()
-            ),
-            Game(
-                id = firestore.collection("games").document().id,
-                gameDateTime = Timestamp(dateFormat.parse("2025-01-25 13:15:00")!!), // Jan 25, 2025, 1:15 PM
-                location = sanFranciscoLocation,
-                skillLevel = "Casual",
-                participants = mutableListOf()
-            ),
-            Game(
-                id = firestore.collection("games").document().id,
-                gameDateTime = Timestamp(dateFormat.parse("2025-01-31 23:59:00")!!), // Jan 31, 2025, 11:59 PM
-                location = sanFranciscoLocation,
-                skillLevel = "Advanced",
-                participants = mutableListOf()
-            )
-        )
-
-        games.forEach { game ->
-            firestore.collection("games").document(game.id).set(game)
-        }
-    }
-
-
 }
+//    fun createDummyGames() {
+//        val firestore = FirebaseFirestore.getInstance()
+//        val sanFranciscoLocation = GeoPoint(37.7749, -122.4194) // GeoPoint for SF location
+//
+//        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+//
+//        val games = listOf(
+//            Game(
+//                id = firestore.collection("games").document().id,
+//                gameDateTime = Timestamp(dateFormat.parse("2025-01-05 10:30:00")!!), // Jan 5, 2025, 10:30 AM
+//                location = sanFranciscoLocation,
+//                skillLevel = "Beginner",
+//                participants = mutableListOf()
+//            ),
+//            Game(
+//                id = firestore.collection("games").document().id,
+//                gameDateTime = Timestamp(dateFormat.parse("2025-01-12 15:45:00")!!), // Jan 12, 2025, 3:45 PM
+//                location = sanFranciscoLocation,
+//                skillLevel = "Intermediate",
+//                participants = mutableListOf()
+//            ),
+//            Game(
+//                id = firestore.collection("games").document().id,
+//                gameDateTime = Timestamp(dateFormat.parse("2025-01-20 18:00:00")!!), // Jan 20, 2025, 6:00 PM
+//                location = sanFranciscoLocation,
+//                skillLevel = "Pro",
+//                participants = mutableListOf()
+//            ),
+//            Game(
+//                id = firestore.collection("games").document().id,
+//                gameDateTime = Timestamp(dateFormat.parse("2025-01-25 13:15:00")!!), // Jan 25, 2025, 1:15 PM
+//                location = sanFranciscoLocation,
+//                skillLevel = "Casual",
+//                participants = mutableListOf()
+//            ),
+//            Game(
+//                id = firestore.collection("games").document().id,
+//                gameDateTime = Timestamp(dateFormat.parse("2025-01-31 23:59:00")!!), // Jan 31, 2025, 11:59 PM
+//                location = sanFranciscoLocation,
+//                skillLevel = "Advanced",
+//                participants = mutableListOf()
+//            )
+//        )
+//
+//        games.forEach { game ->
+//            firestore.collection("games").document(game.id).set(game)
+//        }
+//    }
+
+
+

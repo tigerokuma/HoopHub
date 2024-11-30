@@ -99,13 +99,13 @@ class PlayersFragment : Fragment() {
         val userName = dialogView.findViewById<TextView>(R.id.tvUserName)
         val messageInput = dialogView.findViewById<EditText>(R.id.etMessage)
         val sendButton = dialogView.findViewById<Button>(R.id.btnSendMessage)
+        val cancelButton = dialogView.findViewById<Button>(R.id.btnCancel) // Retrieve the Cancel button
 
         userName.text = user.name
 
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle("Send Private Message")
             .setView(dialogView)
-            .setNegativeButton("Cancel", null)
             .create()
 
         sendButton.setOnClickListener {
@@ -123,6 +123,10 @@ class PlayersFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Message cannot be empty", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        cancelButton.setOnClickListener {
+            dialog.dismiss() // Dismiss the dialog when Cancel is clicked
         }
 
         dialog.show()
