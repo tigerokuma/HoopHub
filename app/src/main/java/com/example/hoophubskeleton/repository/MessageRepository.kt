@@ -163,6 +163,67 @@ class MessageRepository {
 
 
 
+    fun searchUsers(query: String, onComplete: (List<User>) -> Unit) {
+        val lowerCaseQuery = query.lowercase()
+
+        // Query by name (case-insensitive)
+        val nameQuery = db.collection("users")
+            .whereGreaterThanOrEqualTo("name", lowerCaseQuery)
+            .whereLessThanOrEqualTo("name", lowerCaseQuery + "\uf8ff")
+
+        // Query by email (case-insensitive)
+        val emailQuery = db.collection("users")
+            .whereGreaterThanOrEqualTo("email", lowerCaseQuery)
+            .whereLessThanOrEqualTo("email", lowerCaseQuery + "\uf8ff")
+
+        // Combine results
+        nameQuery.get().addOnSuccessListener { nameSnapshot ->
+            emailQuery.get().addOnSuccessListener { emailSnapshot ->
+                val users = mutableSetOf<User>()
+
+                // Add users from both queries
+                users.addAll(nameSnapshot.toObjects(User::class.java))
+                users.addAll(emailSnapshot.toObjects(User::class.java))
+
+                onComplete(users.toList()) // Return combined results as a list
+            }.addOnFailureListener {
+                onComplete(emptyList()) // Handle email query failure
+            }
+        }.addOnFailureListener {
+            onComplete(emptyList()) // Handle name query failure
+        }
+    }
+
+
+    fun createOrFetchDialog(currentUserId: String, otherUserId: String, onComplete: (String) -> Unit) {
+        db.collection("dialogs")
+            .whereArrayContains("participants", currentUserId)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val existingDialog = snapshot.documents.firstOrNull { document ->
+                    val participants = document.get("participants") as? List<String>
+                    participants?.contains(otherUserId) == true
+                }
+
+                if (existingDialog != null) {
+                    onComplete(existingDialog.id)
+                } else {
+                    val newDialog = hashMapOf(
+                        "participants" to listOf(currentUserId, otherUserId),
+                        "latestMessage" to "",
+                        "latestTimestamp" to Timestamp.now()
+                    )
+                    db.collection("dialogs")
+                        .add(newDialog)
+                        .addOnSuccessListener { documentReference ->
+                            onComplete(documentReference.id)
+                        }
+                        .addOnFailureListener {
+                            onComplete("")
+                        }
+                }
+            }
+    }
 
 
 

@@ -33,12 +33,12 @@ class GameAdapter(
         val gameDateTimeTextView: TextView = itemView.findViewById(R.id.gameDateTimeTextView)
         val locationTextView: TextView = itemView.findViewById(R.id.locationTextView)
         val skillLevelTextView: TextView = itemView.findViewById(R.id.skillLevelTextView)
-        val participantsCountTextView: TextView = itemView.findViewById(R.id.participantsCountTextView) // New
+        val participantsCountTextView: TextView = itemView.findViewById(R.id.participantsCountTextView)
         val participateButton: Button = itemView.findViewById(R.id.participateButton)
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
+        // Inflate the game_item layout
         val view = LayoutInflater.from(parent.context).inflate(R.layout.game_item, parent, false)
         return GameViewHolder(view)
     }
@@ -46,11 +46,13 @@ class GameAdapter(
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         val game = upcomingGames[position]
 
-        // Set date and skill level
+        // Set date and time
         holder.gameDateTimeTextView.text = "Date: ${game.gameDateTime.toDate()}"
+
+        // Set skill level
         holder.skillLevelTextView.text = "Skill Level: ${game.skillLevel}"
 
-        // Set number of participants
+        // Set participants count
         holder.participantsCountTextView.text = "Participants: ${game.participants.size}"
 
         // Convert GeoPoint to an address
@@ -63,8 +65,6 @@ class GameAdapter(
             } else {
                 "Location: Address not found"
             }
-
-            // Add click listener to open Google Maps
             holder.locationTextView.setOnClickListener {
                 val address = if (!addresses.isNullOrEmpty()) {
                     addresses[0].getAddressLine(0)
@@ -76,43 +76,24 @@ class GameAdapter(
                 mapIntent.setPackage("com.google.android.apps.maps") // Open in Google Maps app if available
                 it.context.startActivity(mapIntent)
             }
-
-            // Add underline and clickable styling
-            holder.locationTextView.apply {
-                setTextColor(context.getColor(android.R.color.holo_blue_light)) // Use built-in blue
-                paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG // Add underline
-            }
         } catch (e: Exception) {
             e.printStackTrace()
             holder.locationTextView.text = "Location: Unable to fetch address"
-            // Add a default click listener if the address is unavailable
             holder.locationTextView.setOnClickListener {
                 val geoUri = "geo:${location.latitude},${location.longitude}?q=${location.latitude},${location.longitude}"
                 val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
                 mapIntent.setPackage("com.google.android.apps.maps")
                 it.context.startActivity(mapIntent)
             }
-
-            // Add underline and clickable styling for fallback
-            holder.locationTextView.apply {
-                setTextColor(context.getColor(android.R.color.holo_blue_light)) // Use built-in blue
-                paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG // Add underline
-            }
         }
 
-        // Handle participation button
-        if (game.participants.contains(currentUserId)) {
-            holder.participateButton.text = "Already Participating"
-            holder.participateButton.isEnabled = false
-        } else {
-            holder.participateButton.text = "Participate"
-            holder.participateButton.isEnabled = true
-            holder.participateButton.setOnClickListener {
-                onParticipateClick(game) // Trigger participation logic
-            }
+        // Handle participation button (simplified since games are already filtered)
+        holder.participateButton.text = "Participate"
+        holder.participateButton.isEnabled = true
+        holder.participateButton.setOnClickListener {
+            onParticipateClick(game) // Trigger participation logic
         }
     }
-
 
     override fun getItemCount(): Int {
         return upcomingGames.size

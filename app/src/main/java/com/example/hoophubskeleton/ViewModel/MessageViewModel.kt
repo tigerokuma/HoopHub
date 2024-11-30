@@ -30,12 +30,21 @@ class MessageViewModel(private val repository: MessageRepository) : ViewModel() 
         }
     }
 
-    fun createOrFetchDialog(currentUserId: String, otherUserId: String, message: String) {
-        repository.createDialog(currentUserId, otherUserId, message) { dialogId ->
-            repository.sendMessage(dialogId, message, currentUserId)
+    // Use the repository's createOrFetchDialog function
+    fun createOrFetchDialog(
+        currentUserId: String,
+        otherUserId: String,
+        message: String? = null, // Make message optional
+        onComplete: (String) -> Unit
+    ) {
+        repository.createOrFetchDialog(currentUserId, otherUserId) { dialogId ->
+            if (dialogId.isNotEmpty() && !message.isNullOrEmpty()) {
+                // Only send a message if a message is provided
+                repository.sendMessage(dialogId, message, currentUserId)
+            }
+            onComplete(dialogId)
         }
     }
-
 
     // Fetch all dialogs for a user
     fun getDialogs(userId: String): LiveData<List<Dialog>> {
@@ -46,15 +55,22 @@ class MessageViewModel(private val repository: MessageRepository) : ViewModel() 
         return dialogsLiveData
     }
 
-
     // Fetch all messages for a specific dialog
     fun getMessages(dialogId: String): LiveData<List<Message>> {
         return repository.getMessagesForDialog(dialogId)
     }
 
-
     // Send a message within a dialog
     fun sendMessage(dialogId: String, content: String, senderId: String) {
         repository.sendMessage(dialogId, content, senderId)
+    }
+
+    // Search for users by name or email
+    fun searchUsersByNameOrEmail(query: String): LiveData<List<User>> {
+        val liveData = MutableLiveData<List<User>>()
+        repository.searchUsers(query) { users ->
+            liveData.postValue(users)
+        }
+        return liveData
     }
 }

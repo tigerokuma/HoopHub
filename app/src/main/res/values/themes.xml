@@ -42,5 +42,9 @@
     </style>
 
 
+    <style name="SearchViewTheme" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColorHint">#FFFFFF</item>
+    </style>
 
 </resources>

@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -57,15 +59,22 @@ class ChatFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[MessageViewModel::class.java]
 
         // Set up UI components
-       // val rvMessages = view.findViewById<RecyclerView>(R.id.rvMessages)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         val btnSend = view.findViewById<Button>(R.id.btnSend)
         val etMessage = view.findViewById<EditText>(R.id.etMessage)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-
+        val btnBack = view.findViewById<ImageButton>(R.id.btnBack)
+        val titleName = view.findViewById<TextView>(R.id.titleName)
 
         // Configure RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        // Set up back button functionality
+        btnBack.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
+        // Fetch and set the name of the person we're texting
+        fetchAndSetParticipantName(titleName)
 
         // Observe messages and update RecyclerView
         viewModel.getMessages(dialogId).observe(viewLifecycleOwner) { messages ->
@@ -73,8 +82,6 @@ class ChatFragment : Fragment() {
             recyclerView.adapter = adapter
             recyclerView.scrollToPosition(messages.size - 1) // Scroll to the latest message
         }
-
-
 
         // Handle send button click
         btnSend.setOnClickListener {
@@ -87,4 +94,33 @@ class ChatFragment : Fragment() {
             }
         }
     }
+
+    private fun fetchAndSetParticipantName(titleName: TextView) {
+        // Fetch the dialog from Firestore
+        val db = FirebaseFirestore.getInstance()
+        db.collection("dialogs").document(dialogId).get()
+            .addOnSuccessListener { dialogSnapshot ->
+                val participants = dialogSnapshot.get("participants") as? List<String>
+                val otherUserId = participants?.firstOrNull { it != currentUserId }
+
+                if (!otherUserId.isNullOrEmpty()) {
+                    // Use ViewModel to fetch the user's details
+                    viewModel.findUserById(otherUserId)
+                    viewModel.foundUser.observe(viewLifecycleOwner) { user ->
+                        if (user != null) {
+                            titleName.text = user.name // Assuming 'name' is a field in the User model
+                        } else {
+                            titleName.text = "Unknown User"
+                        }
+                    }
+                } else {
+                    titleName.text = "Unknown User"
+                }
+            }
+            .addOnFailureListener {
+                titleName.text = "Error fetching user"
+            }
+    }
+
+
 }

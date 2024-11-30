@@ -25,6 +25,9 @@ import com.example.hoophubskeleton.repository.MessageRepository
 import com.google.firebase.auth.FirebaseAuth
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import com.example.hoophubskeleton.adapter.SearchAdapter
+import androidx.appcompat.widget.SearchView
+
 
 
 //4YZaFWflCLbHNzLbXUxqGJwWU9f2
@@ -35,6 +38,7 @@ class InboxFragment : Fragment() {
     private lateinit var adapter: DialogAdapter
     private lateinit var currentUserId: String
     private lateinit var navController: NavController
+    private var searchResultDialog: AlertDialog? = null // Keep a reference to the search result dialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +54,12 @@ class InboxFragment : Fragment() {
 
         // Initialize FirebaseAuth to get the current user
         val currentUser = FirebaseAuth.getInstance().currentUser
-        currentUserId = currentUser?.uid ?: return // Ensure the user is logged in
+        currentUserId = currentUser?.uid.toString()
+
+        if (currentUserId.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         // Initialize ViewModel
         val repository = MessageRepository()
@@ -66,6 +75,9 @@ class InboxFragment : Fragment() {
             adapter = DialogAdapter(dialogs, currentUserId) { dialog ->
                 val dialogId = dialog.dialogId
 
+                // Dismiss search result dialog (if open) when navigating
+                searchResultDialog?.dismiss()
+
                 // Use Safe Args to navigate to ChatFragment with dialogId
                 val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(dialogId)
                 navController.navigate(action)
@@ -73,75 +85,64 @@ class InboxFragment : Fragment() {
             rvDialogs.adapter = adapter
         }
 
-        // Set up "Find User" button
-        val findUserButton: Button = view.findViewById(R.id.btnFindUser)
-        findUserButton.setOnClickListener {
-            openFindUserDialog()
-        }
+        // Set up SearchView for user search
+        val searchView = view.findViewById<SearchView>(R.id.searchBar)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { searchUsers(it) }
+                return false
+            }
 
-        observeFoundUser()
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Do nothing on text change (search only on submit)
+                return false
+            }
+        })
     }
 
-    private fun openFindUserDialog() {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_find_user, null)
-        val uidInput = dialogView.findViewById<EditText>(R.id.etUserId)
-        val findButton = dialogView.findViewById<Button>(R.id.btnFind)
+    private fun searchUsers(query: String) {
+        if (query.isNotEmpty()) {
+            viewModel.searchUsersByNameOrEmail(query).observe(viewLifecycleOwner) { users ->
+                if (users.isNotEmpty()) {
+                    showSearchResults(users)
+                } else {
+                    Toast.makeText(requireContext(), "No users found", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
+    private fun showSearchResults(users: List<User>) {
+        // Inflate the dialog view
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_search_results, null)
+
+        // Create the dialog instance
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Find User")
             .setView(dialogView)
-            .setNegativeButton("Cancel", null)
             .create()
 
-        findButton.setOnClickListener {
-            val enteredUid = uidInput.text.toString().trim()
-            if (enteredUid.isNotEmpty()) {
-                viewModel.findUserById(enteredUid)
-            } else {
-                Toast.makeText(requireContext(), "Please enter a User ID", Toast.LENGTH_SHORT).show()
-            }
+        // Set up RecyclerView
+        val rvSearchResults = dialogView.findViewById<RecyclerView>(R.id.rvSearchResults)
+        rvSearchResults.layoutManager = LinearLayoutManager(requireContext())
+        val searchAdapter = SearchAdapter(users) { user ->
+            // Dismiss the dialog before navigating
             dialog.dismiss()
+
+            viewModel.createOrFetchDialog(currentUserId, user.uid) { dialogId ->
+                val action = InboxFragmentDirections.actionInboxFragmentToChatFragment(dialogId)
+                navController.navigate(action)
+            }
+        }
+        rvSearchResults.adapter = searchAdapter
+
+        // Set up Cancel button with clear focus management
+        val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+        btnCancel.setOnClickListener {
+            dialog.dismiss() // Dismiss the dialog when Cancel is clicked
         }
 
+        // Show the dialog
         dialog.show()
     }
 
-    private fun observeFoundUser() {
-        viewModel.foundUser.observe(viewLifecycleOwner) { user ->
-            if (user != null) {
-                showUserInfoDialog(user)
-            } else {
-                Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun showUserInfoDialog(user: User) {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_user_info, null)
-        val userName = dialogView.findViewById<TextView>(R.id.tvUserName)
-        val userEmail = dialogView.findViewById<TextView>(R.id.tvUserEmail)
-        val messageInput = dialogView.findViewById<EditText>(R.id.etMessage)
-        val sendButton = dialogView.findViewById<Button>(R.id.btnSendMessage)
-
-        userName.text = user.name
-        userEmail.text = user.email
-
-        val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("User Info")
-            .setView(dialogView)
-            .setNegativeButton("Cancel", null)
-            .create()
-
-        sendButton.setOnClickListener {
-            val message = messageInput.text.toString().trim()
-            if (message.isNotEmpty()) {
-                viewModel.createOrFetchDialog(currentUserId, user.uid, message)
-                dialog.dismiss()
-            } else {
-                Toast.makeText(requireContext(), "Message cannot be empty", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        dialog.show()
-    }
 }

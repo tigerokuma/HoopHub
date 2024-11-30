@@ -1,6 +1,0 @@
-com.example.hoophubskeleton.test.app-annotation-experimental-1.3.0-0 /Users/paulatwal/.gradle/caches/8.9/transforms/b44320171b6c4d664f0f5431f60fb99c/transformed/annotation-experimental-1.3.0/res
-com.example.hoophubskeleton.test.app-core-1.5.0-1 /Users/paulatwal/.gradle/caches/8.9/transforms/be04ee20ca52236edf8af803b4677603/transformed/core-1.5.0/res
-com.example.hoophubskeleton.test.app-androidTest-2 /Users/paulatwal/Documents/School/CMPT362/HoopHub/app/build/generated/res/resValues/androidTest/debug
-com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-3 /Users/paulatwal/Documents/School/CMPT362/HoopHub/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
-com.example.hoophubskeleton.test.app-mergeDebugAndroidTestResources-4 /Users/paulatwal/Documents/School/CMPT362/HoopHub/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
-com.example.hoophubskeleton.test.app-debugAndroidTest-5 /Users/paulatwal/Documents/School/CMPT362/HoopHub/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources
