@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -137,7 +138,6 @@ class EditProfileFragment : Fragment() {
                 pickImageLauncher,
                 imageUri
             ).launch()
-            //openGallery()
         }
 
         profileViewModel.tempUserImage.observe(viewLifecycleOwner) { bitmap ->
