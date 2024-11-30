@@ -3,6 +3,5 @@ The following code was adapted from the worked-through
 code shown in the September 13th, 2024 lecture.
 */ -->
 <paths>
-    <external-path name="images"
-        path="."/>
+    <external-path name="external_path" path="."/>
 </paths>

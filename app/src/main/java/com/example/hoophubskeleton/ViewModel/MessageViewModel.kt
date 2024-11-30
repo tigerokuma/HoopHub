@@ -1,9 +1,14 @@
 package com.example.hoophubskeleton.ViewModel
 
+import android.view.View
+import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
+import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.model.Dialog
 import com.example.hoophubskeleton.model.Message
 import com.example.hoophubskeleton.model.User
