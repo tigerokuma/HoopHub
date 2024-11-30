@@ -57,4 +57,18 @@ class MessageViewModel(private val repository: MessageRepository) : ViewModel() 
     fun sendMessage(dialogId: String, content: String, senderId: String) {
         repository.sendMessage(dialogId, content, senderId)
     }
+
+    fun searchUsersByNameOrEmail(query: String): LiveData<List<User>> {
+        val liveData = MutableLiveData<List<User>>()
+        repository.searchUsers(query) { users ->
+            liveData.postValue(users)
+        }
+        return liveData
+    }
+
+
+    fun createOrFetchDialog(currentUserId: String, otherUserId: String, onComplete: (String) -> Unit) {
+        repository.createOrFetchDialog(currentUserId, otherUserId, onComplete)
+    }
+
 }
