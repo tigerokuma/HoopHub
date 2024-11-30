@@ -444,6 +444,20 @@ class EditProfileFragment : Fragment() {
         Log.d("EditProfileFragment", "Created Image URI: $uri")
         return uri    }
 
+    private fun deleteTempImageFile() {
+        // Remove camera temp image
+        imageUri?.let { uri ->
+            val file = File(uri.path ?: return)
+            if (file.exists()) {
+                val deleted = file.delete()
+                Log.d("EditProfileFragment", "Temporary image file deleted: $deleted")
+            }
+        }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        deleteTempImageFile()
+    }
 
 }
