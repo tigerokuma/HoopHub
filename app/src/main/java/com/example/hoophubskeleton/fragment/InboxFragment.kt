@@ -50,7 +50,13 @@ class InboxFragment : Fragment() {
 
         // Initialize FirebaseAuth to get the current user
         val currentUser = FirebaseAuth.getInstance().currentUser
-        currentUserId = currentUser?.uid ?: return // Ensure the user is logged in
+
+        currentUserId = currentUser?.uid.toString()
+        if (currentUserId.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
 
         // Initialize ViewModel
         val repository = MessageRepository()

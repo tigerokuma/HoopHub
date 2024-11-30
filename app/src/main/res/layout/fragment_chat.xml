@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FFFFFF"
+    android:layout_marginBottom="80dp"
     android:padding="8dp">
 
     <!-- Toolbar section for Back button -->
@@ -56,12 +57,13 @@
         android:background="#EBD5CD"
         android:elevation="4dp"
         android:orientation="horizontal"
+        android:paddingBottom="400mm"
         android:padding="8dp">
 
         <!-- EditText for typing messages -->
         <EditText
             android:id="@+id/etMessage"
-            android:layout_width="0dp"
+            android:layout_width="219dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#EBF7FC"
