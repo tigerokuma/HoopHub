@@ -1,4 +1,4 @@
-package com.example.hoophubskeleton.viewmodel
+package com.example.hoophubskeleton.ViewModel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,6 +7,12 @@ import androidx.lifecycle.ViewModel
 import com.example.hoophubskeleton.model.Game
 import com.example.hoophubskeleton.repository.GamesRepository
 import com.google.firebase.Timestamp
+
+import com.google.firebase.firestore.FirebaseFirestore
+import androidx.lifecycle.map
+import com.example.hoophubskeleton.model.BookingCard
+import com.example.hoophubskeleton.model.GameStatus
+import com.google.firebase.auth.FirebaseAuth
 
 
 class GameViewModel : ViewModel() {

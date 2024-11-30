@@ -2,6 +2,7 @@ package com.example.hoophubskeleton.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +17,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoophubskeleton.R
-import com.example.hoophubskeleton.viewmodel.MessageViewModel
+import com.example.hoophubskeleton.ViewModel.MessageViewModel
 import com.example.hoophubskeleton.adapter.DialogAdapter
 import com.example.hoophubskeleton.factory.MessageViewModelFactory
 import com.example.hoophubskeleton.model.User
 import com.example.hoophubskeleton.repository.MessageRepository
 import com.google.firebase.auth.FirebaseAuth
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 
 
 //4YZaFWflCLbHNzLbXUxqGJwWU9f2
@@ -80,8 +83,7 @@ class InboxFragment : Fragment() {
     }
 
     private fun openFindUserDialog() {
-        val dialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_find_user, null)
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_find_user, null)
         val uidInput = dialogView.findViewById<EditText>(R.id.etUserId)
         val findButton = dialogView.findViewById<Button>(R.id.btnFind)
 
@@ -96,8 +98,7 @@ class InboxFragment : Fragment() {
             if (enteredUid.isNotEmpty()) {
                 viewModel.findUserById(enteredUid)
             } else {
-                Toast.makeText(requireContext(), "Please enter a User ID", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(requireContext(), "Please enter a User ID", Toast.LENGTH_SHORT).show()
             }
             dialog.dismiss()
         }
@@ -116,8 +117,7 @@ class InboxFragment : Fragment() {
     }
 
     private fun showUserInfoDialog(user: User) {
-        val dialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_user_info, null)
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_user_info, null)
         val userName = dialogView.findViewById<TextView>(R.id.tvUserName)
         val userEmail = dialogView.findViewById<TextView>(R.id.tvUserEmail)
         val messageInput = dialogView.findViewById<EditText>(R.id.etMessage)
@@ -138,8 +138,7 @@ class InboxFragment : Fragment() {
                 viewModel.createOrFetchDialog(currentUserId, user.uid, message)
                 dialog.dismiss()
             } else {
-                Toast.makeText(requireContext(), "Message cannot be empty", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(requireContext(), "Message cannot be empty", Toast.LENGTH_SHORT).show()
             }
         }
 

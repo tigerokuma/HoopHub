@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoophubskeleton.R
-import com.example.hoophubskeleton.viewmodel.GameViewModel
+import com.example.hoophubskeleton.ViewModel.GameViewModel
 import com.example.hoophubskeleton.adapter.GameAdapter
 import com.example.hoophubskeleton.model.Game
 import com.google.firebase.Timestamp
