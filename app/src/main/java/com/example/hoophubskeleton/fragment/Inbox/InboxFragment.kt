@@ -1,14 +1,11 @@
-package com.example.hoophubskeleton.fragment
+package com.example.hoophubskeleton.fragment.Inbox
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -23,8 +20,6 @@ import com.example.hoophubskeleton.factory.MessageViewModelFactory
 import com.example.hoophubskeleton.model.User
 import com.example.hoophubskeleton.repository.MessageRepository
 import com.google.firebase.auth.FirebaseAuth
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.example.hoophubskeleton.adapter.SearchAdapter
 import androidx.appcompat.widget.SearchView
 
