@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF"
     android:layout_marginBottom="80dp"
     android:padding="8dp">
 
@@ -97,5 +96,6 @@
             android:textColor="#666160"
             android:textSize="12sp"
             android:paddingTop="4dp" />
+
     </LinearLayout>
 </LinearLayout>

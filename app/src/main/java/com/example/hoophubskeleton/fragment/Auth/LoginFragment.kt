@@ -1,6 +1,5 @@
 package com.example.hoophubskeleton.fragment.Auth
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.hoophubskeleton.MainActivity
 import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.ViewModel.AuthViewModel
 import com.example.hoophubskeleton.factory.AuthViewModelFactory
@@ -56,7 +54,7 @@ class LoginFragment : Fragment() {
                 // Navigate to MainFragment (hosting Players and Games tabs)
                 findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
             } else {
-                Toast.makeText(requireContext(), "Login Failed: $message", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), "Login Failed: $message", Toast.LENGTH_LONG)
                     .show()
             }
         }

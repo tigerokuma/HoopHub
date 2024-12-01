@@ -1,6 +1,7 @@
 package com.example.hoophubskeleton.fragment.Auth
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -16,9 +17,12 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.hoophubskeleton.ProfileImageLauncher
+import com.example.hoophubskeleton.ProfileUtil
 import com.example.hoophubskeleton.R
 import com.example.hoophubskeleton.ViewModel.AuthViewModel
 import com.example.hoophubskeleton.factory.AuthViewModelFactory
@@ -27,6 +31,7 @@ import com.example.hoophubskeleton.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import java.io.File
 import java.util.UUID
 
 class SignUpFragment : Fragment() {
@@ -34,7 +39,16 @@ class SignUpFragment : Fragment() {
     private lateinit var authViewModel: AuthViewModel
     private val pickImageRequest = 1
     private var imageUri: Uri? = null
+    private lateinit var profilePictureImageView: ImageView
     private lateinit var pickImageLauncher: ActivityResultLauncher<Intent>
+    private val snappedPhotoLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                profilePictureImageView.setImageURI(imageUri)
+                Log.d("SignupFragment:", "Camera result OK")
+            }
+        }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,15 +65,13 @@ class SignUpFragment : Fragment() {
             AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
         authViewModel =
             ViewModelProvider(this, AuthViewModelFactory(authRepository))[AuthViewModel::class.java]
-
+        profilePictureImageView = view.findViewById(R.id.profilePictureImageView)
         val nameEditText: EditText = view.findViewById(R.id.nameEditText)
         val ageEditText: EditText = view.findViewById(R.id.ageEditText)
         val emailEditText: EditText = view.findViewById(R.id.emailEditText)
         val passwordEditText: EditText = view.findViewById(R.id.passwordEditText)
         val competitionLevelGroup: RadioGroup = view.findViewById(R.id.competitionLevelGroup)
         val locationEditText: EditText = view.findViewById(R.id.locationEditText)
-        val profilePictureImageView: ImageView = view.findViewById(R.id.profilePictureImageView)
-        val chooseProfilePicButton: Button = view.findViewById(R.id.chooseProfilePicButton)
         val signUpButton: Button = view.findViewById(R.id.signUpButton)
         val goToLoginButton: Button = view.findViewById(R.id.goToLoginButton)
 
@@ -81,8 +93,15 @@ class SignUpFragment : Fragment() {
             }
 
         // Handle profile picture selection
-        chooseProfilePicButton.setOnClickListener {
-            openGallery()
+        profilePictureImageView.setOnClickListener {
+            ProfileUtil.checkPermissions(requireActivity())
+            imageUri = createImageUri()
+            ProfileImageLauncher(
+                requireContext(),
+                snappedPhotoLauncher,
+                pickImageLauncher,
+                imageUri
+            ).launch()
         }
         // Handle sign-up button click
         signUpButton.setOnClickListener {
@@ -100,11 +119,13 @@ class SignUpFragment : Fragment() {
 
             // Validate inputs
             if (email.isEmpty()) {
-                Toast.makeText(requireContext(), "Email cannot be empty.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Email cannot be empty.", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
             if (password.isEmpty()) {
-                Toast.makeText(requireContext(), "Password cannot be empty.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Password cannot be empty.", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
             if (name.isEmpty()) {
@@ -131,7 +152,11 @@ class SignUpFragment : Fragment() {
         authViewModel.authStatus.observe(viewLifecycleOwner) { (success, message) ->
             if (success) {
                 // Navigate to MainFragment upon successful sign-up
-                Toast.makeText(requireContext(), "Sign-up successful!: $message", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Sign-up successful!",
+                    Toast.LENGTH_SHORT
+                ).show()
                 findNavController().navigate(R.id.action_signUpFragment_to_mainFragment)
             } else {
                 // Show error message if sign-up fails
@@ -139,7 +164,6 @@ class SignUpFragment : Fragment() {
                     .show()
             }
         }
-
 
 
     }
@@ -170,6 +194,29 @@ class SignUpFragment : Fragment() {
                 Log.e("SignUpFragment", "Failed to upload image: ${exception.message}")
                 callback(null)
             }
+    }
+
+    private fun createImageUri(): Uri? {
+        val imageFile = File(requireContext().getExternalFilesDir(null), "profile_image.jpg")
+        Log.d("EditProfileFragment", "File exists: ${imageFile.exists()}, Path: ${imageFile.absolutePath}")
+        val uri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.fileprovider", imageFile)
+        Log.d("EditProfileFragment", "Created Image URI: $uri")
+        return uri    }
+
+    private fun deleteTempImageFile() {
+        // Remove camera temp image
+        imageUri?.let { uri ->
+            val file = File(uri.path ?: return)
+            if (file.exists()) {
+                val deleted = file.delete()
+                Log.d("EditProfileFragment", "Temporary image file deleted: $deleted")
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        deleteTempImageFile()
     }
 
 }
