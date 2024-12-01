@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -68,6 +69,8 @@ class BookingFragment : Fragment() {
 
 
     private fun observeData() {
+        val placeHolderText = view?.findViewById<TextView>(R.id.placeholderText)
+
         gameViewModel.games.observe(viewLifecycleOwner) { games ->
             Log.d("PaulTest, BookingsFragment", "Fetched games: ${games?.size ?: 0}")
             playerViewModel.playerCards.observe(viewLifecycleOwner) { players ->
@@ -76,8 +79,12 @@ class BookingFragment : Fragment() {
                     val bookingCards = createBookingCards(games, players)
                     Log.d("PaulTest, BookingsFragment", "Booking cards count: ${bookingCards.size}")
                     bookingCardAdapter.updateList(bookingCards)
+
+                    // Show placeholder text if the page is empty
+                    placeHolderText?.visibility = if(bookingCards.isEmpty()) View.VISIBLE else View.GONE
                 } else {
                     bookingCardAdapter.updateList(emptyList())
+                    placeHolderText?.visibility = View.VISIBLE
                 }
             }
         }
