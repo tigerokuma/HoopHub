@@ -13,18 +13,6 @@
         android:src="@drawable/chat_background"
         android:alpha="0.3" />
 
-    <!-- Placeholder text before RecyclerView -->
-    <TextView
-        android:id="@+id/placeholderText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Your scheduled games will appear here."
-        android:textColor="@color/highlight"
-        android:textStyle="italic"
-        android:textSize="15dp"
-        android:gravity="center"
-        android:layout_marginBottom="8dp" />
-
     <!-- RecyclerView for booking list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookingRecyclerView"
@@ -40,9 +28,31 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"
         android:elevation="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
         app:backgroundTint="@color/highlight"
         android:tint="@color/white"
         android:text="Add Game" />
+
+    <!-- Placeholder text before RecyclerView -->
+    <TextView
+        android:id="@+id/placeholderText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your scheduled games will appear here."
+        android:textColor="@color/highlight"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:layout_marginTop="80dp"
+        android:background="@color/white"
+        android:padding="8dp"
+        android:elevation="4dp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>
