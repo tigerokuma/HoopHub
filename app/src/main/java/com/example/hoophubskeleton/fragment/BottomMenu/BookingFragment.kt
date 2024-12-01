@@ -94,8 +94,11 @@ class BookingFragment : Fragment() {
 
 
     private fun createBookingCards(games: List<Game>, players: List<PlayerCard>): List<BookingCard> {
+        val rightNow = Timestamp.now().toDate()
+        Log.d("PaulTest today", "${rightNow}")
 
         val sortedGames = games
+            .filter {it.gameDateTime.toDate() > rightNow}
             .sortedBy { it.gameDateTime }
         return sortedGames.mapNotNull { game ->
             val participantCards = game.participants.mapNotNull { userId ->
@@ -103,6 +106,8 @@ class BookingFragment : Fragment() {
             }
             val participantNames = participantCards.map { it.name }
             val participantImages = participantCards.map { it.profilePicUrl }
+
+            Log.d("PaulTest gameDateTime", "${game.gameDateTime.toDate()}")
 
             BookingCard(
                 gameId = game.id,

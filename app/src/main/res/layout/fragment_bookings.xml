@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="85dp"
         android:background="@android:color/transparent" /> <!-- Made background transparent -->
 
     <!-- Floating action button for adding games -->
@@ -28,7 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"
         android:elevation="8dp"
-        android:layout_margin="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="20dp"
         app:backgroundTint="@color/highlight"
         android:tint="@color/white"
         android:text="Add Game" />
