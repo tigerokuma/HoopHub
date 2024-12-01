@@ -2,11 +2,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_marginBottom="80dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- Full-Screen Background Image -->
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/chat_background"
+        android:alpha="0.3" />
 
     <!-- Placeholder text before RecyclerView -->
     <TextView
@@ -14,21 +19,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Your scheduled games will appear here."
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/highlight"
         android:textStyle="italic"
+        android:textSize="15dp"
         android:gravity="center"
         android:layout_marginBottom="8dp" />
 
     <!-- RecyclerView for booking list -->
-
-    <!-- Floating action button for adding games -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookingRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
-        android:background="@color/white" />
+        android:background="@android:color/transparent" /> <!-- Made background transparent -->
 
+    <!-- Floating action button for adding games -->
     <Button
         android:id="@+id/addGameFab"
         android:layout_width="wrap_content"
@@ -36,8 +41,8 @@
         android:layout_gravity="top|end"
         android:elevation="8dp"
         android:layout_marginTop="20dp"
-        android:src="@android:drawable/ic_input_add"
-        style="@style/OrangeButtonStyle"
-        android:text="Add Game"/>
+        app:backgroundTint="@color/highlight"
+        android:tint="@color/white"
+        android:text="Add Game" />
 
 </FrameLayout>

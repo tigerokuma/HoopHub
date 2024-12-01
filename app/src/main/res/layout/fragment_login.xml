@@ -1,56 +1,87 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:layout_height="match_parent">
 
-    <!-- Email -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:layout_marginBottom="4dp" />
-
-    <EditText
-        android:id="@+id/emailEditText"
+    <!-- Background Image -->
+    <ImageView
+        android:id="@+id/chatBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter your email"
-        android:inputType="textEmailAddress"
-        android:layout_marginBottom="16dp" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/chat_background"
+        android:alpha="0.3" />
 
-    <!-- Password -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Password"
-        android:layout_marginBottom="4dp" />
-
-    <EditText
-        android:id="@+id/passwordEditText"
+    <!-- Main Content -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter your password"
-        android:inputType="textPassword"
-        android:layout_marginBottom="16dp" />
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <!-- Login Button -->
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/OrangeButtonStyle"
-        android:text="Log In" />
+        <!-- Title -->
+        <TextView
+            android:id="@+id/hoopHubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HoopHub"
+            android:textColor="@color/highlight"
+            android:textStyle="bold"
+            android:textSize="46sp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/title_font" />
 
-    <!-- Go to login -->
-    <Button
-        android:id="@+id/goToSignUpButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Don't have an account? Sign Up"
-        style="@style/OrangeButtonStyle"
-        android:layout_marginTop="16dp" />
+        <!-- Email -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your email"
+            android:textStyle="bold"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Password -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your password"
+            android:inputType="textPassword"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/OrangeButtonStyle"
+            android:text="Log In" />
+
+        <!-- Go to Sign Up -->
+        <Button
+            android:id="@+id/goToSignUpButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account? Sign Up"
+            style="@style/OrangeButtonStyle"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</FrameLayout>
