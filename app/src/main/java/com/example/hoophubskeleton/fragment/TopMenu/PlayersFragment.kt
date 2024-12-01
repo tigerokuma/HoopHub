@@ -38,6 +38,7 @@ class PlayersFragment : Fragment() {
         val repository = MessageRepository() // Ensure MessageRepository is properly set up
         val factory = MessageViewModelFactory(repository)
         messageViewModel = ViewModelProvider(this, factory).get(MessageViewModel::class.java)
+
     }
 
     override fun onCreateView(
@@ -76,9 +77,12 @@ class PlayersFragment : Fragment() {
         )
         recyclerView.adapter = adapter
 
+        val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
         // Observers
         playerViewModel.playerCards.observe(viewLifecycleOwner, { playerCards ->
-            adapter.updateList(playerCards)
+            // Exclude current user from list
+            val filteredPlayerCards = playerCards.filter {it.uid != currentUserId}
+            adapter.updateList(filteredPlayerCards)
         })
 
         playerViewModel.error.observe(viewLifecycleOwner, { error ->
