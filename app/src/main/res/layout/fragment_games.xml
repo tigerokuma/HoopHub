@@ -1,26 +1,42 @@
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_marginBottom="120dp">
+    android:layout_height="match_parent">
 
-    <!-- Search Bar for Location -->
-    <EditText
-        android:id="@+id/searchLocationEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter location"
-        android:padding="8dp"
-        android:background="@android:drawable/edit_text"
-        android:drawableLeft="@android:drawable/ic_menu_search" />
-
-    <!-- RecyclerView for Games -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/gamesRecyclerView"
+    <!-- Full-Screen Background Image -->
+    <ImageView
+        android:id="@+id/chatBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="60dp" />
-</LinearLayout>
+        android:scaleType="centerCrop"
+        android:src="@drawable/chat_background"
+        android:alpha="0.3" />
+
+    <!-- Foreground Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Search Bar for Location -->
+        <EditText
+            android:id="@+id/searchLocationEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter location"
+            android:padding="8dp"
+            android:textStyle="bold"
+            android:background="@android:drawable/edit_text"
+            android:drawableLeft="@android:drawable/ic_menu_search" />
+
+        <!-- RecyclerView for Games -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gamesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="80dp"/>
+    </LinearLayout>
+</FrameLayout>

@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -66,6 +68,7 @@ class ChatFragment : Fragment() {
         val btnBack = view.findViewById<ImageButton>(R.id.btnBack)
         val titleName = view.findViewById<TextView>(R.id.titleName)
         val tvCharAndWordCount = view.findViewById<TextView>(R.id.tvCharAndWordCount) // Added for character and word count
+        val chatBackground = view.findViewById<ImageView>(R.id.chatBackground)
 
         // Configure RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

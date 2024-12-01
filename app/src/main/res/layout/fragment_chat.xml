@@ -1,101 +1,114 @@
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginBottom="80dp"
-    android:padding="8dp">
+    android:layout_height="match_parent">
 
-    <!-- Toolbar section for Back button -->
+    <!-- Full-Screen Background Image -->
+    <ImageView
+        android:id="@+id/chatBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/chat_background"
+        android:alpha="0.3" />
+
+    <!-- Main Content -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:elevation="4dp"
-        android:background="#EBD5CD">
-
-        <!-- Back button with icon -->
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back"
-            android:src="@drawable/ic_back" />
-
-        <!-- Chat participant name -->
-        <TextView
-            android:id="@+id/titleName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Participant Name"
-            android:textColor="#FF5722"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-
-    </LinearLayout>
-
-    <!-- Input section for sending messages -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:scrollbars="vertical" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#EBD5CD"
-        android:elevation="4dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="8dp">
+
+        <!-- Toolbar section for Back button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:elevation="4dp"
+            android:background="#EBD5CD">
+
+            <!-- Back button with icon -->
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Back"
+                android:src="@drawable/ic_back" />
+
+            <!-- Chat participant name -->
+            <TextView
+                android:id="@+id/titleName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Participant Name"
+                android:textColor="#FF5722"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <!-- Input section for sending messages -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:scrollbars="vertical"
+            android:background="@android:color/transparent" /> <!-- Transparent to show background -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:background="#EBD5CD"
+            android:elevation="4dp"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-            <!-- EditText for typing messages -->
-            <EditText
-                android:id="@+id/etMessage"
-                android:layout_width="220dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#EBF7FC"
-                android:hint="Type a message"
-                android:padding="8dp"
-                android:textColor="#666160"
-                android:textSize="14sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <!-- Button for sending messages -->
-            <Button
-                android:id="@+id/btnSend"
+                <!-- EditText for typing messages -->
+                <EditText
+                    android:id="@+id/etMessage"
+                    android:layout_width="220dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#EBF7FC"
+                    android:hint="Type a message"
+                    android:padding="8dp"
+                    android:textColor="#666160"
+                    android:textSize="14sp" />
+
+                <!-- Button for sending messages -->
+                <Button
+                    android:id="@+id/btnSend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#FF5722"
+                    android:padding="8dp"
+                    android:text="Send"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
+            <!-- TextView for character count under Send button -->
+            <TextView
+                android:id="@+id/tvCharAndWordCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FF5722"
-                android:padding="8dp"
-                android:text="Send"
-                android:textColor="#FFFFFF"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="end"
+                android:text="0/800 characters"
+                android:textColor="#666160"
+                android:textSize="12sp"
+                android:paddingTop="4dp" />
         </LinearLayout>
-
-        <!-- TextView for character count under Send button -->
-        <TextView
-            android:id="@+id/tvCharAndWordCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text=" 0/800 characters"
-            android:textColor="#666160"
-            android:textSize="12sp"
-            android:paddingTop="4dp" />
-
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>
