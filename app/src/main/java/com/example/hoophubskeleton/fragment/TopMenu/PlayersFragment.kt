@@ -2,6 +2,8 @@ package com.example.hoophubskeleton.fragment.TopMenu
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -98,19 +100,41 @@ class PlayersFragment : Fragment() {
             LayoutInflater.from(requireContext()).inflate(R.layout.dialog_user_info, null)
         val userName = dialogView.findViewById<TextView>(R.id.tvUserName)
         val messageInput = dialogView.findViewById<EditText>(R.id.etMessage)
+        val charCountText = dialogView.findViewById<TextView>(R.id.tvCharacterCount) // TextView for countdown
         val sendButton = dialogView.findViewById<Button>(R.id.btnSendMessage)
-        val cancelButton = dialogView.findViewById<Button>(R.id.btnCancel) // Retrieve the Cancel button
+        val cancelButton = dialogView.findViewById<Button>(R.id.btnCancel)
 
         userName.text = user.name
 
+        // Set maxLength for the message
+        val maxLength = 500
+
+        // Add TextWatcher to update character count
+        messageInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val length = s?.length ?: 0
+                charCountText.text = "$length/$maxLength"
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        // Create the dialog
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle("Send Private Message")
             .setView(dialogView)
             .create()
 
+        // Send button logic
         sendButton.setOnClickListener {
             val message = messageInput.text.toString().trim()
-            if (message.isNotEmpty()) {
+            if (message.isEmpty()) {
+                Toast.makeText(requireContext(), "Message cannot be empty", Toast.LENGTH_SHORT).show()
+            } else if (message.length > maxLength) {
+                Toast.makeText(requireContext(), "Message exceeds the character limit", Toast.LENGTH_SHORT).show()
+            } else {
                 // Call the MessageViewModel to handle message creation
                 messageViewModel.createOrFetchDialog(
                     currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: "",
@@ -120,11 +144,10 @@ class PlayersFragment : Fragment() {
                     Toast.makeText(requireContext(), "Message sent successfully.", Toast.LENGTH_SHORT).show()
                     dialog.dismiss() // Dismiss the dialog after success
                 }
-            } else {
-                Toast.makeText(requireContext(), "Message cannot be empty", Toast.LENGTH_SHORT).show()
             }
         }
 
+        // Cancel button logic
         cancelButton.setOnClickListener {
             dialog.dismiss() // Dismiss the dialog when Cancel is clicked
         }

@@ -19,7 +19,9 @@
         android:layout_height="wrap_content"
         android:text="Latest Message"
         android:textSize="14sp"
-        android:textColor="#666666" />
+        android:textColor="#666666"
+        android:maxLines="3"
+        android:ellipsize="end" />
 
     <TextView
         android:id="@+id/tvTimestamp"
@@ -28,4 +30,9 @@
         android:text="Timestamp"
         android:textSize="12sp"
         android:textColor="#999999" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="2dp"
+        android:background="@android:color/darker_gray" />
 </LinearLayout>

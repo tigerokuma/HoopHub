@@ -39,7 +39,6 @@
 
     </LinearLayout>
 
-
     <!-- Input section for sending messages -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -56,30 +55,47 @@
         android:layout_height="wrap_content"
         android:background="#EBD5CD"
         android:elevation="4dp"
-        android:orientation="horizontal"
-        android:paddingBottom="400mm"
+        android:orientation="vertical"
         android:padding="8dp">
 
-        <!-- EditText for typing messages -->
-        <EditText
-            android:id="@+id/etMessage"
-            android:layout_width="219dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#EBF7FC"
-            android:hint="Type a message"
-            android:padding="8dp"
-            android:textColor="#666160"
-            android:textSize="14sp" />
+            android:orientation="horizontal">
 
-        <!-- Button for sending messages -->
-        <Button
-            android:id="@+id/btnSend"
+            <!-- EditText for typing messages -->
+            <EditText
+                android:id="@+id/etMessage"
+                android:layout_width="220dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#EBF7FC"
+                android:hint="Type a message"
+                android:padding="8dp"
+                android:textColor="#666160"
+                android:textSize="14sp" />
+
+            <!-- Button for sending messages -->
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF5722"
+                android:padding="8dp"
+                android:text="Send"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <!-- TextView for character count under Send button -->
+        <TextView
+            android:id="@+id/tvCharAndWordCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FF5722"
-            android:padding="8dp"
-            android:text="Send"
-            android:textColor="#FFFFFF" />
+            android:layout_gravity="end"
+            android:text=" 0/800 characters"
+            android:textColor="#666160"
+            android:textSize="12sp"
+            android:paddingTop="4dp" />
     </LinearLayout>
 </LinearLayout>
