@@ -53,7 +53,8 @@ class GameAdapter(
         holder.skillLevelTextView.text = "Skill Level: ${game.skillLevel}"
 
         // Set participants count
-        holder.participantsCountTextView.text = "Participants: ${game.participants.size}"
+        holder.participantsCountTextView.text = "Participants: ${game.participants.size} / ${game.maxParticipants}"
+
 
         // Convert GeoPoint to an address
         val location = game.location

@@ -1,4 +1,4 @@
-package com.example.hoophubskeleton.fragment
+package com.example.hoophubskeleton.fragment.Inbox
 
 import android.app.AlertDialog
 import android.os.Bundle

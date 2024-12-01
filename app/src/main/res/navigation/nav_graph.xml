@@ -72,7 +72,7 @@
 
     <fragment
         android:id="@+id/inboxFragment"
-        android:name="com.example.hoophubskeleton.fragment.InboxFragment"
+        android:name="com.example.hoophubskeleton.fragment.Inbox.InboxFragment"
         android:label="InboxFragment"
         tools:layout="@layout/fragment_inbox">
         <action
@@ -82,7 +82,7 @@
 
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.example.hoophubskeleton.fragment.ChatFragment"
+        android:name="com.example.hoophubskeleton.fragment.Inbox.ChatFragment"
         android:label="ChatFragment"
         tools:layout="@layout/fragment_chat">
         <argument

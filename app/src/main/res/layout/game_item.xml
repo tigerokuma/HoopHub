@@ -32,7 +32,7 @@
             android:id="@+id/locationTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location: Loading address..."
+            android:text="@string/HEADER_DELTA"
             android:layout_marginTop="4dp"
             android:textColor="@color/highlight"
             android:ellipsize="end"

@@ -1,7 +1,8 @@
-package com.example.hoophubskeleton.fragment
+package com.example.hoophubskeleton.fragment.Inbox
 
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +28,6 @@ class ChatFragment : Fragment() {
     private lateinit var viewModel: MessageViewModel
     private lateinit var dialogId: String
     private lateinit var currentUserId: String
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +64,7 @@ class ChatFragment : Fragment() {
         val etMessage = view.findViewById<EditText>(R.id.etMessage)
         val btnBack = view.findViewById<ImageButton>(R.id.btnBack)
         val titleName = view.findViewById<TextView>(R.id.titleName)
+        val tvCharAndWordCount = view.findViewById<TextView>(R.id.tvCharAndWordCount) // Added for character and word count
 
         // Configure RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -83,17 +84,31 @@ class ChatFragment : Fragment() {
             recyclerView.scrollToPosition(messages.size - 1) // Scroll to the latest message
         }
 
+        // Add TextWatcher to update character and word count
+        etMessage.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val charCount = s?.length ?: 0 // Character count
+                val wordCount = if (s.isNullOrBlank()) 0 else s.trim().split("\\s+".toRegex()).size // Word count
+                tvCharAndWordCount.text = "$charCount/800 characters"
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         // Handle send button click
         btnSend.setOnClickListener {
             val messageContent = etMessage.text.toString().trim()
             if (messageContent.isNotEmpty()) {
                 viewModel.sendMessage(dialogId, messageContent, currentUserId)
-                etMessage.text.clear()
+                etMessage.text.clear() // Clear the input field
             } else {
                 Toast.makeText(requireContext(), "Message cannot be empty", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 
     private fun fetchAndSetParticipantName(titleName: TextView) {
         // Fetch the dialog from Firestore
