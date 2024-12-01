@@ -59,7 +59,6 @@ class SignUpFragment : Fragment() {
         val competitionLevelGroup: RadioGroup = view.findViewById(R.id.competitionLevelGroup)
         val locationEditText: EditText = view.findViewById(R.id.locationEditText)
         val profilePictureImageView: ImageView = view.findViewById(R.id.profilePictureImageView)
-        val chooseProfilePicButton: Button = view.findViewById(R.id.chooseProfilePicButton)
         val signUpButton: Button = view.findViewById(R.id.signUpButton)
         val goToLoginButton: Button = view.findViewById(R.id.goToLoginButton)
 
@@ -81,7 +80,7 @@ class SignUpFragment : Fragment() {
             }
 
         // Handle profile picture selection
-        chooseProfilePicButton.setOnClickListener {
+        profilePictureImageView.setOnClickListener {
             openGallery()
         }
         // Handle sign-up button click

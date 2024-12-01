@@ -1,7 +1,6 @@
 package com.example.hoophubskeleton.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +18,8 @@ import com.example.hoophubskeleton.ViewModel.MessageViewModel
 import com.example.hoophubskeleton.adapter.ChatAdapter
 import com.example.hoophubskeleton.factory.MessageViewModelFactory
 import com.example.hoophubskeleton.repository.MessageRepository
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 class ChatFragment : Fragment() {
 
@@ -123,4 +122,11 @@ class ChatFragment : Fragment() {
     }
 
 
+    override fun onResume() {
+        // changes indicator icon to inbox
+        super.onResume()
+        val bottomNavigationView =
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView?.menu?.findItem(R.id.inboxFragment)?.isChecked = true
+    }
 }

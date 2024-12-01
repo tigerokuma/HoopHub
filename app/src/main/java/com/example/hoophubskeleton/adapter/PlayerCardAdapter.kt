@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.hoophubskeleton.model.PlayerCard
 import com.example.hoophubskeleton.R
 
@@ -52,7 +53,9 @@ class PlayerCardAdapter(
         if (playerCard.profilePicUrl.isNullOrBlank()) {
             holder.playerImage.setImageResource(R.drawable.default_profile_pic)
         } else {
-            holder.playerImage.load(playerCard.profilePicUrl)
+            holder.playerImage.load(playerCard.profilePicUrl) {
+                transformations(CircleCropTransformation())
+            }
         }
 
         holder.inviteButton.setOnClickListener {
