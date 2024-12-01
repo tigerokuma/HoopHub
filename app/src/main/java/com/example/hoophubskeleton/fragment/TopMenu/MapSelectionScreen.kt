@@ -33,95 +33,139 @@ fun MapWithMarkersForSelection(
         )
     }
 
-    LaunchedEffect(Unit) {
-        fetchUserLocation(context) { location ->
-            userLocation.value = location ?: LatLng(37.7749, -122.4194) // Default to SF
-            cameraPositionState.position = CameraPosition.fromLatLngZoom(
-                userLocation.value ?: LatLng(37.7749, -122.4194), 12f
-            )
+    // Location permission state
+    val locationPermissionState = rememberMultiplePermissionsState(
+        permissions = listOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+    )
 
-            if (location != null) {
-                fetchNearbyBasketballCourts(
-                    context = context,
-                    userLocation = location,
-                    radius = 5000,
-                    onSuccess = { courtsList ->
-                        courts.clear()
-                        courts.addAll(courtsList)
-                    },
-                    onFailure = { error ->
-                        error.printStackTrace()
-                    }
-                )
-            }
-        }
+    // Check and request permissions
+    LaunchedEffect(Unit) {
+        locationPermissionState.launchMultiplePermissionRequest()
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        // Border for the map
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, start = 16.dp, end = 16.dp) // Add spacing around the map
-                .height(410.dp) // Slightly larger to include the border
-                .border(
-                    width = 4.dp,
-                    color = colorResource(id = R.color.highlight), // Use @color/highlight
-                    shape = MaterialTheme.shapes.medium
-                )
-        ) {
-            // Card containing the map
-            Card(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(1.dp), // Spacing between the map and the border
-                shape = MaterialTheme.shapes.medium
-            ) {
-                GoogleMap(
-                    modifier = Modifier.fillMaxSize(),
-                    cameraPositionState = cameraPositionState,
-                    uiSettings = MapUiSettings(
-                        myLocationButtonEnabled = true
-                    ),
-                    properties = MapProperties(
-                        isMyLocationEnabled = true
+    // Handle UI based on permissions
+    when {
+        locationPermissionState.allPermissionsGranted -> {
+            // Permissions are granted; fetch user location
+            LaunchedEffect(Unit) {
+                fetchUserLocation(context) { location ->
+                    userLocation.value = location ?: LatLng(37.7749, -122.4194) // Default to SF
+                    cameraPositionState.position = CameraPosition.fromLatLngZoom(
+                        userLocation.value ?: LatLng(37.7749, -122.4194), 12f
                     )
-                ) {
-                    userLocation.value?.let { location ->
-                        Marker(
-                            state = MarkerState(position = location),
-                            title = "You are here",
-                            snippet = "Your location"
-                        )
-                    }
 
-                    courts.forEach { court ->
-                        Marker(
-                            state = MarkerState(position = LatLng(court.latitude, court.longitude)),
-                            title = court.name,
-                            snippet = court.address,
-                            icon = getScaledBitmapDescriptor(context, R.drawable.pin_basketball, 150, 150), // Custom marker
-                            onClick = {
-                                onCourtSelected(court)
-                                true
+                    if (location != null) {
+                        fetchNearbyBasketballCourts(
+                            context = context,
+                            userLocation = location,
+                            radius = 5000,
+                            onSuccess = { courtsList ->
+                                courts.clear()
+                                courts.addAll(courtsList)
+                            },
+                            onFailure = { error ->
+                                error.printStackTrace()
                             }
                         )
                     }
                 }
             }
-        }
 
-        // Close Button
-        Button(
-            onClick = { onDismiss() },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = colorResource(id = R.color.highlight) // Set the background color
-            ),
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(20.dp)
-        ) {
-            Text("Close")
+            // Display map and courts
+            Box(modifier = Modifier.fillMaxSize()) {
+                // Border for the map
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, start = 16.dp, end = 16.dp) // Add spacing around the map
+                        .height(410.dp) // Slightly larger to include the border
+                        .border(
+                            width = 4.dp,
+                            color = colorResource(id = R.color.highlight), // Use @color/highlight
+                            shape = MaterialTheme.shapes.medium
+                        )
+                ) {
+                    // Card containing the map
+                    Card(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(1.dp), // Spacing between the map and the border
+                        shape = MaterialTheme.shapes.medium
+                    ) {
+                        GoogleMap(
+                            modifier = Modifier.fillMaxSize(),
+                            cameraPositionState = cameraPositionState,
+                            uiSettings = MapUiSettings(
+                                myLocationButtonEnabled = true
+                            ),
+                            properties = MapProperties(
+                                isMyLocationEnabled = true
+                            )
+                        ) {
+                            userLocation.value?.let { location ->
+                                Marker(
+                                    state = MarkerState(position = location),
+                                    title = "You are here",
+                                    snippet = "Your location"
+                                )
+                            }
+
+                            courts.forEach { court ->
+                                Marker(
+                                    state = MarkerState(position = LatLng(court.latitude, court.longitude)),
+                                    title = court.name,
+                                    snippet = court.address,
+                                    icon = getScaledBitmapDescriptor(context, R.drawable.pin_basketball, 150, 150), // Custom marker
+                                    onClick = {
+                                        onCourtSelected(court)
+                                        true
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+
+                // Close Button
+                Button(
+                    onClick = { onDismiss() },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorResource(id = R.color.highlight) // Set the background color
+                    ),
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(20.dp)
+                ) {
+                    Text("Close")
+                }
+            }
+        }
+        locationPermissionState.shouldShowRationale -> {
+            // Show rationale
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("Location permission is required to use this feature.")
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(onClick = { locationPermissionState.launchMultiplePermissionRequest() }) {
+                    Text("Grant Permission")
+                }
+            }
+        }
+        else -> {
+            // Show error or alternative UI
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("Location permission denied. Enable it from app settings.")
+            }
         }
     }
 }

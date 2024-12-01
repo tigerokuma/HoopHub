@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,7 +20,9 @@ import com.example.hoophubskeleton.model.BookingCard
 import com.google.firebase.auth.FirebaseAuth
 import com.example.hoophubskeleton.model.Game
 import com.example.hoophubskeleton.model.PlayerCard
+import com.google.firebase.Timestamp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.Calendar
 
 class BookingFragment : Fragment() {
     private val gameViewModel: GameViewModel by viewModels()
@@ -44,7 +47,7 @@ class BookingFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.bookingRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val addGameFab = view.findViewById<FloatingActionButton>(R.id.addGameFab)
+        val addGameFab = view.findViewById<Button>(R.id.addGameFab)
         addGameFab.setOnClickListener {
             val fragment = InviteBottomSheetFragment.newInstance(
                 currentUserId = currentUserId,
@@ -84,7 +87,10 @@ class BookingFragment : Fragment() {
 
 
     private fun createBookingCards(games: List<Game>, players: List<PlayerCard>): List<BookingCard> {
-        return games.mapNotNull { game ->
+
+        val sortedGames = games
+            .sortedBy { it.gameDateTime }
+        return sortedGames.mapNotNull { game ->
             val participantCards = game.participants.mapNotNull { userId ->
                 players.find { it.uid == userId }
             }
