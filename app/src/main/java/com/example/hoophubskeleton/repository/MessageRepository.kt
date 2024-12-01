@@ -99,7 +99,7 @@ class MessageRepository {
                         // Find the other participant ID (exclude current user ID)
                         val otherUserId = participants.firstOrNull { it != userId }
 
-                        if (otherUserId != null) {
+                        if (!otherUserId.isNullOrBlank()) {
                             // Fetch the participant's name from the `users` collection
                             db.collection("users").document(otherUserId).get()
                                 .addOnSuccessListener { userSnapshot ->
