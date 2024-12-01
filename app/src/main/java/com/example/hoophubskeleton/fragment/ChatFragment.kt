@@ -20,6 +20,7 @@ import com.example.hoophubskeleton.factory.MessageViewModelFactory
 import com.example.hoophubskeleton.repository.MessageRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ChatFragment : Fragment() {
 

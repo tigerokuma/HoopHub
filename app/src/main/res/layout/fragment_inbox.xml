@@ -17,7 +17,6 @@
         android:hint="Search for a user"
         android:background="#FF5722"
         android:theme="@style/SearchViewTheme"
-        android:textColorHint = "#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

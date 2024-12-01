@@ -54,7 +54,7 @@ class LoginFragment : Fragment() {
                 // Navigate to MainFragment (hosting Players and Games tabs)
                 findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
             } else {
-                Toast.makeText(requireContext(), "Login Failed: $message", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), "Login Failed: $message", Toast.LENGTH_LONG)
                     .show()
             }
         }

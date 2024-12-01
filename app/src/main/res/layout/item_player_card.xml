@@ -74,14 +74,14 @@
                     android:layout_height="wrap_content"
                     android:text="Invite"
                     android:layout_gravity="center_vertical"
-                    style="@style/CustomButtonStyle" />
+                    style="@style/OrangeButtonStyle" />
                 <ImageButton
                     android:id="@+id/messageIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/compose"
                     android:layout_marginTop="2dp"
-                    android:tint="@color/highlight"
+                    app:tint="@color/highlight"
                     android:backgroundTint="@color/white"/>
             </LinearLayout>
 
