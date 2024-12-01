@@ -106,7 +106,7 @@ class InviteBottomSheetFragment : BottomSheetDialogFragment() {
 
         val datePickerDialog = DatePickerDialog(requireContext(),
             { _, selectedYear, selectedMonth, selectedDay ->
-                selectDateButton.text = "${selectedMonth+1}/$selectedDay/$selectedMonth"
+                selectDateButton.text = "${selectedMonth+1}/$selectedDay/$selectedYear"
             }, year, month, day)
 
         datePickerDialog.show()
