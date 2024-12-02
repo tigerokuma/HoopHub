@@ -26,7 +26,7 @@ class GameAdapter(
 
     // Filter games that are still upcoming
     private val upcomingGames = games
-        .filter { it.gameDateTime > Timestamp.now() } // Only future games
+        .filter { it.gameDateTime > Timestamp.now() && !it.participants.contains(currentUserId)} // Only future games
         .sortedBy { it.gameDateTime } // Sort by nearest date
 
     inner class GameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
