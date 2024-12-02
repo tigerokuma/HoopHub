@@ -33,6 +33,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 import java.util.UUID
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.core.view.isEmpty
 
 class SignUpFragment : Fragment() {
 
@@ -94,15 +97,31 @@ class SignUpFragment : Fragment() {
 
         // Handle profile picture selection
         profilePictureImageView.setOnClickListener {
-            ProfileUtil.checkPermissions(requireActivity())
-            imageUri = createImageUri()
-            ProfileImageLauncher(
-                requireContext(),
-                snappedPhotoLauncher,
-                pickImageLauncher,
-                imageUri
-            ).launch()
+            if (ProfileUtil.hasPermission(
+                    requireActivity(),
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_MEDIA_IMAGES
+                )
+            ) {
+                imageUri = createImageUri()
+                ProfileImageLauncher(
+                    requireContext(),
+                    snappedPhotoLauncher,
+                    pickImageLauncher,
+                    imageUri
+                ).launch()
+            } else {
+                if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Camera and gallery permissions are needed to select a profile picture.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                ProfileUtil.checkPermissions(activity)
+            }
         }
+
         // Handle sign-up button click
         signUpButton.setOnClickListener {
             val name = nameEditText.text.toString()
@@ -118,6 +137,14 @@ class SignUpFragment : Fragment() {
             }
 
             // Validate inputs
+            if (name.isEmpty()) {
+                Toast.makeText(requireContext(), "Name cannot be empty.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (age == 0) {
+                Toast.makeText(requireContext(), "Age cannot be empty.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             if (email.isEmpty()) {
                 Toast.makeText(requireContext(), "Email cannot be empty.", Toast.LENGTH_SHORT)
                     .show()
@@ -128,10 +155,15 @@ class SignUpFragment : Fragment() {
                     .show()
                 return@setOnClickListener
             }
-            if (name.isEmpty()) {
-                Toast.makeText(requireContext(), "Name cannot be empty.", Toast.LENGTH_SHORT).show()
+            if (competitionLevelGroup.isEmpty()) {
+                Toast.makeText(requireContext(), "Competition level cannot be empty.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            if (location.isEmpty()) {
+                Toast.makeText(requireContext(), "Location cannot be empty.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
 
             uploadImageToFirebaseStorage { profilePicUrl ->
                 val user = User(
@@ -198,10 +230,18 @@ class SignUpFragment : Fragment() {
 
     private fun createImageUri(): Uri? {
         val imageFile = File(requireContext().getExternalFilesDir(null), "profile_image.jpg")
-        Log.d("EditProfileFragment", "File exists: ${imageFile.exists()}, Path: ${imageFile.absolutePath}")
-        val uri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.fileprovider", imageFile)
+        Log.d(
+            "EditProfileFragment",
+            "File exists: ${imageFile.exists()}, Path: ${imageFile.absolutePath}"
+        )
+        val uri = FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.fileprovider",
+            imageFile
+        )
         Log.d("EditProfileFragment", "Created Image URI: $uri")
-        return uri    }
+        return uri
+    }
 
     private fun deleteTempImageFile() {
         // Remove camera temp image
@@ -217,6 +257,22 @@ class SignUpFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         deleteTempImageFile()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 0) {
+            val granted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+            if (granted) {
+                Toast.makeText(requireContext(), "Permissions granted.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Permissions denied.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 }
