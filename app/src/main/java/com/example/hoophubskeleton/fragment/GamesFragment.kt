@@ -53,6 +53,7 @@ class GamesFragment : Fragment() {
                 // Filter out games the user is participating in
                 val filteredGames = games.filter { game ->
                     !game.participants.contains(currentUserId)
+                    game.participants.size < game.maxParticipants
                 }
                 gamesAdapter = GameAdapter(
                     context = requireContext(),
