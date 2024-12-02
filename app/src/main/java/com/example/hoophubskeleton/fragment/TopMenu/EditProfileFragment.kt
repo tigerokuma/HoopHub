@@ -1,11 +1,14 @@
 package com.example.hoophubskeleton.fragment.TopMenu
 
 import ProfileViewModelFactory
+import android.Manifest
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -21,6 +24,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.hoophubskeleton.R
@@ -129,15 +133,31 @@ class EditProfileFragment : Fragment() {
         competitionEditGroup = view.findViewById(R.id.editCompetitionLevelGroup)
         locationEditText = view.findViewById(R.id.editProfileLocation)
 
+        // Handle profile picture selection
         profileImageView.setOnClickListener {
-            ProfileUtil.checkPermissions(requireActivity())
-            imageUri = createImageUri()
-            ProfileImageLauncher(
-                requireContext(),
-                snappedPhotoLauncher,
-                pickImageLauncher,
-                imageUri
-            ).launch()
+            if (ProfileUtil.hasPermission(
+                    requireActivity(),
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_MEDIA_IMAGES
+                )
+            ) {
+                imageUri = createImageUri()
+                ProfileImageLauncher(
+                    requireContext(),
+                    snappedPhotoLauncher,
+                    pickImageLauncher,
+                    imageUri
+                ).launch()
+            } else {
+                if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Camera and gallery permissions are needed to select a profile picture.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                ProfileUtil.checkPermissions(activity)
+            }
         }
 
         profileViewModel.tempUserImage.observe(viewLifecycleOwner) { bitmap ->
@@ -212,6 +232,15 @@ class EditProfileFragment : Fragment() {
         updateButton.setOnClickListener {
             val newPassword = view.findViewById<EditText>(R.id.editProfilePassword).text.toString()
 
+            val tempName = nameEditText.text.toString()
+            val tempAge = ageEditText.text.toString().toIntOrNull() ?: 0
+            val tempLocation = locationEditText.text.toString()
+
+            if (!validateUserDetails(tempName, tempAge, tempLocation)) {
+                return@setOnClickListener
+            }
+
+
             uploadImageToFirebaseStorage { downloadUrl ->
                 // If no new image is uploaded, retain the current profile picture URL
                 val profilePictureUrl = if (downloadUrl.isEmpty()) {
@@ -265,7 +294,6 @@ class EditProfileFragment : Fragment() {
             showDeleteConfirmationDialog()
         }
     }
-
 
 
     private fun uploadImageToFirebaseStorage(onSuccess: (String) -> Unit) {
@@ -435,10 +463,18 @@ class EditProfileFragment : Fragment() {
 
     private fun createImageUri(): Uri? {
         val imageFile = File(requireContext().getExternalFilesDir(null), "profile_image.jpg")
-        Log.d("EditProfileFragment", "File exists: ${imageFile.exists()}, Path: ${imageFile.absolutePath}")
-        val uri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.fileprovider", imageFile)
+        Log.d(
+            "EditProfileFragment",
+            "File exists: ${imageFile.exists()}, Path: ${imageFile.absolutePath}"
+        )
+        val uri = FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.fileprovider",
+            imageFile
+        )
         Log.d("EditProfileFragment", "Created Image URI: $uri")
-        return uri    }
+        return uri
+    }
 
     private fun deleteTempImageFile() {
         // Remove camera temp image
@@ -456,4 +492,40 @@ class EditProfileFragment : Fragment() {
         deleteTempImageFile()
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 0) {
+            val granted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+            if (granted) {
+                Toast.makeText(requireContext(), "Permissions granted.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Permissions denied.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun validateUserDetails(
+        name: String,
+        age: Int,
+        location: String
+    ): Boolean {
+        // Validate inputs
+        if (name.isEmpty()) {
+            Toast.makeText(requireContext(), "Name cannot be empty.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (age == 0) {
+            Toast.makeText(requireContext(), "Age cannot be empty.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (location.isEmpty()) {
+            Toast.makeText(requireContext(), "Location cannot be empty.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
 }

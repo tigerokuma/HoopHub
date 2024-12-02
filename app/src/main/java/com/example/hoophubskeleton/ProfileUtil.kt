@@ -40,6 +40,10 @@ object ProfileUtil {
 
     }
 
+    // checks for permissions, returns boolean
+    fun hasPermission(activity: Activity, vararg permissions: String): Boolean {
+        return ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+        }
 
     fun getBitmapFromURI(context: Context, imgUri: Uri): Bitmap {
         val inputStream = context.contentResolver.openInputStream(imgUri)
