@@ -326,6 +326,11 @@ git clone <repository-url>
 - Add your Google Maps API key in `local.properties`.
 - Build the project and run it on an emulator or a physical device.
 
+### **6. Login**
+- Use demo user
+    - Email: `emma@gmail.com`
+    - Passward: `emma123`
+- Enjoy the app!
 ---
 
 ## **Team Contributions**
