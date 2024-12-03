@@ -330,11 +330,13 @@ git clone <repository-url>
 - Build the project and run it on an emulator or a physical device.
 
 ### **6. Login**
-- Use demo user
+- Use demo user:
     - Email: `emma@gmail.com`
-    - Passward: `emma123`
+    - Password: `emma123`
+- Note: If the navigation bar at the bottom does not appear when you first run the app, try restarting the app. This issue may occur in some environments.
 - Enjoy the app!
 ---
+
 
 ## **Team Contributions**
 | Team Member          | Contributions                                                                 |
