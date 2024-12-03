@@ -10,9 +10,24 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.FieldValue
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.LocationManager
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import android.app.Activity
+
+
 
 
 class GamesRepository {
+
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
+    }
 
     private val firestore = FirebaseFirestore.getInstance()
 
@@ -47,11 +62,45 @@ class GamesRepository {
     }
 
 
-    fun getCurrentUserLocation(callback: (Double, Double) -> Unit) {
-        // Simulate fetching user's current location
-        // Replace this with actual location data
-        callback(37.7749, -122.4194) // San Francisco, for example
+    fun getCurrentUserLocation(activity: Activity, callback: (Double, Double) -> Unit) {
+        val locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        // Check if location services are enabled
+        val isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+
+        if (!isLocationEnabled) {
+            callback(37.7749, -122.4194) // Fallback: San Francisco
+            return
+        }
+
+        // Check if permissions are granted
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            // Request permissions
+            ActivityCompat.requestPermissions(
+                activity,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+            return
+        }
+
+        // Permissions granted, fetch location
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            if (location != null) {
+                callback(location.latitude, location.longitude)
+            } else {
+                callback(37.7749, -122.4194) // Fallback: San Francisco
+            }
+        }.addOnFailureListener {
+            callback(37.7749, -122.4194) // Fallback: San Francisco
+        }
     }
+
+
 
     fun addUserToGameParticipants(gameId: String, userId: String, onComplete: () -> Unit) {
         val gameRef = firestore.collection("games").document(gameId)

@@ -85,7 +85,7 @@ class GamesFragment : Fragment() {
                     Toast.makeText(requireContext(), "Location not found", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                gamesViewModel.fetchGamesNearLocationToCurrentUser()
+                gamesViewModel.fetchGamesNearLocationToCurrentUser(requireActivity())
             }
             true
         }
@@ -95,9 +95,12 @@ class GamesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        // Fetch games near current user location by default
-        gamesViewModel.fetchGamesNearLocationToCurrentUser()
+        // Pass activity context explicitly
+        gamesViewModel.fetchGamesNearLocationToCurrentUser(requireActivity())
     }
+
+
+
 }
 
 
