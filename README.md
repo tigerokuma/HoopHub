@@ -126,12 +126,93 @@ To handle operations efficiently, HoopHub uses background threads for API calls 
 
 #### **Thread Management Diagram**:
 ```mermaid
-graph TD
-    MainThread["Main UI Thread"] -->|UI Updates| ViewModel
-    ViewModel -->|Background Task| BackgroundThread["Background Thread"]
-    BackgroundThread -->|Fetch Data| Model
-    Model -->|Return Data| ViewModel
-    ViewModel -->|Send Updates| MainThread
+graph TB
+    subgraph MainThread["Main Thread"]
+        A1["MainActivity (UI Thread)"]
+        A2["Fragment Management"]
+        A3["Event Handlers (User Input)"]
+    end
+
+    subgraph ViewModels["ViewModels (Logic Layer)"]
+        B1["AuthViewModel"]
+        B2["GameViewModel"]
+        B3["MessageViewModel"]
+        B4["PlayerViewModel"]
+        B5["ProfileViewModel"]
+    end
+
+    subgraph BackgroundThreads["Background Threads"]
+        C1["Network Operations"]
+        C2["Firebase Auth / Realtime DB"]
+        C3["Google Places API"]
+    end
+
+    subgraph Models["Models (Data Layer)"]
+        D1["User Data"]
+        D2["Game Data"]
+        D3["Messages Data"]
+        D4["Players Data"]
+        D5["Court Data"]
+    end
+
+    %% Main Thread Connections
+    A1 -->|Manages UI Updates| A2
+    A1 -->|Triggers Logic Requests| B1
+    A2 -->|Routes User Events| A3
+
+    %% ViewModel to Background Threads
+    B1 -->|Firebase SignIn/SignUp| C2
+    B2 -->|Fetch/Update Game Data| C2
+    B3 -->|Send/Receive Messages| C2
+    B4 -->|Fetch/Update Player Data| C2
+    B5 -->|Fetch/Update Profile Data| C2
+
+    %% Background Threads to Models
+    C2 -->|Retrieve/Store Auth Data| D1
+    C2 -->|Retrieve/Store Game Info| D2
+    C2 -->|Retrieve/Store Messages| D3
+    C2 -->|Retrieve/Store Player Data| D4
+    C3 -->|Retrieve Court Data| D5
+
+    %% Background Threads to ViewModels
+    C2 -->|Return Auth Status| B1
+    C2 -->|Return Game Data| B2
+    C2 -->|Return Messages| B3
+    C2 -->|Return Player Data| B4
+    C3 -->|Return Court Data| B5
+
+    %% ViewModels to Main Thread
+    B1 -->|Update Auth UI| A1
+    B2 -->|Update Game UI| A1
+    B3 -->|Update Message UI| A1
+    B4 -->|Update Player UI| A1
+    B5 -->|Update Profile UI| A1
+
+    %% Styling
+    style MainThread fill:#FFD700,stroke:#333,stroke-width:2px
+    style ViewModels fill:#87CEEB,stroke:#333,stroke-width:2px
+    style BackgroundThreads fill:#98FB98,stroke:#333,stroke-width:2px
+    style Models fill:#FFA07A,stroke:#333,stroke-width:2px
+
+    %% Node Styles
+    style A1 fill:#FFD700,stroke:#000,stroke-width:2px
+    style A2 fill:#FFD700,stroke:#000,stroke-width:2px
+    style A3 fill:#FFD700,stroke:#000,stroke-width:2px
+    style B1 fill:#87CEEB,stroke:#000,stroke-width:2px
+    style B2 fill:#87CEEB,stroke:#000,stroke-width:2px
+    style B3 fill:#87CEEB,stroke:#000,stroke-width:2px
+    style B4 fill:#87CEEB,stroke:#000,stroke-width:2px
+    style B5 fill:#87CEEB,stroke:#000,stroke-width:2px
+    style C1 fill:#98FB98,stroke:#000,stroke-width:2px
+    style C2 fill:#98FB98,stroke:#000,stroke-width:2px
+    style C3 fill:#98FB98,stroke:#000,stroke-width:2px
+    style D1 fill:#FFA07A,stroke:#000,stroke-width:2px
+    style D2 fill:#FFA07A,stroke:#000,stroke-width:2px
+    style D3 fill:#FFA07A,stroke:#000,stroke-width:2px
+    style D4 fill:#FFA07A,stroke:#000,stroke-width:2px
+    style D5 fill:#FFA07A,stroke:#000,stroke-width:2px
+
+
 ```
 
 ---
