@@ -1,7 +1,10 @@
 # **HoopHub**
 
+This version improves readability and provides a clear call-to-action. Let me know if you'd like additional tweaks!
 HoopHub is a basketball-focused mobile application designed to connect basketball enthusiasts by allowing users to explore nearby courts, manage player profiles, and communicate with others in their network. The app leverages **MVVM (Model-View-ViewModel)** architecture to ensure scalability, testability, and clean separation of concerns.
 
+## Website for Our App  
+Check out our official website [**HERE**](https://hoophub-website-ulnx.vercel.app/) to learn more about **HoopHub**!
 ---
 
 ## **Features**
