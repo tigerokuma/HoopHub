@@ -221,20 +221,75 @@ graph TB
 
 ```plaintext
 com.example.hoophub
+├── ApiUtils.kt
+├── AuthHostActivity.kt
+├── MainActivity.kt
+├── ProfileImageLauncher.kt
+├── ProfileUtil.kt
+├── SplashActivity.kt
+├── ViewModel
+│   ├── AuthViewModel.kt
+│   ├── GameViewModel.kt
+│   ├── MessageViewModel.kt
+│   ├── PlayerViewModel.kt
+│   └── ProfileViewModel.kt
+├── adapter
+│   ├── BookingCardAdapter.kt
+│   ├── ChatAdapter.kt
+│   ├── DialogAdapter.kt
+│   ├── GameAdapter.kt
+│   ├── MessageAdapter.kt
+│   ├── ParticipantAdapter.kt
+│   ├── PlayerCardAdapter.kt
+│   ├── SearchAdapter.kt
+│   └── ViewPagerAdapter.kt
 ├── data
-│   ├── BasketballCourt.kt   # Data class for court information
-│   ├── PlaceApiResponse.kt  # Data class for API response
+│   ├── BasketballCourt.kt
+│   └── PlaceApiResponse.kt
+├── factory
+│   ├── AuthViewModelFactory.kt
+│   ├── MessageViewModelFactory.kt
+│   └── ProfileViewModelFactory.kt
+├── fragment
+│   ├── Auth
+│   │   ├── LoginFragment.kt
+│   │   └── SignUpFragment.kt
+│   ├── BottomMenu
+│   │   ├── BookingFragment.kt
+│   │   ├── ExploreFragment.kt
+│   │   ├── SavedFragment.kt
+│   │   └── SettingsFragment.kt
+│   ├── GamesFragment.kt
+│   ├── Inbox
+│   │   ├── ChatFragment.kt
+│   │   └── InboxFragment.kt
+│   ├── InviteBottomSheetFragment.kt
+│   ├── MainFragment.kt
+│   └── TopMenu
+│       ├── EditProfileFragment.kt
+│       ├── MapFragment.kt
+│       ├── MapPopupFragment.kt
+│       ├── MapScreen.kt
+│       ├── MapSelectionScreen.kt
+│       ├── PlayersFragment.kt
+│       └── ProfileFragment.kt
+├── model
+│   ├── BookingCard.kt
+│   ├── Dialog.kt
+│   ├── Game.kt
+│   ├── Message.kt
+│   ├── PlayerCard.kt
+│   └── User.kt
 ├── network
-│   ├── GooglePlacesAPI.kt   # Retrofit API interface
-├── ui
-│   ├── PlayersFragment.kt   # Players section UI
-│   ├── MapFragment.kt       # Map showing basketball courts
-│   ├── ProfileFragment.kt   # User profile UI
-│   ├── MainActivity.kt      # Main Activity managing navigation and fragments
-├── viewmodel
-│   ├── CourtsViewModel.kt   # ViewModel for managing court data
-│   ├── PlayersViewModel.kt  # ViewModel for managing player data
-│   ├── ProfileViewModel.kt  # ViewModel for managing user profile data
+│   └── GooglePlacesAPI.kt
+└── repository
+    ├── AuthRepository.kt
+    ├── GamesRepository.kt
+    ├── MessageRepository.kt
+    ├── PlayersRepository.kt
+    ├── ProfileRepository.kt
+    └── UserRepository.kt
+
 ```
 
 ---
