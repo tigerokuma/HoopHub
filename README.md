@@ -42,11 +42,81 @@ HoopHub follows the **MVVM architecture** to streamline app development by separ
 
 #### **MVVM Flow Diagram**:
 ```mermaid
-graph TD
-    View["View (UI - Composables)"] --> ViewModel["ViewModel"]
-    ViewModel --> View["UI State (LiveData/StateFlow)"]
-    ViewModel --> Model["Model (API & Database)"]
-    Model --> ViewModel["Provide Data (Repository)"]
+graph TB
+    style View fill:#FFD700,stroke:#333,stroke-width:2px
+    style ViewModel fill:#87CEEB,stroke:#333,stroke-width:2px
+    style Model fill:#98FB98,stroke:#333,stroke-width:2px
+    style DataSources fill:#FFA07A,stroke:#333,stroke-width:2px
+
+    %% Define Data Sources
+    subgraph DataSources ["Data Sources"]
+        DS1["Firebase Authentication"]
+        DS2["Firebase Realtime Database"]
+        DS3["Google Places API"]
+    end
+
+    %% Define Models
+    subgraph Model ["Model Layer"]
+        M5["Repositories"]
+        M1["User Data"]
+        M2["Player Data"]
+        M3["Game Data"]
+        M4["Message Data"]
+    end
+
+    %% Define ViewModels
+    subgraph ViewModel ["ViewModel Layer"]
+        VM1["AuthViewModel"]
+        VM2["PlayerViewModel"]
+        VM3["ProfileViewModel"]
+        VM4["GameViewModel"]
+        VM5["MessageViewModel"]
+    end
+
+    %% Define Views
+    subgraph View ["View (UI Layer)"]
+        V1["Auth Views (LoginFragment, SignUpFragment)"]
+        V2["Main Views (PlayersFragment, MapFragment, ProfileFragment)"]
+        V3["Bottom Menu Views (ExploreFragment, BookingFragment, SavedFragment, SettingsFragment)"]
+        V4["Inbox Views (InboxFragment, ChatFragment)"]
+    end
+
+    %% Connections from View to ViewModel
+    V1 -->|User Actions: Login, Sign Up| VM1
+    V2 -->|User Actions: Explore, Profile Updates| VM2
+    V2 -->|User Actions: Map Interaction| VM3
+    V3 -->|User Actions: Booking, Navigation| VM4
+    V4 -->|User Actions: Messaging| VM5
+
+    %% Connections from ViewModel to Model
+    VM1 -->|Authentication Requests| M1
+    VM2 -->|Fetch Players Data| M2
+    VM3 -->|Fetch Profile Data| M1
+    VM4 -->|Fetch Game Data| M3
+    VM5 -->|Fetch Messages| M4
+
+    %% Connections from Model to DataSources
+    M5 -->|Auth Requests| DS1
+    M5 -->|Database Read/Write| DS2
+    M5 -->|API Requests| DS3
+
+    %% Connections from DataSources to Model
+    DS1 -->|Auth Results| M1
+    DS2 -->|Database Results| M5
+    DS3 -->|Places API Results| M5
+
+    %% Connections from ViewModel to View
+    VM1 -->|Update UI| V1
+    VM2 -->|Update UI| V2
+    VM3 -->|Update UI| V2
+    VM4 -->|Update UI| V3
+    VM5 -->|Update UI| V4
+
+    %% Error Handling
+    DS1 -->|Auth Error Handling| VM1
+    DS2 -->|Database Error Handling| VM2
+    DS3 -->|API Error Handling| VM3
+
 ```
 
 ---
