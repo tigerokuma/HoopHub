@@ -30,8 +30,7 @@
         android:elevation="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginRight="20dp"
-        app:backgroundTint="@color/highlight"
-        android:tint="@color/white"
+        style="@style/OrangeButtonStyle"
         android:text="Add Game" />
 
     <!-- Placeholder text before RecyclerView -->
