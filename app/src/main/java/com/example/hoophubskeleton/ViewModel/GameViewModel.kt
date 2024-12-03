@@ -1,5 +1,6 @@
 package com.example.hoophubskeleton.ViewModel
 
+import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -30,6 +31,7 @@ class GameViewModel : ViewModel() {
             _upcomingGames.postValue(filteredGames) // Update LiveData
         }
     }
+
 
 
     private val _error = MutableLiveData<String?>()
@@ -109,9 +111,14 @@ class GameViewModel : ViewModel() {
 
 
 
-    // Fetch games near the current user's location, filter by future dates, and sort by date
-    fun fetchGamesNearLocationToCurrentUser() {
-        repository.getCurrentUserLocation { latitude, longitude ->
+    fun fetchGamesNearLocationToCurrentUser(activity: Activity) {
+        repository.getCurrentUserLocation(activity) { latitude, longitude ->
+            if (latitude.isNaN() || longitude.isNaN()) {
+                // Handle permission denial gracefully
+                _error.postValue("Location permissions are required.")
+                return@getCurrentUserLocation
+            }
+
             repository.getGamesNearLocation(latitude, longitude, 100.0) { games ->
                 val currentTime = Timestamp.now()
 
@@ -126,6 +133,7 @@ class GameViewModel : ViewModel() {
             }
         }
     }
+
 
 
     // Add the current user to a game's participants
