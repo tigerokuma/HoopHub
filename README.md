@@ -1,47 +1,45 @@
-# **HoopHub**
+# HoopHub
 
-This version improves readability and provides a clear call-to-action. Let me know if you'd like additional tweaks!
-HoopHub is a basketball-focused mobile application designed to connect basketball enthusiasts by allowing users to explore nearby courts, manage player profiles, and communicate with others in their network. The app leverages **MVVM (Model-View-ViewModel)** architecture to ensure scalability, testability, and clean separation of concerns.
+HoopHub is a Kotlin Android application developed by a four-person team for SFU CMPT 362. It helps basketball players discover nearby courts, manage profiles, organize games, and connect with other players.
 
-## Website for Our App  
-Check out our official website [**HERE**](https://hoophub-website-ulnx.vercel.app/) to learn more about **HoopHub**!
----
+The app uses MVVM and repository-based data flows to separate UI, application state, and external data sources such as Firebase and the Google Places API.
 
-## **Features**
-- **Players Section**: Explore and manage players in your network.
-- **Courts Section**: Discover nearby basketball courts using an interactive map.
-- **Profile Section**: Update and view personalized user profiles.
-- **Messaging**: Chat with other users and plan basketball activities.
-- **Dynamic Data**: Real-time basketball court data fetched using the Google Places API.
-- **Intuitive Navigation**: User-friendly navigation powered by top and bottom tab menus.
+## Key Features
 
----
+* Discover nearby basketball courts using the user’s current location
+* View courts on an interactive Google Map
+* Create and join basketball games
+* Manage player profiles and authentication
+* Message other players
+* Store and retrieve application data through Firebase
 
-## **App Overview**
+## Tech Stack
 
-### **MainActivity**
-The `MainActivity` serves as the entry point and primary navigation hub for the app. It manages:
-1. **Top and Bottom Tab Layouts**:
-    - **Top Tab Menu**: Switches between the Players, Courts, and Profile sections.
-    - **Bottom Tab Menu**: Displays additional navigation options.
-    - Icons and labels are dynamically generated using the `MenuIconCreator` utility class.
+* Kotlin
+* Android SDK
+* Jetpack Compose and Fragments
+* MVVM and Repository Pattern
+* Firebase Authentication and Realtime Database
+* Google Maps and Places APIs
+* Retrofit
 
-2. **Fragment Management**:
-    - Fragments such as `PlayersFragment`, `MapFragment`, and `ProfileFragment` are initialized via the `fragmentSetup()` method.
-    - `ViewPager2` enables seamless swiping between fragments.
-    - Tabs and fragments are synchronized for a smooth and consistent UI experience.
+## Team Contributions
 
----
+| Team Member         | Primary Contributions                                                                                                 |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Taiga Okuma         | Defined the MVVM/repository structure and data flow; built nearby-court discovery and Google Maps/Places integration. |
+| Kristina Tretiakova | Implemented Firebase authentication, database and storage integration, and profile image retrieval.                   |
+| Jeffrey Loverock    | Built the initial UI structure, ProfileFragment, and profile editing and deletion flows.                              |
+| Paul Atwal          | Implemented player-related screens and functionality.                                                                 |
 
-## **Architecture**
+## Architecture
 
-### **MVVM (Model-View-ViewModel)**
-HoopHub follows the **MVVM architecture** to streamline app development by separating business logic from the UI. This architecture ensures testability and scalability.
+HoopHub follows an MVVM-based architecture:
 
-#### **Components**:
-- **Model**: Represents data sources, including the Google Places API and local database entities.
-- **View**: Composable UI components (e.g., `PlayersView`, `CourtsView`, `ProfileView`) display data to the user.
-- **ViewModel**: Manages UI-related data, handles business logic, and serves as a bridge between the Model and View.
+* **Views:** Activities, Fragments, and Jetpack Compose screens
+* **ViewModels:** Manage UI state and coordinate application logic
+* **Repositories:** Provide access to Firebase and external APIs
+* **Data Sources:** Firebase Authentication, Firebase Database, and Google Places
 
 #### **MVVM Flow Diagram**:
 ```mermaid
@@ -335,15 +333,4 @@ git clone <repository-url>
     - Password: `emma123`
 - Note: If the navigation bar at the bottom does not appear when you first run the app, try restarting the app. This issue may occur in some environments.
 - Enjoy the app!
----
-
-
-## **Team Contributions**
-| Team Member          | Contributions                                                                 |
-|-----------------------|-------------------------------------------------------------------------------|
-| **Jeffrey Loverock**  | Profile page, Themes, Backend                                                |
-| **Kristina Tretiakova** | Messaging, Backend, Login/Registration, Navigation, Games page              |
-| **Taiga Okuma**       | MVVM Design, Map Integration, Nearest Court Feature, Backend                 |
-| **Paul Atwal**        | Players page, Invites, Bookings Page, Backend                                |
-
 ---
